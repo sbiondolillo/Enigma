@@ -3,14 +3,17 @@
  * Samuel Biondolillo
  * CIS220M:HY1 Object Oriented Programming
  * Goal: To provide a standard set of characters for all of the constituent parts of our Enigma machine
- * Version 0.0.1 - 9/11/17
- * 		   0.0.2 - 9/18/17 - Added the space character to the default punctuation set
- * 		   0.0.3 - 9/21/17 - Renamed to Dictionary to fit naming convention given by Ed Cauthorn
+ * Version 	0.0.1 - 9/11/17
+ * 		   	0.0.2 - 9/18/17 - Added the space character to the default punctuation set
+ * 		   	0.0.3 - 9/21/17 - Renamed to Dictionary to fit naming convention given by Ed Cauthorn
+ * 			0.0.4 - 9/22/17 - Set up as implementation of CharacterSet
  */
 
 package enigma;
 
-public class Dictionary {
+import interfaces.CharacterSet;
+
+public class Dictionary implements CharacterSet{
 
 	private Character[] dictionary;
 	
@@ -50,6 +53,7 @@ public class Dictionary {
 	/*
 	 * Getters and Setters
 	 */
+	@Override
 	public Character[] getDictionary() {
 		return dictionary;
 	}
@@ -58,7 +62,7 @@ public class Dictionary {
 	 *  The default character set can be modified here
 	 *  This method is invoked in the default constructor
 	 */
-	public void buildDictionary() {
+	private void buildDictionary() {
 		dictionary = new Character[72];
 		for (int i = 0; i < 26; i++) {
 			int index = i + 65;
@@ -77,6 +81,7 @@ public class Dictionary {
 	/*
 	 *  Print the Dictionary in a legible format
 	 */
+	@Override
 	public String toString() {
 		String output = "";
 		output += "[";
@@ -93,6 +98,7 @@ public class Dictionary {
 	/*
 	 * Test if the Dictionary contains a specified character
 	 */
+	@Override
 	public boolean contains(Character test) {
 		for (int i = 0; i < dictionary.length; i++) {
 			if (test == dictionary[i]) {
@@ -105,6 +111,7 @@ public class Dictionary {
 	/*
 	 *  Return length of the Dictionary
 	 */
+	@Override
 	public int length() {
 		return dictionary.length;
 	}
@@ -113,6 +120,7 @@ public class Dictionary {
 	 *  Sequential search for a specified character
 	 *  returns -1 if character not found
 	 */
+	@Override
 	public int indexOf(Character quarry) {
 		for (int i = 0; i < this.length(); i++) {
 			if (dictionary[i] == quarry)
@@ -124,6 +132,7 @@ public class Dictionary {
 	/*
 	 *  Allow character lookup by direct indexing
 	 */
+	@Override
 	public Character charAt(int index) {
 		return dictionary[index];
 	}
