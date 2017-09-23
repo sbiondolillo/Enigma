@@ -4,6 +4,8 @@
  * CIS220M:HY1 Object Oriented Programming
  * Goal: To manage the control logic for all of the constituent parts of our Enigma machine
  * Version 0.0.1 - 9/18/17
+ * 		   0.0.2 - 9/23/17	Add logic to user input to scale to size of Rotor dictionary
+ * 							refactor user input to include correct methods from InputProcessor
  */
 
 package enigma;
@@ -32,9 +34,10 @@ public class Enigma {
 		
 		// Get the initial rotor setting from the user
 		while (true) {
-			System.out.println("Please enter an initial setting for your rotor from 1 to 72: ");
+			System.out.println("Please enter an initial setting for your rotor from 0 to " + 
+					(rotor1.getValidCharacters().length() - 1) + ": ");
 			offset = input.nextInt();
-			if (offset < 1 || offset > 72) {
+			if (offset < 0 || offset > rotor1.getValidCharacters().length()-1) {
 				continue;
 			}
 			else {
@@ -61,24 +64,22 @@ public class Enigma {
 			System.out.println("Please enter your message: ");
 			mainIO = new InputProcessor();
 			// Store off the message into the I/O object
-			mainIO.getNextLineIn();
+			mainIO.getKeyBoardIn();
 		} 
 		else {
 			System.out.print("Please enter the file path: ");
 			String filePath = input.nextLine();
 			try { 
 				mainIO = new InputProcessor(filePath);
-				// When reading from files, get each line sequentially
-				while (mainIO.getFileScanner().hasNextLine()) {
-					mainIO.getNextLineIn();
-				}
+				// Store off the message into the I/O object
+				mainIO.getFileIn();
 			}
 			catch (NullPointerException e) {
 				// If file is inaccessible, offer to let the user type their message
 				System.out.println("Please type your message: ");
 				mainIO = new InputProcessor();
 				// Store off the message into the I/O object
-				mainIO.getNextLineIn();
+				mainIO.getKeyBoardIn();
 			}
 		}
 		
