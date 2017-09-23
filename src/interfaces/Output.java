@@ -14,4 +14,9 @@ public interface Output {
 	 * Getter for instance variable messageOut
 	 */
 	String getMessageOut();
+	
+	/*
+	 * Display the contents of messageOut directly to the console
+	 */
+	void printMessageOutToConsole();
 }

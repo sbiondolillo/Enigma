@@ -1,5 +1,5 @@
 /*
- * FileInput Interface
+ * FileOutput Interface
  * Samuel Biondolillo
  * CIS220M:HY1 Object Oriented Programming
  * Goal: Create an interface for output processing to files in the Enigma program
@@ -10,7 +10,7 @@ package interfaces;
 
 import java.nio.file.Path;
 
-public interface FileOutput extends Output{
+public interface FileOutput extends Output {
 	
 	/*
 	 * Getter for instance variable outputFilePath
