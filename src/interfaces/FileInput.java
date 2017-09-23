@@ -16,4 +16,9 @@ public interface FileInput extends Input {
 	 */
 	Scanner getFileScanner();
 	
+	/*
+	 * Reads in the next line from the file in and stores it in messageIn
+	 */
+	void getFileIn();
+	
 }

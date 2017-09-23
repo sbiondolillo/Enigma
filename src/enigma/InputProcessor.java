@@ -79,6 +79,7 @@ public class InputProcessor implements FileInput, KeyboardInput {
 	/*
 	 * Reads in the next line from the keyboard and stores it in messageIn
 	 */
+	@Override
 	public void getKeyBoardIn() {
 		if (keyboardScanner.hasNextLine())
 			messageIn = keyboardScanner.nextLine();
@@ -89,6 +90,7 @@ public class InputProcessor implements FileInput, KeyboardInput {
 	/*
 	 * Reads in the next line from the file in and stores it in messageIn
 	 */
+	@Override
 	public void getFileIn() {
 		if (fileScanner.hasNextLine())
 			if (messageIn == null)
