@@ -10,9 +10,9 @@
 
 package enigma;
 
-import interfaces.EncryptionWheel;
+import interfaces.RotaryEncryptor;
 
-public class Rotor implements EncryptionWheel {
+public class Rotor implements RotaryEncryptor {
 
 	/*
 	 * Set up each rotor with an array of characters and an initial index
