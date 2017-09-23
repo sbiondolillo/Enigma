@@ -5,11 +5,14 @@
  * Goal: To provide encryption functionality by emulation of a physical Enigma rotor
  * Version 0.0.1 - 9/11/17
  *         0.0.2 - 9/18/17 - Added automatic rotation to the encode() method
+ *         0.0.3 - 9/22/17 - Set up as implementation of EnryptionWheel
  */
 
 package enigma;
 
-public class Rotor {
+import interfaces.EncryptionWheel;
+
+public class Rotor implements EncryptionWheel {
 
 	/*
 	 * Set up each rotor with an array of characters and an initial index
@@ -36,20 +39,23 @@ public class Rotor {
 	/*
 	 * Getters and Setters
 	 */
-	protected int getIndex() {
+	@Override
+	public int getIndex() {
 		return index;
 	}
-	protected void setIndex(int index) {
+	@Override
+	public void setIndex(int index) {
 		this.index = index;
 	}
-	protected Dictionary getValidCharacters() {
+	@Override
+	public Dictionary getValidCharacters() {
 		return validCharacters;
 	}
 	
 	/*
 	 * Advances the index by 1 and wraps around the end, emulating a mechanical rotor
 	 */
-	protected void rotate() {
+	private void rotate() {
 		index = (index + 1) % validCharacters.length();
 	}
 	
@@ -57,7 +63,8 @@ public class Rotor {
 	 * Uses the current index to encode a single character.
 	 * Returns the encoded character or '#' if the encoding cannot be completed
 	 */
-	protected Character encode(Character plaintext) {
+	@Override
+	public Character encode(Character plaintext) {
 		if (validCharacters.contains(plaintext)) {
 			int currentIndex = index;
 			int finalIndex = (currentIndex + validCharacters.indexOf(plaintext)) % validCharacters.length();
