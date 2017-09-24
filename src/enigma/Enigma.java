@@ -11,16 +11,57 @@
 package enigma;
 
 import java.util.Scanner;
+import interfaces.EnigmaApparatus;
 
-public class Enigma {
+public class Enigma implements EnigmaApparatus {
 	
 	/*
 	 * Everything is set up as static for now, easy to change this going forward, makes testing easier
 	 */
 	private static int inputMode;
 	private static int offset;
-	private static InputProcessor mainIO;
+	private static InputProcessor mainIP;
 	private static Rotor rotor1 = new Rotor();
+	
+	/*
+	 * Set up rotors needed for encryption
+	 */
+	@Override
+	public void configureRotors() {
+		// TODO implement this setup routine
+	}
+	
+	/*
+	 * Set up Enigma to receive input
+	 */
+	@Override
+	public void configureInput() {
+		// TODO implement this setup routine
+	}
+	
+	/*
+	 * Encrypt/Decrypt input
+	 */
+	@Override
+	public void processInput() {
+		// TODO implement this setup routine
+	}
+	
+	/*
+	 * Set up apparatus to transmit message
+	 */
+	@Override
+	public void configureOutput() {
+		// TODO implement this setup routine
+	}
+	
+	/*
+	 * Send the final results out
+	 */
+	@Override
+	public void publishResults() {
+		// TODO implement this output routine
+	}
 	
 	/*
 	 *  Main - Sets up a very basic routine for taking in a plaintext message and printing
@@ -62,34 +103,34 @@ public class Enigma {
 		// Set up input functionality based on user-selected keyboard or file input
 		if (inputMode == 1) {
 			System.out.println("Please enter your message: ");
-			mainIO = new InputProcessor();
+			mainIP = new InputProcessor();
 			// Store off the message into the I/O object
-			mainIO.getKeyBoardIn();
+			mainIP.getKeyBoardIn();
 		} 
 		else {
 			System.out.print("Please enter the file path: ");
 			String filePath = input.nextLine();
 			try { 
-				mainIO = new InputProcessor(filePath);
+				mainIP = new InputProcessor(filePath);
 				// Store off the message into the I/O object
-				mainIO.getFileIn();
+				mainIP.getFileIn();
 			}
 			catch (NullPointerException e) {
 				// If file is inaccessible, offer to let the user type their message
 				System.out.println("Please type your message: ");
-				mainIO = new InputProcessor();
+				mainIP = new InputProcessor();
 				// Store off the message into the I/O object
-				mainIO.getKeyBoardIn();
+				mainIP.getKeyBoardIn();
 			}
 		}
 		
 		// Encode the message using the rotor, output cyphertext
 		// TODO - put this into a helper method or refactor this into I/O class
-		System.out.println("Your original message:" + mainIO.getMessageIn());
+		System.out.println("Your original message:" + mainIP.getMessageIn());
 		System.out.println("Encoding...");
 		System.out.print("Your encoded message: ");
-		for (int i = 0; i < mainIO.getMessageIn().length(); i++) {
-			System.out.print(rotor1.encode(mainIO.getMessageIn().charAt(i)));
+		for (int i = 0; i < mainIP.getMessageIn().length(); i++) {
+			System.out.print(rotor1.encode(mainIP.getMessageIn().charAt(i)));
 		}
 		input.close();
 		
