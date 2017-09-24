@@ -15,69 +15,25 @@ import interfaces.EnigmaApparatus;
 
 public class Enigma implements EnigmaApparatus {
 	
-	/*
-	 * Everything is set up as static for now, easy to change this going forward, makes testing easier
-	 */
-	private static int inputMode;
-	private static int offset;
-	private static InputProcessor mainIP;
-	private static Rotor rotor1 = new Rotor();
+	private int inputMode;
+	private int offset;
+	private InputProcessor mainIP;
+	private Rotor rotor1 = new Rotor();
+	private Scanner inputScanner = new Scanner(System.in);
 	
 	/*
 	 * Set up rotors needed for encryption
 	 */
 	@Override
 	public void configureRotors() {
-		// TODO implement this setup routine
-	}
-	
-	/*
-	 * Set up Enigma to receive input
-	 */
-	@Override
-	public void configureInput() {
-		// TODO implement this setup routine
-	}
-	
-	/*
-	 * Encrypt/Decrypt input
-	 */
-	@Override
-	public void processInput() {
-		// TODO implement this setup routine
-	}
-	
-	/*
-	 * Set up apparatus to transmit message
-	 */
-	@Override
-	public void configureOutput() {
-		// TODO implement this setup routine
-	}
-	
-	/*
-	 * Send the final results out
-	 */
-	@Override
-	public void publishResults() {
-		// TODO implement this output routine
-	}
-	
-	/*
-	 *  Main - Sets up a very basic routine for taking in a plaintext message and printing
-	 *  out cyphertext to the console. Only 1 Rotor with the default CharSet is used.
-	 */
-	public static void main(String[] args) {
-		
 		// Introduce the program
 		System.out.println("Welcome to the Enigma!");
-		Scanner input = new Scanner(System.in);
 		
 		// Get the initial rotor setting from the user
 		while (true) {
 			System.out.println("Please enter an initial setting for your rotor from 0 to " + 
 					(rotor1.getValidCharacters().length() - 1) + ": ");
-			offset = input.nextInt();
+			offset = inputScanner.nextInt();
 			if (offset < 0 || offset > rotor1.getValidCharacters().length()-1) {
 				continue;
 			}
@@ -86,21 +42,36 @@ public class Enigma implements EnigmaApparatus {
 				break;
 			}
 		}
-		
+	}
+	
+	/*
+	 * Set up Enigma to receive input
+	 */
+	@Override
+	public void configureInput() {
 		// Ask the user to set the input mode to file or keyboard
 		while (true) {
 			System.out.println("Please enter 1 to type your message or 2 to read from a file: ");
-			inputMode = input.nextInt();
+			inputMode = inputScanner.nextInt();
 			if (inputMode != 1 && inputMode != 2)
 				continue;
 			else
+				// Advance the Scanner so we can read lines after reading ints above
+				inputScanner.nextLine();
 				break;
 		}
+	}
+	
+	/*
+	 * Encrypt/Decrypt input
+	 */
+	@Override
+	public void processInput() {
+		// TODO move setup dialog to configureInput()
+		/* TODO trim routine to be limited to reading the input,
+				encoding using rotor, converting using base converter */
 		
-		// Advance the Scanner so we can read lines after reading ints above
-		input.nextLine();
-		
-		// Set up input functionality based on user-selected keyboard or file input
+		// Set up mainIP based on inputMode
 		if (inputMode == 1) {
 			System.out.println("Please enter your message: ");
 			mainIP = new InputProcessor();
@@ -109,7 +80,7 @@ public class Enigma implements EnigmaApparatus {
 		} 
 		else {
 			System.out.print("Please enter the file path: ");
-			String filePath = input.nextLine();
+			String filePath = inputScanner.nextLine();
 			try { 
 				mainIP = new InputProcessor(filePath);
 				// Store off the message into the I/O object
@@ -123,17 +94,45 @@ public class Enigma implements EnigmaApparatus {
 				mainIP.getKeyBoardIn();
 			}
 		}
+	}
+	
+	/*
+	 * Set up apparatus to transmit message
+	 */
+	@Override
+	public void configureOutput() {
+		// TODO implement this setup routine to direct the output where the user desires
+	}
+	
+	/*
+	 * Send the final results out
+	 */
+	@Override
+	public void publishResults() {
+		// TODO - break this into parts, move into appropriate methods
+		// TODO - add logic to use OutputProcessor to publish results
 		
 		// Encode the message using the rotor, output cyphertext
-		// TODO - put this into a helper method or refactor this into I/O class
 		System.out.println("Your original message:" + mainIP.getMessageIn());
 		System.out.println("Encoding...");
 		System.out.print("Your encoded message: ");
 		for (int i = 0; i < mainIP.getMessageIn().length(); i++) {
 			System.out.print(rotor1.encode(mainIP.getMessageIn().charAt(i)));
 		}
-		input.close();
-		
+		inputScanner.close();
+	}
+	
+	/*
+	 *  Main - Sequentially call the input,processing,output routines
+	 *  	   to yield a final encrypted/decrypted message
+	 */
+	public static void main(String[] args) {
+		Enigma enigmaMachine = new Enigma();
+		enigmaMachine.configureRotors();
+		enigmaMachine.configureInput();
+		enigmaMachine.processInput();
+		enigmaMachine.configureOutput();
+		enigmaMachine.publishResults();
 	}
 
 }
