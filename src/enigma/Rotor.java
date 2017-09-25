@@ -19,6 +19,7 @@ public class Rotor implements RotaryEncryptor {
 	 */
 	private Dictionary validCharacters;
 	private int index = 0;
+	private int notch = 9;
 	
 	/*
 	 * Constructor
@@ -50,6 +51,9 @@ public class Rotor implements RotaryEncryptor {
 	@Override
 	public Dictionary getValidCharacters() {
 		return validCharacters;
+	}
+	@Override public int getNotch() {
+		return 0;
 	}
 	
 	/*

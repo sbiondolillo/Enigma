@@ -16,6 +16,7 @@ public interface RotaryEncryptor extends Encryptor {
 	 */
 	int getIndex();
 	void setIndex(int index);
+	int getNotch();
 	
 	/* 
 	 * Uses the current index to encode a single character.

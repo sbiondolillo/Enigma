@@ -49,9 +49,9 @@ public interface FileOutput extends Output {
 	void setOutputFileType(String outputFileType);
 	
 	/*
-	 * Takes the contents of messageOut and writes them to outputFilePath
+	 * Takes the contents of messageOut String and writes them to outputFilePath
 	 */
-	void writeMessageOutToFile();
+	void writeMessageOutToFile(String messageOut);
 	
 
 }
