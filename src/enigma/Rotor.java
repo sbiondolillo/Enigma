@@ -6,6 +6,8 @@
  * Version 0.0.1 - 9/11/17
  *         0.0.2 - 9/18/17 - Added automatic rotation to the encode() method
  *         0.0.3 - 9/22/17 - Set up as implementation of EnryptionWheel
+ *         0.0.4 - 9.24.17 - Added a variable to store the notch position for use in multi-rotor setups
+ *         					 Added a constructor which sets the notch position
  */
 
 package enigma;
@@ -15,7 +17,7 @@ import interfaces.RotaryEncryptor;
 public class Rotor implements RotaryEncryptor {
 
 	/*
-	 * Set up each rotor with an array of characters and an initial index
+	 * Set up each rotor with an array of characters, an initial index, and a notch position
 	 */
 	private Dictionary validCharacters;
 	private int index = 0;
@@ -38,6 +40,17 @@ public class Rotor implements RotaryEncryptor {
 	}
 	
 	/*
+	 * Constructor
+	 * @param completeCodex - Users can enter their own array of characters for a custom rotor
+	 * @param notch - an int indicating the notch position where the rotor would cause 
+	 * 				  a rotation in the next rotor in series
+	 */
+	public Rotor(Character[] completeCodex, int notch) {
+		validCharacters = new Dictionary(completeCodex);
+		this.notch = notch;
+	}
+	
+	/*
 	 * Getters and Setters
 	 */
 	@Override
@@ -52,8 +65,9 @@ public class Rotor implements RotaryEncryptor {
 	public Dictionary getValidCharacters() {
 		return validCharacters;
 	}
-	@Override public int getNotch() {
-		return 0;
+	@Override 
+	public int getNotch() {
+		return notch;
 	}
 	
 	/*
@@ -73,7 +87,7 @@ public class Rotor implements RotaryEncryptor {
 			int currentIndex = index;
 			int finalIndex = (currentIndex + validCharacters.indexOf(plaintext)) % validCharacters.length();
 			Character cyphertext = validCharacters.charAt(finalIndex);
-			rotate();
+			rotate(); // TODO - Abstract this rotation logic away into a RotorManager class
 			return cyphertext;
 		} else {
 			return '#';
