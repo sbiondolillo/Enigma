@@ -8,6 +8,32 @@
 
 package utilities;
 
+import java.nio.file.Path;
+import enigma.Rotor;
+
 class Config {
+	
+	private Path inputFilePath;
+	private Path outputFilePath;
+	private Rotor[] availableRotors;
+	
+	/*
+	 * Getters and setters for instance variables
+	 */
+	Path getInputFilePath() {
+		return inputFilePath;
+	}
+	void setInputFilePath(Path input) {
+		inputFilePath = input;
+	}
+	Path getOutputFilePath() {
+		return outputFilePath;
+	}
+	void setOutputFilePath(Path output) {
+		outputFilePath = output;
+	}
+	Rotor[] getAvailableRotors() {
+		return availableRotors;
+	}
 
 }
