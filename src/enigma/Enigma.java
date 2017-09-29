@@ -4,37 +4,40 @@
  * CIS220M:HY1 Object Oriented Programming
  * Goal: To manage the control logic for all of the constituent parts of our Enigma machine
  * Version 0.0.1 - 9/18/17
+ * 		   0.0.2 - 9/23/17	Add logic to user input to scale to size of Rotor dictionary
+ * 							refactor user input to include correct methods from InputProcessor
+ * 		   0.0.3 - 9/24/17	Adjust Enigma to utilize three rotors in series
  */
 
 package enigma;
 
 import java.util.Scanner;
+import interfaces.EnigmaApparatus;
 
-public class Enigma {
+public class Enigma implements EnigmaApparatus {
+	
+	private int inputMode;
+	private int offset;
+	private InputProcessor mainIP;
+	private Rotor rotor1 = new Rotor();
+	private Rotor rotor2 = new Rotor();
+	private Rotor rotor3 = new Rotor();
+	private Scanner inputScanner = new Scanner(System.in);
 	
 	/*
-	 * Everything is set up as static for now, easy to change this going forward, makes testing easier
+	 * Set up rotors needed for encryption
 	 */
-	private static int inputMode;
-	private static int offset;
-	private static InputProcessor mainIO;
-	private static Rotor rotor1 = new Rotor();
-	
-	/*
-	 *  Main - Sets up a very basic routine for taking in a plaintext message and printing
-	 *  out cyphertext to the console. Only 1 Rotor with the default CharSet is used.
-	 */
-	public static void main(String[] args) {
-		
+	@Override
+	public void configureRotors() {
 		// Introduce the program
 		System.out.println("Welcome to the Enigma!");
-		Scanner input = new Scanner(System.in);
 		
 		// Get the initial rotor setting from the user
 		while (true) {
-			System.out.println("Please enter an initial setting for your rotor from 1 to 72: ");
-			offset = input.nextInt();
-			if (offset < 1 || offset > 72) {
+			System.out.println("Please enter an initial setting for the first rotor from 0 to " + 
+					(rotor1.getValidCharacters().length() - 1) + ": ");
+			offset = inputScanner.nextInt();
+			if (offset < 0 || offset > rotor1.getValidCharacters().length()-1) {
 				continue;
 			}
 			else {
@@ -42,56 +45,121 @@ public class Enigma {
 				break;
 			}
 		}
-		
+		while (true) {
+			System.out.println("Please enter an initial setting for the second rotor from 0 to " + 
+					(rotor2.getValidCharacters().length() - 1) + ": ");
+			offset = inputScanner.nextInt();
+			if (offset < 0 || offset > rotor2.getValidCharacters().length()-1) {
+				continue;
+			}
+			else {
+				rotor2.setIndex(offset);
+				break;
+			}
+		}
+		while (true) {
+			System.out.println("Please enter an initial setting for the third rotor from 0 to " + 
+					(rotor3.getValidCharacters().length() - 1) + ": ");
+			offset = inputScanner.nextInt();
+			if (offset < 0 || offset > rotor3.getValidCharacters().length()-1) {
+				continue;
+			}
+			else {
+				rotor3.setIndex(offset);
+				break;
+			}
+		}
+	}
+	
+	/*
+	 * Set up Enigma to receive input
+	 */
+	@Override
+	public void configureInput() {
 		// Ask the user to set the input mode to file or keyboard
 		while (true) {
 			System.out.println("Please enter 1 to type your message or 2 to read from a file: ");
-			inputMode = input.nextInt();
+			inputMode = inputScanner.nextInt();
 			if (inputMode != 1 && inputMode != 2)
 				continue;
 			else
+				// Advance the Scanner so we can read lines after reading ints above
+				inputScanner.nextLine();
 				break;
 		}
+	}
+	
+	/*
+	 * Encrypt/Decrypt input
+	 */
+	@Override
+	public void processInput() {
+		// TODO move setup dialog to configureInput()
+		/* TODO trim routine to be limited to reading the input,
+				encoding using rotor, converting using base converter */
 		
-		// Advance the Scanner so we can read lines after reading ints above
-		input.nextLine();
-		
-		// Set up input functionality based on user-selected keyboard or file input
+		// Set up mainIP based on inputMode
 		if (inputMode == 1) {
 			System.out.println("Please enter your message: ");
-			mainIO = new InputProcessor();
+			mainIP = new InputProcessor();
 			// Store off the message into the I/O object
-			mainIO.getNextLineIn();
+			mainIP.getKeyBoardIn();
 		} 
 		else {
 			System.out.print("Please enter the file path: ");
-			String filePath = input.nextLine();
+			String filePath = inputScanner.nextLine();
 			try { 
-				mainIO = new InputProcessor(filePath);
-				// When reading from files, get each line sequentially
-				while (mainIO.getFileScanner().hasNextLine()) {
-					mainIO.getNextLineIn();
-				}
+				mainIP = new InputProcessor(filePath);
+				// Store off the message into the I/O object
+				mainIP.getFileIn();
 			}
 			catch (NullPointerException e) {
 				// If file is inaccessible, offer to let the user type their message
 				System.out.println("Please type your message: ");
-				mainIO = new InputProcessor();
+				mainIP = new InputProcessor();
 				// Store off the message into the I/O object
-				mainIO.getNextLineIn();
+				mainIP.getKeyBoardIn();
 			}
 		}
+	}
+	
+	/*
+	 * Set up apparatus to transmit message
+	 */
+	@Override
+	public void configureOutput() {
+		// TODO implement this setup routine to direct the output where the user desires
+	}
+	
+	/*
+	 * Send the final results out
+	 */
+	@Override
+	public void publishResults() {
+		// TODO - break this into parts, move into appropriate methods
+		// TODO - add logic to use OutputProcessor to publish results
 		
-		// Encode the message using the rotor, output cyphertext
-		// TODO - put this into a helper method or refactor this into I/O class
-		System.out.println("Your original message:" + mainIO.getMessageIn());
+		// Encode the message using the rotors, output cyphertext
+		System.out.println("Your original message:" + mainIP.getMessageIn());
 		System.out.println("Encoding...");
 		System.out.print("Your encoded message: ");
-		for (int i = 0; i < mainIO.getMessageIn().length(); i++) {
-			System.out.print(rotor1.encode(mainIO.getMessageIn().charAt(i)));
+		for (int i = 0; i < mainIP.getMessageIn().length(); i++) {
+			System.out.print(rotor3.encode(rotor2.encode(rotor1.encode(mainIP.getMessageIn().charAt(i)))));
 		}
-		input.close();
-		
+		inputScanner.close();
+	}
+	
+	/*
+	 *  Main - Sequentially call the input,processing,output routines
+	 *  	   to yield a final encrypted/decrypted message
+	 */
+	public static void main(String[] args) {
+		Enigma enigmaMachine = new Enigma();
+		enigmaMachine.configureRotors();
+		enigmaMachine.configureInput();
+		enigmaMachine.processInput();
+		enigmaMachine.configureOutput();
+		enigmaMachine.publishResults();
 	}
 
 }

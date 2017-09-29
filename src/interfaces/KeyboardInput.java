@@ -15,5 +15,10 @@ public interface KeyboardInput extends Input {
 	 * Getter for instance variable keyboardScanner
 	 */
 	Scanner getKeyboardScanner();
+	
+	/*
+	 * Reads in the next line from the keyboard and stores it in messageIn
+	 */
+	void getKeyBoardIn();
 
 }

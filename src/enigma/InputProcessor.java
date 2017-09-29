@@ -64,21 +64,9 @@ public class InputProcessor implements FileInput, KeyboardInput {
 	}
 	
 	/*
-	 * Decides if it is keyboard input or from a file
-	 * calls the appropriate routine for processing
-	 */
-	public void getNextLineIn() {
-		
-		if (inputMode == 0)
-			getFileIn();
-		else
-			getKeyBoardIn();
-		
-	}
-	
-	/*
 	 * Reads in the next line from the keyboard and stores it in messageIn
 	 */
+	@Override
 	public void getKeyBoardIn() {
 		if (keyboardScanner.hasNextLine())
 			messageIn = keyboardScanner.nextLine();
@@ -89,14 +77,14 @@ public class InputProcessor implements FileInput, KeyboardInput {
 	/*
 	 * Reads in the next line from the file in and stores it in messageIn
 	 */
+	@Override
 	public void getFileIn() {
-		if (fileScanner.hasNextLine())
+		while (fileScanner.hasNextLine()) {
 			if (messageIn == null)
 				messageIn = fileScanner.nextLine();
 			else 
 				messageIn += fileScanner.nextLine();
-		else
-			messageIn += "";
+		}
 	}
 	
 
