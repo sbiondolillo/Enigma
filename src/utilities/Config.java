@@ -13,6 +13,7 @@ import enigma.Rotor;
 
 class Config {
 	
+	// TODO - fill these with default values
 	private Path inputFilePath;
 	private Path outputFilePath;
 	private Rotor[] availableRotors;

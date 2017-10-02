@@ -11,7 +11,7 @@ package utilities;
 
 class Screens {
 	
-	Errors errorHandler = new Errors();
+	private Errors errorHandler = new Errors();
 	
 	/*
 	 * Display the initial prompt to the user when the program launches
@@ -76,7 +76,7 @@ class Screens {
 							break;
 			case "output":	errorHandler.outputError();
 							break;
-			default:		System.out.println("Oops, something went wrong.");
+			default:		System.out.println("Oops, something went wrong. Please contact support.");
 		}
 	}
 	
