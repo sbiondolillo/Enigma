@@ -38,11 +38,8 @@ public class RotorController implements RotationManager{
 	 */
 	@Override
 	public String encode(String plaintext) {
-		String output = "";
-		for (char c: plaintext.toCharArray()) {
-			output += activeRotors[4].encode(activeRotors[3].encode(activeRotors[2].encode(activeRotors[1].encode(activeRotors[0].encode(c)))));
-		}
-		return output;
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	/*
