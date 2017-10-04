@@ -42,7 +42,7 @@ public class RotorController implements RotationManager{
 		String output = "";
 		for (char c: plaintext.toCharArray()) {
 			char in = c;
-			System.out.println("Encoding '" + in + "'...");
+			/*System.out.println("Encoding '" + in + "'...");
 			System.out.println(in + " = " + activeRotors[0].encode(in));
 			in = activeRotors[0].encode(in);
 			System.out.println(in + " = " + activeRotors[1].encode(in));
@@ -51,11 +51,12 @@ public class RotorController implements RotationManager{
 			in = activeRotors[2].encode(in);
 			System.out.println(in + " = " + activeRotors[3].encode(in));
 			in = activeRotors[3].encode(in);
-			System.out.println(in + " = " + activeRotors[4].encode(in));
+			System.out.println(in + " = " + activeRotors[4].encode(in));*/
 			char out = activeRotors[4].encode(activeRotors[3].encode(activeRotors[2].encode(activeRotors[1].encode(activeRotors[0].encode(c)))));
-			System.out.println("Encoded as '" + out + "'.");
+			// System.out.println("Encoded as '" + out + "'.");
 			output += out;
 		}
+		System.out.println("Encoding...");
 		return output;
 	}
 	
@@ -64,7 +65,17 @@ public class RotorController implements RotationManager{
 	 */
 	@Override
 	public String decode(String cyphertext) {
-		return null;
+		String output = "";
+		for (char c: cyphertext.toCharArray()) {
+			// char in = c;
+			// System.out.println("Decoding '" + in + "'...");
+			// System.out.println(in + " = " + decoder.encode(in));
+			char out = decoder.encode(c);
+			// System.out.println("Encoded as '" + out + "'.");
+			output += out;
+		}
+		System.out.println("Decoding...");
+		return output;
 	}
 
 	/*

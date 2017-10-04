@@ -1,5 +1,6 @@
 package rotors;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TestRotorController {
@@ -8,9 +9,19 @@ public class TestRotorController {
 		
 		Scanner input = new Scanner(System.in);
 		RotorController rc = new RotorController();
-		System.out.print("Please enter 1 to encode or 2 to decode: ");
-		int mode = input.nextInt();
-		input.nextLine();
+		int mode = 0;
+		while (mode != 1 && mode != 2) {
+			try {
+				System.out.print("Please enter 1 to encode or 2 to decode: ");
+				mode = (int) input.nextInt();
+				input.nextLine();
+			}
+			catch (InputMismatchException e) {
+				input.nextLine();
+				System.out.println("You must enter an integer.");
+				continue;
+			}
+		}
 		if (mode == 1) {
 			System.out.println("Please enter the text to encode: ");
 			String plaintext = input.nextLine();
