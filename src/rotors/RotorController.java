@@ -5,6 +5,7 @@ import interfaces.RotationManager;
 public class RotorController implements RotationManager{
 	
 	private Rotor[] activeRotors = new Rotor[5];
+	private Rotor decoder = new Rotor();
 	
 	/*
 	 * Constructor
@@ -94,6 +95,9 @@ public class RotorController implements RotationManager{
 		Rotor r5 = new Rotor();
 		r5.setIndex(43);
 		activeRotors[4] = r5;
+		int decodeIndex = 	r1.getValidCharacters().length() - ((r1.getIndex() + r2.getIndex() + r3.getIndex()
+							+ r4.getIndex() + r5.getIndex()) % r1.getValidCharacters().length());
+		decoder.setIndex(decodeIndex);
 		
 	}
 
