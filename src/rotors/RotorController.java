@@ -1,3 +1,11 @@
+/*
+ * RotorController Class
+ * Samuel Biondolillo
+ * CIS220M:HY1 Object Oriented Programming
+ * Goal: Create an object which manages multiple-rotor encoding/decoding in the Enigma program
+ * Version	0.0.1	10/4/17
+ */
+
 package rotors;
 
 import interfaces.RotationManager;
@@ -9,7 +17,7 @@ public class RotorController implements RotationManager{
 	
 	/*
 	 * Constructor
-	 * builds a pre-defined Rotor[5]
+	 * builds a pre-defined Rotor[5] as well as the decoder Rotor
 	 */
 	public RotorController() {
 		buildRotorArray();
@@ -35,14 +43,14 @@ public class RotorController implements RotationManager{
 	}
 
 	/*
-	 * Correctly encode a String by using each of the available Rotors
+	 * Correctly encode a String by using each of the available Rotors in series (1->5)
 	 */
 	@Override
 	public String encode(String plaintext) {
 		String output = "";
 		for (char c: plaintext.toCharArray()) {
-			char in = c;
-			/*System.out.println("Encoding '" + in + "'...");
+			/*char in = c;
+			System.out.println("Encoding '" + in + "'...");
 			System.out.println(in + " = " + activeRotors[0].encode(in));
 			in = activeRotors[0].encode(in);
 			System.out.println(in + " = " + activeRotors[1].encode(in));
@@ -61,15 +69,15 @@ public class RotorController implements RotationManager{
 	}
 	
 	/*
-	 * Correctly decode a String by using each of the available Rotors
+	 * Correctly decode a String by using the complementary decoder Rotor
 	 */
 	@Override
 	public String decode(String cyphertext) {
 		String output = "";
 		for (char c: cyphertext.toCharArray()) {
-			// char in = c;
-			// System.out.println("Decoding '" + in + "'...");
-			// System.out.println(in + " = " + decoder.encode(in));
+			/*char in = c;
+			System.out.println("Decoding '" + in + "'...");
+			System.out.println(in + " = " + decoder.encode(in));*/
 			char out = decoder.encode(c);
 			// System.out.println("Encoded as '" + out + "'.");
 			output += out;
@@ -89,8 +97,10 @@ public class RotorController implements RotationManager{
 	
 	/*
 	 * Create a default Rotor[5] in case the default constructor is ever called
+	 * also create the default decoder Rotor base on the initial Rotor indexes
 	 */
 	private void buildRotorArray() {
+		// individually set each of the 5 Rotors
 		Rotor r1 = new Rotor();
 		r1.setIndex(3);
 		activeRotors[0] = r1;
@@ -106,6 +116,8 @@ public class RotorController implements RotationManager{
 		Rotor r5 = new Rotor();
 		r5.setIndex(43);
 		activeRotors[4] = r5;
+		// the decoder wraps the encoding of the five encoding Rotors back to the original position
+		// so we use the Dictionary length and then subtract the final offset using modulo as needed
 		int decodeIndex = 	r1.getValidCharacters().length() - ((r1.getIndex() + r2.getIndex() + r3.getIndex()
 							+ r4.getIndex() + r5.getIndex()) % r1.getValidCharacters().length());
 		decoder.setIndex(decodeIndex);
