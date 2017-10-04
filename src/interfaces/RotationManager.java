@@ -11,7 +11,7 @@
 
 package interfaces;
 
-import enigma.Rotor;
+import rotors.Rotor;
 
 public interface RotationManager {
 	

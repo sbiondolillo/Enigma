@@ -13,6 +13,7 @@ package enigma;
 
 import java.util.Scanner;
 import interfaces.EnigmaApparatus;
+import rotors.Rotor;
 
 public class Enigma implements EnigmaApparatus {
 	

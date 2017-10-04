@@ -1,6 +1,5 @@
 package rotors;
 
-import enigma.Rotor;
 import interfaces.RotationManager;
 
 public class RotorController implements RotationManager{
