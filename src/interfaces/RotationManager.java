@@ -16,18 +16,18 @@ import rotors.Rotor;
 public interface RotationManager {
 	
 	/*
-	 * Select the rotors to be used and initialize them with the given index
+	 * Select the Rotors to be used and initialize them with the given index
 	 */
 	void setActiveRotors(Rotor rotor1, int index1, Rotor rotor2, int index2, Rotor rotor3, 
 						int index3, Rotor rotor4, int index4, Rotor rotor5, int index5);
 	
 	/*
-	 * Correctly encode a String by using each of the available Rotors
+	 * Correctly encode a String by using each of the available Rotors in series
 	 */
 	String encode(String plaintext);
 	
 	/*
-	 * Correctly decode a String by using each of the available Rotors
+	 * Correctly decode a String by using the complementary decoder Rotor
 	 */
 	String decode(String cyphertext);
 	

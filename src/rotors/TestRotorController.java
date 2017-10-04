@@ -41,7 +41,7 @@ public class TestRotorController {
 			System.out.println("Plaintext : " + plaintext);
 			System.out.println("Cyphertext: " + cyphertext);
 		}
-		else if (mode == 2) {
+		else {
 			// get text from user
 			System.out.println("Please enter the text to decode: ");
 			String cyphertext = input.nextLine();

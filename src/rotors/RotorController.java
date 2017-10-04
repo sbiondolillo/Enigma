@@ -36,12 +36,12 @@ public class RotorController implements RotationManager{
 	}
 	
 	/*
-	 * Select the rotors to be used and initialize them with the given index
+	 * Select the Rotors to be used and initialize them with the given indexes
 	 */
 	@Override
 	public void setActiveRotors(Rotor rotor1, int index1, Rotor rotor2, int index2, Rotor rotor3, 
 								int index3, Rotor rotor4, int index4, Rotor rotor5, int index5) {
-		// TODO Set this up if we ever allow the user to manipulate the rotor configuration	
+		// TODO Set this up if we ever allow the user to manipulate the Rotor configuration	
 	}
 
 	/*
@@ -74,7 +74,7 @@ public class RotorController implements RotationManager{
 	}
 
 	/*
-	 * Reset the rotors to the initial configuration given by the user
+	 * Reset the Rotors to the initial configuration given by the user
 	 */
 	@Override
 	public void reset() {
