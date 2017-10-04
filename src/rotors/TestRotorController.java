@@ -8,7 +8,7 @@ public class TestRotorController {
 		
 		Scanner input = new Scanner(System.in);
 		RotorController rc = new RotorController();
-		System.out.println("Please enter a string to encode.");
+		System.out.print("Please enter a string to encode: ");
 		String plaintext = input.nextLine();
 		String cyphertext = rc.encode(plaintext);
 		System.out.println("Plaintext : " + plaintext);

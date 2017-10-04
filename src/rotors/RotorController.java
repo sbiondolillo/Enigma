@@ -40,7 +40,20 @@ public class RotorController implements RotationManager{
 	public String encode(String plaintext) {
 		String output = "";
 		for (char c: plaintext.toCharArray()) {
-			output += activeRotors[4].encode(activeRotors[3].encode(activeRotors[2].encode(activeRotors[1].encode(activeRotors[0].encode(c)))));
+			char in = c;
+			System.out.println("Encoding '" + in + "'...");
+			System.out.println(in + " = " + activeRotors[0].encode(in));
+			in = activeRotors[0].encode(in);
+			System.out.println(in + " = " + activeRotors[1].encode(in));
+			in = activeRotors[1].encode(in);
+			System.out.println(in + " = " + activeRotors[2].encode(in));
+			in = activeRotors[2].encode(in);
+			System.out.println(in + " = " + activeRotors[3].encode(in));
+			in = activeRotors[3].encode(in);
+			System.out.println(in + " = " + activeRotors[4].encode(in));
+			char out = activeRotors[4].encode(activeRotors[3].encode(activeRotors[2].encode(activeRotors[1].encode(activeRotors[0].encode(c)))));
+			System.out.println("Encoded as '" + out + "'.");
+			output += out;
 		}
 		return output;
 	}
@@ -70,13 +83,13 @@ public class RotorController implements RotationManager{
 		r1.setIndex(3);
 		activeRotors[0] = r1;
 		Rotor r2 = new Rotor();
-		r2.setIndex(7);
+		r2.setIndex(17);
 		activeRotors[1] = r2;
 		Rotor r3 = new Rotor();
-		r3.setIndex(19);
+		r3.setIndex(31);
 		activeRotors[2] = r3;
 		Rotor r4 = new Rotor();
-		r4.setIndex(73);
+		r4.setIndex(37);
 		activeRotors[3] = r4;
 		Rotor r5 = new Rotor();
 		r5.setIndex(43);
