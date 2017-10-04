@@ -1,3 +1,11 @@
+/*
+ * TestRotorController Class
+ * Samuel Biondolillo
+ * CIS220M:HY1 Object Oriented Programming
+ * Goal: Create a test driver class for multiple-rotor encoding/decoding in the Enigma program
+ * Version	0.0.1	10/4/17
+ */
+
 package rotors;
 
 import java.util.InputMismatchException;
@@ -7,6 +15,7 @@ public class TestRotorController {
 	
 	public static void main(String[] args) {
 		
+		// let the user set the mode to encode/decode
 		Scanner input = new Scanner(System.in);
 		RotorController rc = new RotorController();
 		int mode = 0;
@@ -23,16 +32,22 @@ public class TestRotorController {
 			}
 		}
 		if (mode == 1) {
+			// get text from user
 			System.out.println("Please enter the text to encode: ");
 			String plaintext = input.nextLine();
+			// encode
 			String cyphertext = rc.encode(plaintext);
+			// display results
 			System.out.println("Plaintext : " + plaintext);
 			System.out.println("Cyphertext: " + cyphertext);
 		}
 		else if (mode == 2) {
+			// get text from user
 			System.out.println("Please enter the text to decode: ");
 			String cyphertext = input.nextLine();
+			// decode
 			String plaintext = rc.decode(cyphertext);
+			// display results
 			System.out.println("Cyphertext: " + cyphertext);
 			System.out.println("Plaintext : " + plaintext);
 		}
