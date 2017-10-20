@@ -19,11 +19,14 @@ public class Enigma implements EnigmaApparatus {
 	
 	private int inputMode;
 	private int offset;
-	private FileInputProcessor mainIP;
+	private FileInputProcessor mainFileIO;
+	private KeyboardInputProcessor mainKeyboardIO;
 	private Rotor rotor1 = new Rotor();
 	private Rotor rotor2 = new Rotor();
 	private Rotor rotor3 = new Rotor();
 	private Scanner inputScanner = new Scanner(System.in);
+	private String plaintext = "";
+	private String cyphertext = "";
 	
 	/*
 	 * Set up rotors needed for encryption
@@ -102,24 +105,24 @@ public class Enigma implements EnigmaApparatus {
 		// Set up mainIP based on inputMode
 		if (inputMode == 1) {
 			System.out.println("Please enter your message: ");
-			mainIP = new FileInputProcessor();
+			mainKeyboardIO = new KeyboardInputProcessor();
 			// Store off the message into the I/O object
-			mainIP.getKeyBoardIn();
+			mainKeyboardIO.readKeyBoardIn();
 		} 
 		else {
 			System.out.print("Please enter the file path: ");
 			String filePath = inputScanner.nextLine();
 			try { 
-				mainIP = new FileInputProcessor(filePath);
+				mainFileIO = new FileInputProcessor(filePath);
 				// Store off the message into the I/O object
-				mainIP.getFileIn();
+				mainFileIO.readFileIn();
 			}
 			catch (NullPointerException e) {
 				// If file is inaccessible, offer to let the user type their message
 				System.out.println("Please type your message: ");
-				mainIP = new FileInputProcessor();
+				mainKeyboardIO = new KeyboardInputProcessor();
 				// Store off the message into the I/O object
-				mainIP.getKeyBoardIn();
+				mainKeyboardIO.readKeyBoardIn();
 			}
 		}
 	}
@@ -139,13 +142,18 @@ public class Enigma implements EnigmaApparatus {
 	public void publishResults() {
 		// TODO - break this into parts, move into appropriate methods
 		// TODO - add logic to use OutputProcessor to publish results
+		// Decide what to print based on input config
+		if (mainFileIO == null)
+			plaintext = mainKeyboardIO.getMessageIn();
+		else
+			plaintext = mainFileIO.getMessageIn();
 		
 		// Encode the message using the rotors, output cyphertext
-		System.out.println("Your original message:" + mainIP.getMessageIn());
+		System.out.println("Your original message:" + plaintext);
 		System.out.println("Encoding...");
 		System.out.print("Your encoded message: ");
-		for (int i = 0; i < mainIP.getMessageIn().length(); i++) {
-			System.out.print(rotor3.encode(rotor2.encode(rotor1.encode(mainIP.getMessageIn().charAt(i)))));
+		for (int i = 0; i < plaintext.length(); i++) {
+			System.out.print(rotor3.encode(rotor2.encode(rotor1.encode(plaintext.charAt(i)))));
 		}
 		inputScanner.close();
 	}
