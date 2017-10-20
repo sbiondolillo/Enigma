@@ -7,6 +7,7 @@
  *         0.0.2 - 9/22/17 - Renamed to InputProcessor, segregating input/output responsibilities
  *                           refactored code to reflect new responsibilities
  *         0.0.3 - 10/20/17 - Refactored from InputProcessor into 2 classes: FileInputProcessor, KeyboardInputProcessor
+ *                            renamed & refactored file input method
  */
 
 package enigma;
