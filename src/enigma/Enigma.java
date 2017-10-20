@@ -19,7 +19,7 @@ public class Enigma implements EnigmaApparatus {
 	
 	private int inputMode;
 	private int offset;
-	private InputProcessor mainIP;
+	private FileInputProcessor mainIP;
 	private Rotor rotor1 = new Rotor();
 	private Rotor rotor2 = new Rotor();
 	private Rotor rotor3 = new Rotor();
@@ -102,7 +102,7 @@ public class Enigma implements EnigmaApparatus {
 		// Set up mainIP based on inputMode
 		if (inputMode == 1) {
 			System.out.println("Please enter your message: ");
-			mainIP = new InputProcessor();
+			mainIP = new FileInputProcessor();
 			// Store off the message into the I/O object
 			mainIP.getKeyBoardIn();
 		} 
@@ -110,14 +110,14 @@ public class Enigma implements EnigmaApparatus {
 			System.out.print("Please enter the file path: ");
 			String filePath = inputScanner.nextLine();
 			try { 
-				mainIP = new InputProcessor(filePath);
+				mainIP = new FileInputProcessor(filePath);
 				// Store off the message into the I/O object
 				mainIP.getFileIn();
 			}
 			catch (NullPointerException e) {
 				// If file is inaccessible, offer to let the user type their message
 				System.out.println("Please type your message: ");
-				mainIP = new InputProcessor();
+				mainIP = new FileInputProcessor();
 				// Store off the message into the I/O object
 				mainIP.getKeyBoardIn();
 			}
