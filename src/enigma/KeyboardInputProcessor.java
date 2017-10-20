@@ -42,7 +42,7 @@ public class KeyboardInputProcessor implements KeyboardInput {
 	 * Reads in the next line from the keyboard and stores it in messageIn
 	 */
 	@Override
-	public void getKeyBoardIn() {
+	public void readKeyBoardIn() {
 		if (keyboardScanner.hasNextLine())
 			messageIn = keyboardScanner.nextLine();
 		else

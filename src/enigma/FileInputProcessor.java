@@ -51,7 +51,7 @@ public class FileInputProcessor implements FileInput {
 	 * Reads in the next line from the file in and stores it in messageIn
 	 */
 	@Override
-	public void getFileIn() {
+	public void readFileIn() {
 		while (fileScanner.hasNextLine()) {
 			if (messageIn == null)
 				messageIn = fileScanner.nextLine();

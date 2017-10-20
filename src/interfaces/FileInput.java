@@ -19,6 +19,6 @@ public interface FileInput extends Input {
 	/*
 	 * Reads in a file in and stores it in messageIn
 	 */
-	void getFileIn();
+	void readFileIn();
 	
 }

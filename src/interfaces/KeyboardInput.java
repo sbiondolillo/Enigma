@@ -19,6 +19,6 @@ public interface KeyboardInput extends Input {
 	/*
 	 * Reads in the next line from the keyboard and stores it in messageIn
 	 */
-	void getKeyBoardIn();
+	void readKeyBoardIn();
 
 }
