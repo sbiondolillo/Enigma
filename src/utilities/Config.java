@@ -9,7 +9,8 @@
 package utilities;
 
 import java.nio.file.Path;
-import enigma.Rotor;
+
+import rotors.Rotor;
 
 class Config {
 	

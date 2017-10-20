@@ -3,15 +3,17 @@
  * Samuel Biondolillo
  * CIS220M:HY1 Object Oriented Programming
  * Goal: To provide encryption functionality by emulation of a physical Enigma rotor
- * Version 0.0.1 - 9/11/17
- *         0.0.2 - 9/18/17 - Added automatic rotation to the encode() method
- *         0.0.3 - 9/22/17 - Set up as implementation of EnryptionWheel
- *         0.0.4 - 9.24.17 - Added a variable to store the notch position for use in multi-rotor setups
- *         					 Added a constructor which sets the notch position
+ * Version 0.0.1	9/11/17
+ *         0.0.2	9/18/17		Added automatic rotation to the encode() method
+ *         0.0.3	9/22/17		Set up as implementation of EnryptionWheel
+ *         0.0.4	9/24/17		Added a variable to store the notch position for use in multi-rotor setups
+ *         					 	Added a constructor which sets the notch position
+ *         0.0.5	10/4/17		Removed rotate() from encode() method logic
  */
 
-package enigma;
+package rotors;
 
+import enigma.Dictionary;
 import interfaces.RotaryEncryptor;
 
 public class Rotor implements RotaryEncryptor {
@@ -87,7 +89,6 @@ public class Rotor implements RotaryEncryptor {
 			int currentIndex = index;
 			int finalIndex = (currentIndex + validCharacters.indexOf(plaintext)) % validCharacters.length();
 			Character cyphertext = validCharacters.charAt(finalIndex);
-			rotate(); // TODO - Abstract this rotation logic away into a RotorManager class
 			return cyphertext;
 		} else {
 			return '#';
