@@ -13,13 +13,11 @@ package enigma;
 
 import java.util.Scanner;
 import interfaces.EnigmaApparatus;
-import rotors.Rotor;
 import rotors.RotorController;
 
 public class Enigma implements EnigmaApparatus {
 	
 	private int inputMode;
-	private int offset;
 	private FileInputProcessor mainFileIO;
 	private KeyboardInputProcessor mainKeyboardIO;
 	private Scanner inputScanner = new Scanner(System.in);
