@@ -14,6 +14,7 @@ package enigma;
 import java.util.Scanner;
 import interfaces.EnigmaApparatus;
 import rotors.Rotor;
+import rotors.RotorController;
 
 public class Enigma implements EnigmaApparatus {
 	
@@ -21,12 +22,10 @@ public class Enigma implements EnigmaApparatus {
 	private int offset;
 	private FileInputProcessor mainFileIO;
 	private KeyboardInputProcessor mainKeyboardIO;
-	private Rotor rotor1 = new Rotor();
-	private Rotor rotor2 = new Rotor();
-	private Rotor rotor3 = new Rotor();
 	private Scanner inputScanner = new Scanner(System.in);
 	private String plaintext = "";
 	private String cyphertext = "";
+	private RotorController rc;
 	
 	/*
 	 * Set up rotors needed for encryption
@@ -36,6 +35,8 @@ public class Enigma implements EnigmaApparatus {
 		// Introduce the program
 		System.out.println("Welcome to the Enigma!");
 		
+		rc = new RotorController();
+		/*
 		// Get the initial rotor setting from the user
 		while (true) {
 			System.out.println("Please enter an initial setting for the first rotor from 0 to " + 
@@ -72,7 +73,7 @@ public class Enigma implements EnigmaApparatus {
 				rotor3.setIndex(offset);
 				break;
 			}
-		}
+		}*/
 	}
 	
 	/*
@@ -91,23 +92,14 @@ public class Enigma implements EnigmaApparatus {
 				inputScanner.nextLine();
 				break;
 		}
-	}
-	
-	/*
-	 * Encrypt/Decrypt input
-	 */
-	@Override
-	public void processInput() {
-		// TODO move setup dialog to configureInput()
-		/* TODO trim routine to be limited to reading the input,
-				encoding using rotor, converting using base converter */
 		
-		// Set up mainIP based on inputMode
+		// Set up input processing based on inputMode
 		if (inputMode == 1) {
 			System.out.println("Please enter your message: ");
 			mainKeyboardIO = new KeyboardInputProcessor();
 			// Store off the message into the I/O object
 			mainKeyboardIO.readKeyBoardIn();
+			plaintext = mainKeyboardIO.getMessageIn();
 		} 
 		else {
 			System.out.print("Please enter the file path: ");
@@ -116,6 +108,7 @@ public class Enigma implements EnigmaApparatus {
 				mainFileIO = new FileInputProcessor(filePath);
 				// Store off the message into the I/O object
 				mainFileIO.readFileIn();
+				plaintext = mainFileIO.getMessageIn();
 			}
 			catch (NullPointerException e) {
 				// If file is inaccessible, offer to let the user type their message
@@ -123,8 +116,20 @@ public class Enigma implements EnigmaApparatus {
 				mainKeyboardIO = new KeyboardInputProcessor();
 				// Store off the message into the I/O object
 				mainKeyboardIO.readKeyBoardIn();
+				plaintext = mainKeyboardIO.getMessageIn();
 			}
 		}
+		
+	}
+	
+	/*
+	 * Encrypt/Decrypt input
+	 */
+	@Override
+	public void processInput() {
+		// encrypt the input message
+		cyphertext = rc.encode(plaintext);		
+		
 	}
 	
 	/*
@@ -140,21 +145,12 @@ public class Enigma implements EnigmaApparatus {
 	 */
 	@Override
 	public void publishResults() {
-		// TODO - break this into parts, move into appropriate methods
 		// TODO - add logic to use OutputProcessor to publish results
-		// Decide what to print based on input config
-		if (mainFileIO == null)
-			plaintext = mainKeyboardIO.getMessageIn();
-		else
-			plaintext = mainFileIO.getMessageIn();
 		
-		// Encode the message using the rotors, output cyphertext
 		System.out.println("Your original message:" + plaintext);
 		System.out.println("Encoding...");
 		System.out.print("Your encoded message: ");
-		for (int i = 0; i < plaintext.length(); i++) {
-			System.out.print(rotor3.encode(rotor2.encode(rotor1.encode(plaintext.charAt(i)))));
-		}
+		System.out.println(cyphertext);
 		inputScanner.close();
 	}
 	
