@@ -18,9 +18,8 @@ import interfaces.*;
 
 public class FileInputProcessor implements FileInput {
 
-	private String messageIn;
+	private String messageIn = "";
 	private Scanner fileScanner;
-	
 	
 	
 	/*
@@ -53,10 +52,7 @@ public class FileInputProcessor implements FileInput {
 	@Override
 	public void readFileIn() {
 		while (fileScanner.hasNextLine()) {
-			if (messageIn == null)
-				messageIn = fileScanner.nextLine();
-			else 
-				messageIn += fileScanner.nextLine();
+			messageIn += fileScanner.nextLine();
 		}
 	}
 	
