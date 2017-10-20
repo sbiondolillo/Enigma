@@ -25,55 +25,14 @@ public class Enigma implements EnigmaApparatus {
 	private Scanner inputScanner = new Scanner(System.in);
 	private String plaintext = "";
 	private String cyphertext = "";
-	private RotorController rc;
+	private RotorController rc = new RotorController();
 	
 	/*
 	 * Set up rotors needed for encryption
 	 */
 	@Override
 	public void configureRotors() {
-		// Introduce the program
-		System.out.println("Welcome to the Enigma!");
-		
-		rc = new RotorController();
-		/*
-		// Get the initial rotor setting from the user
-		while (true) {
-			System.out.println("Please enter an initial setting for the first rotor from 0 to " + 
-					(rotor1.getValidCharacters().length() - 1) + ": ");
-			offset = inputScanner.nextInt();
-			if (offset < 0 || offset > rotor1.getValidCharacters().length()-1) {
-				continue;
-			}
-			else {
-				rotor1.setIndex(offset);
-				break;
-			}
-		}
-		while (true) {
-			System.out.println("Please enter an initial setting for the second rotor from 0 to " + 
-					(rotor2.getValidCharacters().length() - 1) + ": ");
-			offset = inputScanner.nextInt();
-			if (offset < 0 || offset > rotor2.getValidCharacters().length()-1) {
-				continue;
-			}
-			else {
-				rotor2.setIndex(offset);
-				break;
-			}
-		}
-		while (true) {
-			System.out.println("Please enter an initial setting for the third rotor from 0 to " + 
-					(rotor3.getValidCharacters().length() - 1) + ": ");
-			offset = inputScanner.nextInt();
-			if (offset < 0 || offset > rotor3.getValidCharacters().length()-1) {
-				continue;
-			}
-			else {
-				rotor3.setIndex(offset);
-				break;
-			}
-		}*/
+		//TODO - Create logic to allow users to set the Rotors themselves
 	}
 	
 	/*
@@ -81,6 +40,9 @@ public class Enigma implements EnigmaApparatus {
 	 */
 	@Override
 	public void configureInput() {
+		// Introduce the program
+		System.out.println("Welcome to the Enigma!");
+		
 		// Ask the user to set the input mode to file or keyboard
 		while (true) {
 			System.out.println("Please enter 1 to type your message or 2 to read from a file: ");
@@ -160,7 +122,6 @@ public class Enigma implements EnigmaApparatus {
 	 */
 	public static void main(String[] args) {
 		Enigma enigmaMachine = new Enigma();
-		enigmaMachine.configureRotors();
 		enigmaMachine.configureInput();
 		enigmaMachine.processInput();
 		enigmaMachine.configureOutput();
