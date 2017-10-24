@@ -6,6 +6,7 @@
  * Version  0.0.1   9/29/17
  * 			0.0.2	10/2/17		Add nested Errors class and displayErrorScreen() method
  *          0.0.3   10/24/147   Implemented displayWelcomeScreen()
+ *                              Implemented displayHelpScreen()
  */
 
 package utilities;
@@ -23,6 +24,7 @@ class Screens {
 	void displayWelcomeScreen() {
 		runIntro();
 		setEnigmaProgramMode();
+		displayHelpScreen();
 	}
 	
 	/*
@@ -73,6 +75,84 @@ class Screens {
 	 * Display the screen where the user can receive help
 	 */
 	void displayHelpScreen() {
+		
+		showProgramOptions();
+		int selection = getProgramSelection();
+		displaySelectedScreen(selection);
+		
+	}
+	
+	/*
+	 * Display the list of program options
+	 */
+	private void showProgramOptions() {
+		System.out.println("Here is a list of available options:");
+		System.out.println("Enter 1 to configure your input settings");
+		System.out.println("Enter 2 to configure your output settings");
+		System.out.println("Enter 3 to process and output your message");
+		System.out.println("Enter 4 to view a list of valid input characters");
+		System.out.println("Enter 5 to view a lift of all current settings");
+		System.out.println("Enter 6 to view general information about the Enigma");
+		System.out.println("Enter 7 to quit the program");
+	}
+	
+	/*
+	 * Get the user's selection from the Help screen
+	 */
+	private int getProgramSelection() {
+		Scanner input = new Scanner(System.in);
+		int selection = 0;
+		while (selection < 1 || selection > 7) {
+			try {
+				System.out.print("Please enter your selection: ");
+				selection = input.nextInt();
+				input.nextLine();
+			}
+			catch (InputMismatchException e) {
+				displayErrorScreen("input");
+				input.nextLine();
+			}
+		}
+		return selection;
+	}
+	
+	/*
+	 * Display the screen chosen by the user in the Help screen
+	 * @param selection - an int returned from getProgramSelection()
+	 */
+	private void displaySelectedScreen(int selection) {
+		
+		switch (selection) {
+			case 1: displayInputScreen();
+					break;
+			case 2: displayOutputScreen();
+					break;
+			case 3: displayResultsScreen();
+					break;
+			case 4: displayValidCharScreen();
+					break;
+			case 5: displayConfigScreen();
+					break;
+			case 6: displayAboutScreen();
+					break;
+			case 7: displayExitScreen();
+					break;
+			default: System.out.println("Oops, something went wrong.");
+					 displayHelpScreen();
+		}
+	}
+	
+	/*
+	 * Display the results of the encryption/decryption
+	 */
+	void displayResultsScreen() {
+		// TODO implement this
+	}
+	
+	/*
+	 * Display the list of valid input characters
+	 */
+	void displayValidCharScreen() {
 		// TODO - implement this
 	}
 	
