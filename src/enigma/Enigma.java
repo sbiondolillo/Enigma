@@ -7,6 +7,7 @@
  * 		   0.0.2 - 9/23/17	Add logic to user input to scale to size of Rotor dictionary
  * 							refactor user input to include correct methods from InputProcessor
  * 		   0.0.3 - 9/24/17	Adjust Enigma to utilize three rotors in series
+ *         0.0.4 - 10/24/17 Add introduceProgram() method and related functionality
  */
 
 package enigma;
@@ -14,6 +15,7 @@ package enigma;
 import java.util.Scanner;
 import interfaces.EnigmaApparatus;
 import rotors.RotorController;
+import utilities.Utilities;
 
 public class Enigma implements EnigmaApparatus {
 	
@@ -24,6 +26,7 @@ public class Enigma implements EnigmaApparatus {
 	private String plaintext = "";
 	private String cyphertext = "";
 	private RotorController rc = new RotorController();
+	private Utilities utility = new Utilities();
 	
 	/*
 	 * Set up rotors needed for encryption
@@ -34,13 +37,17 @@ public class Enigma implements EnigmaApparatus {
 	}
 	
 	/*
+	 * Introduce the program, set up encrypt/decrypt mode
+	 */
+	public void introduceProgram() {
+		utility.load(0);
+	}
+	
+	/*
 	 * Set up Enigma to receive input
 	 */
 	@Override
 	public void configureInput() {
-		// Introduce the program
-		System.out.println("Welcome to the Enigma!");
-		
 		// Ask the user to set the input mode to file or keyboard
 		while (true) {
 			System.out.println("Please enter 1 to type your message or 2 to read from a file: ");
@@ -108,7 +115,6 @@ public class Enigma implements EnigmaApparatus {
 		// TODO - add logic to use OutputProcessor to publish results
 		
 		System.out.println("Your original message:" + plaintext);
-		System.out.println("Encoding...");
 		System.out.print("Your encoded message: ");
 		System.out.println(cyphertext);
 		inputScanner.close();
@@ -120,6 +126,7 @@ public class Enigma implements EnigmaApparatus {
 	 */
 	public static void main(String[] args) {
 		Enigma enigmaMachine = new Enigma();
+		enigmaMachine.introduceProgram();
 		enigmaMachine.configureInput();
 		enigmaMachine.processInput();
 		enigmaMachine.configureOutput();

@@ -5,9 +5,13 @@
  * Goal: To create a package-private class for managing the user interface screens/prompt/menus
  * Version  0.0.1   9/29/17
  * 			0.0.2	10/2/17		Add nested Errors class and displayErrorScreen() method
+ *          0.0.3   10/24/147   Implemented displayWelcomeScreen()
  */
 
 package utilities;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 class Screens {
 	
@@ -17,7 +21,38 @@ class Screens {
 	 * Display the initial prompt to the user when the program launches
 	 */
 	void displayWelcomeScreen() {
-		// TODO implement this
+		runIntro();
+		setEnigmaProgramMode();
+	}
+	
+	/*
+	 * Display the program introduction screen
+	 */
+	private void runIntro() {
+		System.out.println("Welcome to the Enigma!");
+		System.out.println("This program will allow you to encrypt a message to be shared with other users.");
+		System.out.println("This program will also allow you to decrypt a message received from other users.");
+		System.out.println();
+	}
+	
+	/*
+	 * Set up the Enigma to either encrypt or decrypt
+	 */
+	private void setEnigmaProgramMode() {
+		Scanner input = new Scanner(System.in);
+		int mode = 0;
+		while (mode != 1 && mode != 2) {
+			try {
+				System.out.print("Please enter 1 to encrypt a new message or 2 to decrypt an existing message: ");
+				mode = input.nextInt();
+				input.nextLine();
+			}
+			catch (InputMismatchException e) {
+				displayErrorScreen("input");
+				input.nextLine();
+			}
+		}
+		Config.setProgramMode(mode);
 	}
 	
 	/*
@@ -93,6 +128,8 @@ class Screens {
 		
 		void inputError() {
 			// TODO - build method to display Input Error Screen
+			System.out.println("Sorry, you have entered an invalid input.");
+			System.out.println();
 		}
 		
 		void outputError() {

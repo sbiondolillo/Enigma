@@ -4,6 +4,7 @@
  * CIS220M:HY1 Object Oriented Programming
  * Goal: To create a package-private class for storing configuration data and methods
  * Version  0.0.1   9/29/17
+ *          0.0.2   10/24/17 - Added static var programMode to allow user to set program to encrypt/decrypt
  */
 
 package utilities;
@@ -18,6 +19,7 @@ class Config {
 	private Path inputFilePath;
 	private Path outputFilePath;
 	private Rotor[] availableRotors;
+	private static int programMode;
 	
 	/*
 	 * Getters and setters for instance variables
@@ -36,6 +38,12 @@ class Config {
 	}
 	Rotor[] getAvailableRotors() {
 		return availableRotors;
+	}
+	static int getProgramMode() {
+		return programMode;
+	}
+	static void setProgramMode(int mode) {
+		programMode = mode;
 	}
 
 }
