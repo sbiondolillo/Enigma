@@ -9,6 +9,9 @@
 
 package utilities;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Utilities {        
 	
 	private Screens screenManager = new Screens();
@@ -22,23 +25,26 @@ public class Utilities {
             	// TODO - add additional cases as needed
                 case 0:		screenManager.displayWelcomeScreen();
                     break;
-                    
-                case 1:		screenManager.displayInputScreen();
+                
+                case 1:     screenManager.displayModeScreen();
                     break;
                     
-                case 2:		screenManager.displayOutputScreen();
+                case 2:		screenManager.displayInputScreen();
+                    break;
+                    
+                case 3:		screenManager.displayOutputScreen();
                     break;
                           
-                case 3:		screenManager.displayConfigScreen();
+                case 4:		screenManager.displayConfigScreen();
                     break;
                     
-                case 4:		screenManager.displayAboutScreen();
+                case 5:		screenManager.displayAboutScreen();
                     break;
                               
-                case 5:		screenManager.displayHelpScreen();
+                case 6:		screenManager.displayHelpScreen();
                     break;
                           
-                case 6:		screenManager.displayExitScreen();
+                case 7:		screenManager.displayExitScreen();
                     break;
                                     
                 default:	System.out.println("Sorry, that is not a valid code");
@@ -54,5 +60,13 @@ public class Utilities {
      */
     public void handleError(String type) {
     	screenManager.displayErrorScreen(type);
+    }
+    
+    public void setInputFilePath(String filePath) {
+    	Config.setInputFilePath(filePath);
+    }
+    
+    public String getInputFilePath() {
+    	return Config.getInputFilePath();
     }
 }

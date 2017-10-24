@@ -8,10 +8,14 @@
  * 							refactor user input to include correct methods from InputProcessor
  * 		   0.0.3 - 9/24/17	Adjust Enigma to utilize three rotors in series
  *         0.0.4 - 10/24/17 Add introduceProgram() method and related functionality
+ *                          Add selectProgramMode() method and related functionality
+ *                          Implement configureInput() and set up logic for building input file paths
  */
 
 package enigma;
 
+import java.io.File;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import interfaces.EnigmaApparatus;
 import rotors.RotorController;
@@ -19,14 +23,15 @@ import utilities.Utilities;
 
 public class Enigma implements EnigmaApparatus {
 	
-	private int inputMode;
-	private FileInputProcessor mainFileIO;
-	private KeyboardInputProcessor mainKeyboardIO;
 	private Scanner inputScanner = new Scanner(System.in);
 	private String plaintext = "";
 	private String cyphertext = "";
 	private RotorController rc = new RotorController();
 	private Utilities utility = new Utilities();
+	private int programMode = 1;
+	private int inputMode = 1;
+	private KeyboardInputProcessor keyboardIn;
+	private FileInputProcessor fileIn;
 	
 	/*
 	 * Set up rotors needed for encryption
@@ -37,10 +42,37 @@ public class Enigma implements EnigmaApparatus {
 	}
 	
 	/*
-	 * Introduce the program, set up encrypt/decrypt mode
+	 * Introduce the program
 	 */
 	public void introduceProgram() {
 		utility.load(0);
+	}
+	
+	/*
+	 * Set the program up to encrypt/decrypt
+	 */
+	public void selectProgramMode() {
+		utility.load(1);
+		setProgramMode();
+	}
+	
+	/*
+	 * Set up the Enigma to either encrypt (1) or decrypt (2)
+	 */
+	private void setProgramMode() {
+		int mode = 0;
+		while (mode != 1 && mode != 2) {
+			try {
+				System.out.print("Please enter 1 to encrypt a new message or 2 to decrypt an existing message: ");
+				mode = inputScanner.nextInt();
+				inputScanner.nextLine();
+			}
+			catch (InputMismatchException e) {
+				utility.handleError("input");
+				inputScanner.nextLine();
+			}
+		}
+		this.programMode = mode;
 	}
 	
 	/*
@@ -48,45 +80,86 @@ public class Enigma implements EnigmaApparatus {
 	 */
 	@Override
 	public void configureInput() {
-		// Ask the user to set the input mode to file or keyboard
-		while (true) {
-			System.out.println("Please enter 1 to type your message or 2 to read from a file: ");
-			inputMode = inputScanner.nextInt();
-			if (inputMode != 1 && inputMode != 2)
-				continue;
-			else
-				// Advance the Scanner so we can read lines after reading ints above
+		utility.load(2);
+		setInputMode();
+		if (inputMode == 2) {
+			setFilePath();
+		}
+	}
+	
+	/*
+	 * Set the input mode to file/keyboard based on user input
+	 */
+	private void setInputMode() {
+		int mode = 0;
+		while (mode < 1 || mode > 2) {
+			try {
+				System.out.println("Enter 1 to enter your message via the keyboard.");
+				System.out.println("Enter 2 to have the program read your message from a file on your system.");
+				mode = inputScanner.nextInt();
 				inputScanner.nextLine();
-				break;
-		}
-		
-		// Set up input processing based on inputMode
-		if (inputMode == 1) {
-			System.out.println("Please enter your message: ");
-			mainKeyboardIO = new KeyboardInputProcessor();
-			// Store off the message into the I/O object
-			mainKeyboardIO.readKeyBoardIn();
-			plaintext = mainKeyboardIO.getMessageIn();
-		} 
-		else {
-			System.out.print("Please enter the file path: ");
-			String filePath = inputScanner.nextLine();
-			try { 
-				mainFileIO = new FileInputProcessor(filePath);
-				// Store off the message into the I/O object
-				mainFileIO.readFileIn();
-				plaintext = mainFileIO.getMessageIn();
 			}
-			catch (NullPointerException e) {
-				// If file is inaccessible, offer to let the user type their message
-				System.out.println("Please type your message: ");
-				mainKeyboardIO = new KeyboardInputProcessor();
-				// Store off the message into the I/O object
-				mainKeyboardIO.readKeyBoardIn();
-				plaintext = mainKeyboardIO.getMessageIn();
+			catch (InputMismatchException e) {
+				utility.handleError("input");
+				inputScanner.nextLine();
 			}
 		}
-		
+		this.inputMode = mode;
+	}
+	
+	/*
+	 * Allow the user to enter their own file path for input
+	 */
+	private void setFilePath() {
+		System.out.println("OK, Please choose the drive where the file exists. The following drives are available:");
+		File[] paths = File.listRoots();
+		for (File path:paths) {
+			System.out.println(path);
+		}
+		System.out.print("Please enter your drive selection: ");
+		String drive = inputScanner.nextLine();
+		System.out.println("OK, now please enter the location of the file on " + drive);
+		String path = inputScanner.nextLine();
+		String filePath = drive + path;
+		utility.setInputFilePath(filePath);
+	}
+	/*
+	 * Read the message into the InputProcessor
+	 */
+	public void readInput() {
+		if (inputMode == 1)
+			readKeyboardInput();
+		else
+			readFileInput();
+	}
+	
+	/*
+	 * Read the message into the KeyboardInputProcessor
+	 */
+	private void readKeyboardInput() {
+		// Build the InputProcessor
+		keyboardIn = new KeyboardInputProcessor();
+		// Get the message from the user
+		System.out.println("Please enter your message: ");
+		// Store off the message into the InputProcessor
+		keyboardIn.readKeyBoardIn();
+		plaintext = keyboardIn.getMessageIn();
+	}
+	
+	/*
+	 * Read the message into the FileInputProcessor
+	 */
+	private void readFileInput() {
+		try { 
+			// Build the InputProcessor
+			fileIn = new FileInputProcessor(utility.getInputFilePath());
+			// Store off the message
+			fileIn.readFileIn();
+			plaintext = fileIn.getMessageIn();
+		}
+		catch (NullPointerException e) {
+			utility.handleError("file");
+		}
 	}
 	
 	/*
@@ -94,8 +167,12 @@ public class Enigma implements EnigmaApparatus {
 	 */
 	@Override
 	public void processInput() {
-		// encrypt the input message
-		cyphertext = rc.encode(plaintext);		
+		if (programMode == 1)
+			// encrypt
+			cyphertext = rc.encode(plaintext);	
+		else
+			// decrypt
+			cyphertext = rc.decode(plaintext);
 		
 	}
 	
@@ -127,7 +204,9 @@ public class Enigma implements EnigmaApparatus {
 	public static void main(String[] args) {
 		Enigma enigmaMachine = new Enigma();
 		enigmaMachine.introduceProgram();
+		enigmaMachine.selectProgramMode();
 		enigmaMachine.configureInput();
+		enigmaMachine.readInput();
 		enigmaMachine.processInput();
 		enigmaMachine.configureOutput();
 		enigmaMachine.publishResults();
