@@ -260,6 +260,7 @@ class Screens {
 		
 		Config.setFileIn(new FileInputProcessor(Config.getInputFilePath()));
 		Config.getFileIn().readFileIn();
+		Config.setPlainText(Config.getFileIn().getMessageIn());
 		
 	}
 	
