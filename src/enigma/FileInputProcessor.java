@@ -8,6 +8,7 @@
  *                           refactored code to reflect new responsibilities
  *         0.0.3 - 10/20/17 - Refactored from InputProcessor into 2 classes: FileInputProcessor, KeyboardInputProcessor
  *                            renamed & refactored file input method
+ *         0.0.4 - 10/24/17 - Incorporated Utilities class error handling
  */
 
 package enigma;
@@ -16,11 +17,13 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 import interfaces.*;
+import utilities.Utilities;
 
 public class FileInputProcessor implements FileInput {
 
 	private String messageIn = "";
 	private Scanner fileScanner;
+	private Utilities utility = new Utilities();
 	
 	
 	/*
@@ -32,7 +35,7 @@ public class FileInputProcessor implements FileInput {
 			fileScanner = new Scanner(Paths.get(filePath));
 		}
 		catch (IOException e) {
-			System.out.println("Unable to access file: " + e);
+			utility.handleError("file");
 		}
 	}
 	

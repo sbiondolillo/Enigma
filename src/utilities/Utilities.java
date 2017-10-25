@@ -5,12 +5,10 @@
  * Goal: To create a public class for managing access to sensitive program utilities
  * Version  0.0.1   9/29/17
  * 			0.0.2	10/2/17		fill in load() method, add handleError() method
+ *          0.0.2   10/24/17    adjusted load() method to prioritize most used methods
  */
 
 package utilities;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Utilities {        
 	
@@ -29,19 +27,19 @@ public class Utilities {
                 case 1:     screenManager.displayModeScreen();
                     break;
                     
-                case 2:		screenManager.displayInputScreen();
+                case 2:		screenManager.displayMainMenuScreen();
                     break;
                     
-                case 3:		screenManager.displayOutputScreen();
+                case 3:		screenManager.displayInputScreen();
                     break;
                           
-                case 4:		screenManager.displayConfigScreen();
+                case 4:		screenManager.displayOutputScreen();
                     break;
                     
-                case 5:		screenManager.displayAboutScreen();
+                case 5:		screenManager.displayConfigScreen();
                     break;
                               
-                case 6:		screenManager.displayHelpScreen();
+                case 6:		screenManager.displayAboutScreen();
                     break;
                           
                 case 7:		screenManager.displayExitScreen();
@@ -60,13 +58,5 @@ public class Utilities {
      */
     public void handleError(String type) {
     	screenManager.displayErrorScreen(type);
-    }
-    
-    public void setInputFilePath(String filePath) {
-    	Config.setInputFilePath(filePath);
-    }
-    
-    public String getInputFilePath() {
-    	return Config.getInputFilePath();
     }
 }
