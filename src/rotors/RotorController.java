@@ -4,6 +4,7 @@
  * CIS220M:HY1 Object Oriented Programming
  * Goal: Create an object which manages multiple-rotor encoding/decoding in the Enigma program
  * Version	0.0.1	10/4/17
+ *          0.0.2   10/24/17 - add getActiveRotors() method
  */
 
 package rotors;
@@ -42,6 +43,13 @@ public class RotorController implements RotationManager{
 	public void setActiveRotors(Rotor rotor1, int index1, Rotor rotor2, int index2, Rotor rotor3, 
 								int index3, Rotor rotor4, int index4, Rotor rotor5, int index5) {
 		// TODO Set this up if we ever allow the user to manipulate the Rotor configuration	
+	}
+	
+	/*
+	 * Return an array of active rotors
+	 */
+	public Rotor[] getActiveRotors() {
+		return activeRotors;
 	}
 
 	/*
