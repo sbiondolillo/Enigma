@@ -9,11 +9,8 @@
     </Console> 
   </Appenders> 
   <Loggers> 
-    <Logger name="enigma" level="debug" additivity="false"> 
-    	<AppenderRef ref="FileLogger"/>
-    	<AppenderRef ref="STDOUT"/> 
-    </Logger>
-    <Root level="trace"> 
+    <Root level="debug" additivity="false"> 
+      <AppenderRef ref="FileLogger"/>	
       <AppenderRef ref="STDOUT"/> 
     </Root> 
   </Loggers> 

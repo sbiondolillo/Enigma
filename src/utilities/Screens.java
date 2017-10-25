@@ -5,8 +5,10 @@
  * Goal: To create a package-private class for managing the user interface screens/prompt/menus
  * Version  0.0.1   9/29/17
  * 			0.0.2	10/2/17		Add nested Errors class and displayErrorScreen() method
- *          0.0.3   10/24/147   Moved most of the functionality from Enigma class to this class
+ *          0.0.3   10/24/17    Moved most of the functionality from Enigma class to this class
  *                              Built out most methods, built stubs for the incomplete methods
+ *          0.0.4   10/25/17    Add log4j2 Logger into class
+ *                              Add debugging statements for Logger
  */
 
 package utilities;
@@ -14,6 +16,10 @@ package utilities;
 import java.io.File;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import enigma.Dictionary;
 import enigma.FileInputProcessor;
 import enigma.KeyboardInputProcessor;
@@ -23,16 +29,19 @@ import rotors.RotorController;
 class Screens {
 	
 	private Errors errorHandler = new Errors();
-	Scanner input = new Scanner(System.in);
-	RotorController rc = new RotorController();
+	private Scanner input = new Scanner(System.in);
+	private RotorController rc = new RotorController();
+	private final static Logger logger = LogManager.getLogger(Screens.class.getName());
 	
 	/*
 	 * Display the initial prompt to the user when the program launches
 	 * Forward the user to the help menu to make an initial selection
 	 */
 	void displayWelcomeScreen() {
-		
+		logger.debug("Running displayWelcomeScreen()");
+		logger.debug("Calling runWelcomeIntro()");
 		runWelcomeIntro();
+		logger.debug("displayWelcomeScreen() completed successfully");
 	}
 	
 	/*
@@ -40,10 +49,14 @@ class Screens {
 	 */
 	private void runWelcomeIntro() {
 		
+		logger.debug("Running runWelcomeIntro()");
+		
 		System.out.println("Welcome to the Enigma!");
 		System.out.println("This program will allow you to encrypt a message to be shared with other users.");
 		System.out.println("This program will also allow you to decrypt a message received from other users.");
 		System.out.println();
+		
+		logger.debug("runWelcomeIntro() completed successfully");
 		
 	}
 	
@@ -54,9 +67,18 @@ class Screens {
 	 */
 	void displayMainMenuScreen() {
 		
+		logger.debug("Running displayMainMenuScreen()");
+		
+		logger.debug("Calling showProgramOptions()");
 		showProgramOptions();
+		
+		logger.debug("Calling getProgramSelection()");
 		int selection = getProgramSelection();
+		
+		logger.debug("Calling displaySelectedScreen({})", selection);
 		displaySelectedScreen(selection);
+		
+		logger.debug("displayMainMenuScreen() completed successfully");
 		
 	}
 	
@@ -64,6 +86,8 @@ class Screens {
 	 * Display the list of program options
 	 */
 	private void showProgramOptions() {
+		
+		logger.debug("Running showProgramOptions()");
 		
 		System.out.println("Welcome to the Main menu!");
 		System.out.println("Enter 1 to select encrypt or decrypt mode");
@@ -75,12 +99,16 @@ class Screens {
 		System.out.println("Enter 7 to view general information about the Enigma");
 		System.out.println("Enter 8 to quit the program");
 		
+		logger.debug("showProgramOptions() completed successfully");
+		
 	}
 	
 	/*
 	 * Get the user's selection from the Main Menu screen
 	 */
 	private int getProgramSelection() {
+		
+		logger.debug("Running getProgramSelection()");
 		
 		int selection = 0;
 		while (selection < 1 || selection > 8) {
@@ -90,10 +118,16 @@ class Screens {
 				input.nextLine();
 			}
 			catch (InputMismatchException e) {
+				logger.error("Input error in getProgramSelection(): {}", e.getClass());
+				
+				logger.debug("Calling displayErrorScreen(input)");
 				displayErrorScreen("input");
+				
 				input.nextLine();
 			}
 		}
+		logger.debug("getProgramSelection() completed successfully with screen #{} selected", selection);
+		
 		return selection;
 		
 	}
@@ -104,26 +138,41 @@ class Screens {
 	 */
 	private void displaySelectedScreen(int selection) {
 		
+		logger.debug("Running displaySelectedScreen({})", selection);
+		
 		switch (selection) {
-			case 1: displayModeScreen();
+			case 1: logger.debug("Calling displayModeScreen()");
+					displayModeScreen();
 					break;
-			case 2: displayInputScreen();
+			case 2: logger.debug("Calling displayInputScreen()");
+					displayInputScreen();
 					break;
-			case 3: displayOutputScreen();
+			case 3: logger.debug("Calling displayOutputScreen()");
+					displayOutputScreen();
 					break;
-			case 4: displayResultsScreen();
+			case 4: logger.debug("Calling displayResultsScreen()");
+					displayResultsScreen();
 					break;
-			case 5: displayValidCharScreen();
+			case 5: logger.debug("Calling displayValidCharScreen()");
+					displayValidCharScreen();
 					break;
-			case 6: displayConfigScreen();
+			case 6: logger.debug("Calling displayConfigScreen()");
+					displayConfigScreen();
 					break;
-			case 7: displayAboutScreen();
+			case 7: logger.debug("Calling displayAboutScreen()");
+					displayAboutScreen();
 					break;
-			case 8: displayExitScreen();
+			case 8: logger.debug("Calling displayExitScreen()");
+					displayExitScreen();
 					break;
-			default: System.out.println("Oops, something went wrong.");
+			default: logger.debug("Running displaySelectedScreen() default case");
+					 System.out.println("Oops, something went wrong.");
+					 
+					 logger.debug("Calling exitToMainMenu() from displaySelectedScreen({})", selection);
 					 exitToMainMenu();
 		}
+		logger.debug("displaySelectedScreen({}) completed successfully", selection);
+		
 	}
 	
 	/*
@@ -131,8 +180,12 @@ class Screens {
 	 */
 	private void exitToMainMenu() {
 		
+		logger.debug("Running exitToMainMenu()");
+		
 		System.out.println("OK, we're all set. You will now be directed back to the Main Menu.");
 		System.out.println();
+		
+		logger.debug("exitToMainMenu() completed successfully");
 		
 	}
 	
@@ -142,9 +195,18 @@ class Screens {
 	 */
 	void displayModeScreen() {
 		
+		logger.debug("Running displayModeScreen()");
+		
+		logger.debug("Calling runModeIntro()");
 		runModeIntro();
+		
+		logger.debug("Calling runModeIntro()");
 		setProgramMode();
+		
+		logger.debug("Calling exitToMainMenu() from displayModeScreen()");
 		exitToMainMenu();
+		
+		logger.debug("displayModeScreen() completed successfully");
 		
 	}
 	
