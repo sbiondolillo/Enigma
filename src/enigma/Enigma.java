@@ -10,16 +10,20 @@
  *         0.0.4 - 10/24/17 Add introduceProgram() method and related functionality
  *                          Add runMainMenu() method and related functionality
  *                          Move all other functionality out of this main class
+ *         0.0.5 - 10/25/17 Add log4j2 logging framework into project
  */
 
 package enigma;
 
 import interfaces.EnigmaApparatus;
 import utilities.Utilities;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class Enigma implements EnigmaApparatus {
 	
 	private Utilities utility = new Utilities();
+	private final static Logger logger = LogManager.getLogger(Enigma.class.getName());
 	
 	/*
 	 * Introduce the program
@@ -81,14 +85,18 @@ public class Enigma implements EnigmaApparatus {
 	 */
 	public static void main(String[] args) {
 		
+		logger.debug("Starting program");
+		logger.debug("Building new Enigma");
 		// Initialize a new Enigma
 		Enigma enigmaMachine = new Enigma();
 		
+		logger.debug("Introducing the program");
 		// Run the program introduction
 		enigmaMachine.introduceProgram();
 		
 		// Allow the user to navigate the menus until they quit
 		while (true) {
+			logger.debug("Running the Main Menu");
 			enigmaMachine.runMainMenu();
 		}
 	}
