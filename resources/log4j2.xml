@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <Configuration> 
-  <Appenders> 
+  <Appenders> 	
   	<File name="FileLogger" fileName="resources/logs/Debug.log" append="false"> 
       <PatternLayout pattern="%d %t %-5p %c{2} - %m%n"/> 
     </File>
@@ -10,8 +10,8 @@
   </Appenders> 
   <Loggers> 
     <Root level="debug" additivity="false"> 
-      <AppenderRef ref="FileLogger"/>	
-      <AppenderRef ref="STDOUT"/> 
+      <AppenderRef ref="FileLogger" level="debug"/>	
+      <AppenderRef ref="STDOUT" level="error"/> 
     </Root> 
   </Loggers> 
 </Configuration>
