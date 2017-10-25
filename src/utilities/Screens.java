@@ -215,10 +215,14 @@ class Screens {
 	 */
 	private void runModeIntro() {
 		
+		logger.debug("Running runModeIntro()");
+		
 		System.out.println("Welcome to the Mode Select menu!");
 		System.out.println();
 		System.out.println("From here, you can decide if you want to encrypt a new message to be shared");
 		System.out.println("or decrypt a message you received from another user.");
+		
+		logger.debug("runModeIntro() completed successfully");
 		
 	}
 	
@@ -226,6 +230,8 @@ class Screens {
 	 * Set up the Enigma to either encrypt (1) or decrypt (2)
 	 */
 	private void setProgramMode() {
+		
+		logger.debug("Running setProgramMode()");
 		
 		int mode = 0;
 		while (mode != 1 && mode != 2) {
@@ -235,12 +241,18 @@ class Screens {
 				input.nextLine();
 			}
 			catch (InputMismatchException e) {
+				logger.error("Input error in setProgramMode(): {}", e.getClass());
+				
+				logger.debug("Calling displayErrorScreen(input)");
 				displayErrorScreen("input");
+				
 				input.nextLine();
 			}
 		}
+		logger.debug("Running Config.setProgramMode({})", mode);
 		Config.setProgramMode(mode);
 		
+		logger.debug("setProgramMode() completed successfully with programMode set to {}", mode);
 	}
 	
 	/*
