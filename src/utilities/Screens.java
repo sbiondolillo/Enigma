@@ -66,7 +66,6 @@ class Screens {
 	private void showProgramOptions() {
 		
 		System.out.println("Welcome to the Main menu!");
-		System.out.println("Here is a list of available options:");
 		System.out.println("Enter 1 to select encrypt or decrypt mode");
 		System.out.println("Enter 2 to configure your input settings");
 		System.out.println("Enter 3 to configure your output settings");
