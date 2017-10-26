@@ -157,18 +157,18 @@ public class Dictionary implements CharacterSet{
 	@Override
 	public boolean contains(Character test) {
 		
-		logger.debug("Running Dictionary.contains()");
+		logger.debug("Running Dictionary.contains({})", test);
 		
 		for (int i = 0; i < this.length; i++) {
 			if (test == dictionary[i]) {
 				
-				logger.debug("Dictionary.contains() completed successfully, returned true");
+				logger.debug("Dictionary.contains({}) completed successfully, returned true", test);
 				return true;
 				
 			}
 		}
 		
-		logger.debug("Dictionary.contains() completed successfully, returned false");
+		logger.debug("Dictionary.contains({}) completed successfully, returned false", test);
 		return false;
 		
 	}
