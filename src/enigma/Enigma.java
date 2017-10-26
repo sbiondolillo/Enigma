@@ -31,8 +31,10 @@ public class Enigma implements EnigmaApparatus {
 	 * Introduce the program
 	 */
 	private void introduceProgram() {
+		
 		logger.debug("Running introduceProgram()");
 		utility.load(0);
+		
 		logger.debug("introduceProgram() completed successfully");
 	}
 	
@@ -40,8 +42,10 @@ public class Enigma implements EnigmaApparatus {
 	 * Display the Main Menu which directs the flow of the program
 	 */
 	private void runMainMenu() {
+		
 		logger.debug("Running runMainMenu()");
 		utility.load(2);
+		
 		logger.debug("runMainMenu() completed successfully");
 	}
 	
@@ -92,19 +96,21 @@ public class Enigma implements EnigmaApparatus {
 	public static void main(String[] args) {
 		
 		logger.debug("Starting program");
+		
 		logger.debug("Building new Enigma()");
-		// Initialize a new Enigma
 		Enigma enigmaMachine = new Enigma();
+		
 		logger.debug("new Enigma() built successfully");
 		
 		logger.debug("Calling enigmaMachine.introduceProgram()");
-		// Run the program introduction
 		enigmaMachine.introduceProgram();
 		
 		// Allow the user to navigate the menus until they quit
 		while (true) {
+			
 			logger.debug("Calling enigmaMachine.runMainMenu()");
 			enigmaMachine.runMainMenu();
+			
 		}
 	}
 
