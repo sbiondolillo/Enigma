@@ -9,6 +9,7 @@
  *         0.0.4	9/24/17		Added a variable to store the notch position for use in multi-rotor setups
  *         					 	Added a constructor which sets the notch position
  *         0.0.5	10/4/17		Removed rotate() from encode() method logic
+ *         0.0.6    10/26/17    Adjusted encode to cache dictionary length
  */
 
 package rotors;
@@ -87,7 +88,8 @@ public class Rotor implements RotaryEncryptor {
 	public Character encode(Character plaintext) {
 		if (validCharacters.contains(plaintext)) {
 			int currentIndex = index;
-			int finalIndex = (currentIndex + validCharacters.indexOf(plaintext)) % validCharacters.length();
+			int dictionaryLength = validCharacters.length();
+			int finalIndex = (currentIndex + validCharacters.indexOf(plaintext)) % dictionaryLength;
 			Character cyphertext = validCharacters.charAt(finalIndex);
 			return cyphertext;
 		} else {
