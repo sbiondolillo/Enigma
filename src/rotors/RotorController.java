@@ -7,7 +7,7 @@
  *          0.0.2   10/24/17 Add getActiveRotors() method
  *          0.0.3   10/27/17 Add log4j2 Logger into class
  *                           Add debugging statements for Logger
- *                           Refactor initializtion
+ *                           Refactor initialization
  */
 
 package rotors;
@@ -211,7 +211,7 @@ public class RotorController implements RotationManager{
 	 */
 	private void buildDecoder() {
 		
-		logger.debug("Running buildDecoder");
+		logger.debug("Running buildDecoder()");
 		
 		logger.debug("Calling new Rotor()");
 		decoder = new Rotor();
