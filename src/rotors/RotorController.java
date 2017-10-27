@@ -4,10 +4,15 @@
  * CIS220M:HY1 Object Oriented Programming
  * Goal: Create an object which manages multiple-rotor encoding/decoding in the Enigma program
  * Version	0.0.1	10/4/17
- *          0.0.2   10/24/17 - add getActiveRotors() method
+ *          0.0.2   10/24/17 Add getActiveRotors() method
+ *          0.0.3   10/27/17 Add log4j2 Logger into class
+ *                           Add debugging statements for Logger 
  */
 
 package rotors;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import interfaces.RotationManager;
 
@@ -15,13 +20,21 @@ public class RotorController implements RotationManager{
 	
 	private Rotor[] activeRotors = new Rotor[5];
 	private Rotor decoder = new Rotor();
+	private final static Logger logger = LogManager.getLogger(RotorController.class.getName());
 	
 	/*
 	 * Constructor
 	 * builds a pre-defined Rotor[5] as well as the decoder Rotor
 	 */
 	public RotorController() {
+		
+		logger.debug("Running RotorController()");
+		
+		logger.debug("Calling buildRotorArray()");
 		buildRotorArray();
+		
+		logger.debug("RotorController() completed successfully");
+		
 	}
 	
 	/*
@@ -32,8 +45,15 @@ public class RotorController implements RotationManager{
 	 * assumes the activeRotors already have their indexes set
 	 */
 	public RotorController(Rotor[] activeRotors) {
+		
+		logger.debug("Running RotorController(Rotor[] activeRotors)");
+		
 		this.activeRotors = activeRotors;
-		setDecoder();		
+		
+		logger.debug("Calling setDecoder()");
+		setDecoder();
+		
+		logger.debug("RotorController(Rotor[] activeRotors) completed successfully");
 	}
 	
 	/*
@@ -49,7 +69,12 @@ public class RotorController implements RotationManager{
 	 * Return an array of active rotors
 	 */
 	public Rotor[] getActiveRotors() {
+		
+		logger.debug("Running getActiveRotors()");
+		
+		logger.debug("getActiveRotors() completed successfully, returning {}", (Object)activeRotors);
 		return activeRotors;
+		
 	}
 
 	/*
@@ -57,14 +82,27 @@ public class RotorController implements RotationManager{
 	 */
 	@Override
 	public String encode(String plaintext) {
+		
+		logger.debug("Running encode(plaintext)");
+		
+		logger.debug("Building output String");
 		String output = "";
+		
+		logger.debug("Encoding plaintext using activeRotors[]");
 		for (char c: plaintext.toCharArray()) {
+			
 			char out = activeRotors[4].encode(activeRotors[3].encode(activeRotors[2].
 						encode(activeRotors[1].encode(activeRotors[0].encode(c)))));
 			output += out;
+			
 		}
+		logger.debug("Encoding plaintext using activeRotors[] completed successfully");
+		
 		System.out.println("Encoding...");
+		
+		logger.debug("encode(plaintext) completed successfully");
 		return output;
+		
 	}
 	
 	/*
@@ -72,12 +110,24 @@ public class RotorController implements RotationManager{
 	 */
 	@Override
 	public String decode(String cyphertext) {
+		
+		logger.debug("Running decode(cyphertext)");
+		
+		logger.debug("Building output String");
 		String output = "";
+		
+		logger.debug("Decoding cyphertext using decoder");
 		for (char c: cyphertext.toCharArray()) {
+			
 			char out = decoder.encode(c);
 			output += out;
+			
 		}
+		logger.debug("Decoding cyphertext using decoder completed successfully");
+		
 		System.out.println("Decoding...");
+		
+		logger.debug("decode(cyphertext) completed successfully");
 		return output;
 	}
 
@@ -95,24 +145,58 @@ public class RotorController implements RotationManager{
 	 * also create the default decoder Rotor base on the initial Rotor indexes
 	 */
 	private void buildRotorArray() {
-		// manually set each of the 5 Rotors
+		
+		logger.debug("Running buildRotorArray()");
+		
+		logger.debug("Calling new Rotor()");
 		Rotor r1 = new Rotor();
+		
+		logger.debug("Calling setIndex(3)");
 		r1.setIndex(3);
+		
+		logger.debug("Assigning new Rotor() to activeRotors[]");
 		activeRotors[0] = r1;
+		
+		logger.debug("Calling new Rotor()");
 		Rotor r2 = new Rotor();
+		
+		logger.debug("Calling setIndex(17)");
 		r2.setIndex(17);
+		
+		logger.debug("Assigning new Rotor() to activeRotors[]");
 		activeRotors[1] = r2;
+		
+		logger.debug("Calling new Rotor()");
 		Rotor r3 = new Rotor();
+		
+		logger.debug("Calling setIndex(31)");
 		r3.setIndex(31);
+		
+		logger.debug("Assigning new Rotor() to activeRotors[]");
 		activeRotors[2] = r3;
+		
+		logger.debug("Calling new Rotor()");
 		Rotor r4 = new Rotor();
+		
+		logger.debug("Calling setIndex(37)");
 		r4.setIndex(37);
+		
+		logger.debug("Assigning new Rotor() to activeRotors[]");
 		activeRotors[3] = r4;
+		
+		logger.debug("Calling new Rotor()");
 		Rotor r5 = new Rotor();
+		
+		logger.debug("Calling setIndex(43)");
 		r5.setIndex(43);
+		
+		logger.debug("Assigning new Rotor() to activeRotors[]");
 		activeRotors[4] = r5;
-		// set the decoder
+		
+		logger.debug("Calling setDecoder()");
 		setDecoder();
+		
+		logger.debug("buildRotorArray() completed successfully");
 		
 	}
 	
@@ -122,17 +206,28 @@ public class RotorController implements RotationManager{
 	 * as well as the length of the dictionary used in the Rotors
 	 */
 	private void setDecoder() {
+		
+		logger.debug("Running setDecoder");
+		
 		int totalOffset = 0;
 		int decodeOffset;
+		
+		logger.debug("Caching dictionary length");
 		int dictionaryLength = activeRotors[0].getValidCharacters().length();
-		// add up all of the shifts in the Rotor[]
+		
+		logger.debug("Summing Rotor indexes");
 		for (Rotor r: activeRotors) {
 			totalOffset += r.getIndex();
 		}
-		// figure out the complementary offset
+		
+		logger.debug("Calculating decoder index");
 		decodeOffset = dictionaryLength - (totalOffset % dictionaryLength);
-		// set the decoder with the correct offset
+		
+		logger.debug("Calling setIndex({})", decodeOffset);
 		decoder.setIndex(decodeOffset);
+		
+		logger.debug("setDecoder() completed successfully");
+		
 	}
 
 }
