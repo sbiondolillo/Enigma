@@ -95,11 +95,11 @@ public class Rotor implements RotaryEncryptor {
 	@Override
 	public void setIndex(int index) {
 		
-		logger.debug("Running setIndex()");
+		logger.debug("Running setIndex({})", index);
 		
 		this.index = index;
 		
-		logger.debug("setIndex() completed successfully, index set to {}", index);
+		logger.debug("setIndex({}) completed successfully", index);
 		
 	}
 	@Override
