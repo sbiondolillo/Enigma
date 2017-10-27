@@ -9,6 +9,9 @@
  *         0.0.3 - 10/20/17 - Refactored from InputProcessor into 2 classes: FileInputProcessor, KeyboardInputProcessor
  *                            renamed & refactored file input method
  *         0.0.4 - 10/24/17 - Incorporated Utilities class error handling
+ *         0.0.5 - 10/26/17 - Add log4j2 Logger into class
+ *                            Add debugging statements for Logger
+ *                            Removed Utilities instance variable
  */
 
 package enigma;
@@ -16,6 +19,10 @@ package enigma;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import interfaces.*;
 import utilities.Utilities;
 
@@ -23,7 +30,7 @@ public class FileInputProcessor implements FileInput {
 
 	private String messageIn = "";
 	private Scanner fileScanner;
-	private Utilities utility = new Utilities();
+	private final static Logger logger = LogManager.getLogger(FileInputProcessor.class.getName());
 	
 	
 	/*
@@ -31,23 +38,46 @@ public class FileInputProcessor implements FileInput {
 	 * @param filePath - String containing any valid file path
 	 */
 	public FileInputProcessor(String filePath) {
+		
+		logger.debug("Running FileInputProcessor({})", filePath);
+		
 		try {
+			
+			logger.debug("Building Scanner for {}", filePath);
 			fileScanner = new Scanner(Paths.get(filePath));
+			
 		}
 		catch (IOException e) {
-			utility.handleError("file");
+			
+			logger.error("File error in FileInputProcessor({}): {}", filePath, e.getClass());
+			
+			logger.debug("Calling Utilities.handleError(file)");
+			Utilities.handleError("file");
 		}
+		
+		logger.debug("FileInputProcessor({}) completed successfully", filePath);
+		
 	}
 	
 	/*
 	 * Getters for instance variables
 	 */
 	public String getMessageIn() {
+		
+		logger.debug("Running getMessageIn()");
+		
+		logger.debug("getMessageIn() completed successfully");
 		return messageIn;
+		
 	}
 	@Override
 	public Scanner getFileScanner() {
+		
+		logger.debug("Running getFileScanner()");
+		
+		logger.debug("getFileScanner() completed successfully");
 		return fileScanner;
+		
 	}
 	
 	/*
@@ -55,9 +85,14 @@ public class FileInputProcessor implements FileInput {
 	 */
 	@Override
 	public void readFileIn() {
+		
+		logger.debug("Running readFileIn()");
+		
 		while (fileScanner.hasNextLine()) {
 			messageIn += fileScanner.nextLine();
 		}
+		
+		logger.debug("readFileIn() completed successfully");
 	}
 	
 
