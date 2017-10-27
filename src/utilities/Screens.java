@@ -219,8 +219,8 @@ class Screens {
 		logger.debug("Calling runModeIntro()");
 		runModeIntro();
 		
-		logger.debug("Calling setProgramMode()");
-		setProgramMode();
+		logger.debug("Calling selectProgramMode()");
+		selectProgramMode();
 		
 		logger.debug("Calling exitToMainMenu() from displayModeScreen()");
 		exitToMainMenu();
@@ -248,9 +248,9 @@ class Screens {
 	/*
 	 * Set up the Enigma to either encrypt (1) or decrypt (2)
 	 */
-	private void setProgramMode() {
+	private void selectProgramMode() {
 		
-		logger.debug("Running setProgramMode()");
+		logger.debug("Running selectProgramMode()");
 		
 		int mode = 0;
 		while (mode != 1 && mode != 2) {
@@ -276,7 +276,7 @@ class Screens {
 		logger.debug("Calling Config.setProgramMode({})", mode);
 		Config.setProgramMode(mode);
 		
-		logger.debug("setProgramMode() completed successfully with programMode set to {}", mode);
+		logger.debug("selectProgramMode() completed successfully");
 		
 	}
 	
