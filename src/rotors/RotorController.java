@@ -18,8 +18,8 @@ import interfaces.RotationManager;
 
 public class RotorController implements RotationManager{
 	
-	private Rotor[] activeRotors = new Rotor[5];
-	private Rotor decoder = new Rotor();
+	private Rotor[] activeRotors;
+	private Rotor decoder;
 	private final static Logger logger = LogManager.getLogger(RotorController.class.getName());
 	
 	/*
@@ -50,8 +50,8 @@ public class RotorController implements RotationManager{
 		
 		this.activeRotors = activeRotors;
 		
-		logger.debug("Calling setDecoder()");
-		setDecoder();
+		logger.debug("Calling buildDecoder()");
+		buildDecoder();
 		
 		logger.debug("RotorController(Rotor[] activeRotors) completed successfully");
 	}
@@ -193,8 +193,8 @@ public class RotorController implements RotationManager{
 		logger.debug("Assigning new Rotor() to activeRotors[]");
 		activeRotors[4] = r5;
 		
-		logger.debug("Calling setDecoder()");
-		setDecoder();
+		logger.debug("Calling buildDecoder()");
+		buildDecoder();
 		
 		logger.debug("buildRotorArray() completed successfully");
 		
@@ -205,9 +205,12 @@ public class RotorController implements RotationManager{
 	 * offset is based on the total offset of the encoding Rotors
 	 * as well as the length of the dictionary used in the Rotors
 	 */
-	private void setDecoder() {
+	private void buildDecoder() {
 		
 		logger.debug("Running setDecoder");
+		
+		logger.debug("Calling new Rotor()");
+		decoder = new Rotor();
 		
 		int totalOffset = 0;
 		int decodeOffset;
