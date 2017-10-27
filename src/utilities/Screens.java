@@ -263,7 +263,7 @@ class Screens {
 			}
 			catch (InputMismatchException e) {
 				
-				logger.error("Input error in setProgramMode(): {}", e.getClass());
+				logger.error("Input error in selectProgramMode(): {}", e.getClass());
 				
 				logger.debug("Calling displayErrorScreen(input)");
 				displayErrorScreen("input");
@@ -292,8 +292,8 @@ class Screens {
 		logger.debug("Calling runInputInro()");
 		runInputIntro();
 		
-		logger.debug("Calling setInputMode()");
-		setInputMode();
+		logger.debug("Calling selectInputMode()");
+		selectInputMode();
 		
 		if (Config.getInputMode() == 2) {
 			
@@ -337,9 +337,9 @@ class Screens {
 	/*
 	 * Set the input mode to file/keyboard based on user input
 	 */
-	private void setInputMode() {
+	private void selectInputMode() {
 		
-		logger.debug("Running setInputMode()");
+		logger.debug("Running selectInputMode()");
 		
 		int mode = 0;
 		while (mode < 1 || mode > 2) {
@@ -353,7 +353,7 @@ class Screens {
 			}
 			catch (InputMismatchException e) {
 				
-				logger.error("Input error in setInputMode(): {}", e.getClass());
+				logger.error("Input error in selectInputMode(): {}", e.getClass());
 				
 				logger.debug("Calling displayErrorScreen(input)");
 				displayErrorScreen("input");
@@ -366,7 +366,7 @@ class Screens {
 		logger.debug("Calling Config.setInputMode({})", mode);
 		Config.setInputMode(mode);
 		
-		logger.debug("setInputMode() completed successfully with inputMode set to {}", mode);
+		logger.debug("selectInputMode() completed successfully");
 		
 	}
 	
