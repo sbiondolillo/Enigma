@@ -8,6 +8,7 @@
  *          0.0.2   10/24/17    adjusted load() method to prioritize most used methods
  *          0.0.3   10/25/17    Add log4j2 Logger into class
  *                              Add debugging statements for Logger
+ *          0.0.4   10/26/17    Converted handleError() to static
  */
 
 package utilities;
@@ -78,10 +79,10 @@ public class Utilities {
      * @param type - a String of a valid pre-defined error type
      * See Errors class for valid types
      */
-    public void handleError(String type) {
+    public static void handleError(String type) {
     	
     	logger.error("Running handleError({})", type);
-    	screenManager.displayErrorScreen(type);
+    	Screens.displayErrorScreen(type);
     	
     	logger.error("handleError({}) completed successfully", type);
     	

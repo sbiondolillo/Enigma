@@ -9,6 +9,7 @@
  *                              Built out most methods, built stubs for the incomplete methods
  *          0.0.4   10/25/17    Add log4j2 Logger into class
  *                              Add debugging statements for Logger
+ *          0.0.5   10/26/17    Converted Errors class to static
  */
 
 package utilities;
@@ -28,7 +29,6 @@ import rotors.RotorController;
 
 class Screens {
 	
-	private Errors errorHandler = new Errors();
 	private Scanner input = new Scanner(System.in);
 	private RotorController rc = new RotorController();
 	private final static Logger logger = LogManager.getLogger(Screens.class.getName());
@@ -591,26 +591,26 @@ class Screens {
 	/*
 	 * Display an error message appropriate to the type of error
 	 */
-	void displayErrorScreen(String type) {
+	static void displayErrorScreen(String type) {
 		
 		logger.debug("Running displayErrorScreen({})", type);
 		// these are place-holders, will need to be updated to match final design
 		switch (type) {
 		
-			case "file":	logger.debug("Calling errorHandler.fileError()");
-							errorHandler.fileError();
+			case "file":	logger.debug("Calling Errors.fileError()");
+							Errors.fileError();
 							break;
 							
-			case "config":	logger.debug("Calling errorHandler.configError()");
-							errorHandler.configError();
+			case "config":	logger.debug("Calling Errors.configError()");
+							Errors.configError();
 							break;
 							
-			case "input":	logger.debug("Calling errorHandler.inputError()");
-							errorHandler.inputError();
+			case "input":	logger.debug("Calling Errors.inputError()");
+							Errors.inputError();
 							break;
 							
-			case "output":	logger.debug("Calling errorHandler.outputError()");
-							errorHandler.outputError();
+			case "output":	logger.debug("Calling Errors.outputError()");
+							Errors.outputError();
 							break;
 							
 			default:		logger.debug("Running displayErrorScreen() default case");
@@ -622,11 +622,11 @@ class Screens {
 		
 	}
 	
-	class Errors {
+	static class Errors {
 		// this is a temporary mock-up, will need to be updated to reflect final design
 		
 			
-		void fileError() {
+		static void fileError() {
 			// TODO - build method to display File Error Screen
 			logger.debug("running Errors.fileError()");
 			System.out.println("Sorry, unable to access that file. You will now be directed to the Main menu");
@@ -637,7 +637,7 @@ class Screens {
 		}
 		
 		
-		void configError() {
+		static void configError() {
 			// TODO - build method to display Configuration Error Screen
 			logger.debug("running Errors.configError()");
 			
@@ -645,7 +645,7 @@ class Screens {
 			
 		}
 		
-		void inputError() {
+		static void inputError() {
 			// TODO - build method to display Input Error Screen
 			logger.debug("running Errors.inputError()");
 			System.out.println("Sorry, you have entered an invalid input.");
@@ -655,7 +655,7 @@ class Screens {
 			
 		}
 		
-		void outputError() {
+		static void outputError() {
 			// TODO - build method to display Output Error Screen
 			logger.debug("running Errors.outputError()");
 			

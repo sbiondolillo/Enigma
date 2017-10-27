@@ -11,6 +11,7 @@
  *         0.0.4 - 10/24/17 - Incorporated Utilities class error handling
  *         0.0.5 - 10/26/17 - Add log4j2 Logger into class
  *                            Add debugging statements for Logger
+ *                            Removed Utilities instance variable
  */
 
 package enigma;
@@ -29,7 +30,6 @@ public class FileInputProcessor implements FileInput {
 
 	private String messageIn = "";
 	private Scanner fileScanner;
-	private Utilities utility = new Utilities();
 	private final static Logger logger = LogManager.getLogger(FileInputProcessor.class.getName());
 	
 	
@@ -52,7 +52,7 @@ public class FileInputProcessor implements FileInput {
 			logger.error("File error in FileInputProcessor({}): {}", filePath, e.getClass());
 			
 			logger.debug("Calling Utilities.handleError(file)");
-			utility.handleError("file");
+			Utilities.handleError("file");
 		}
 		
 		logger.debug("FileInputProcessor({}) completed successfully", filePath);
