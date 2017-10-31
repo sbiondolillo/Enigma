@@ -561,7 +561,7 @@ class Screens {
 		String path = input.nextLine();
 		logger.debug("User selected path {}", path);
 		
-		String filePath = drive + path + "output.html";
+		String filePath = drive + path + "supersecretmessage.html";
 		
 		logger.debug("Calling Config.setOutputFilePath({})", filePath);
 		Config.setOutputFilePath(filePath);
@@ -577,7 +577,7 @@ class Screens {
 		
 		logger.debug("Running writeFileOut()");
 		
-		logger.debug("Calling Config.setFileOut()");
+		logger.debug("Calling Config.setOutput()");
 		Config.setOutput(new OutputProcessor());
 		
 		logger.debug("Calling Config.getOutput().setMessageOut(cyphertext)");
@@ -589,7 +589,24 @@ class Screens {
 		logger.debug("Calling Config.getOutput().writeMessageOutToFile()");
 		Config.getOutput().writeMessageOutToFile();
 		
-		logger.debug("readFileIn() completed successfully");
+		logger.debug("writeFileOut() completed successfully");
+		
+	}
+	
+	private void writeConsoleOut() {
+		
+		logger.debug("Running writeConsoleOut()");
+		
+		logger.debug("Calling Config.setOutput()");
+		Config.setOutput(new OutputProcessor());
+		
+		logger.debug("Calling Config.getOutput().setMessageOut(cyphertext)");
+		Config.getOutput().setMessageOut(Config.getCypherText());
+		
+		logger.debug("Calling Config.getOutput().displayMessageOutToConsole()");
+		Config.getOutput().displayMessageOutToConsole();
+		
+		logger.debug("writeConsoleOut() completed successfully");
 		
 	}
 	
@@ -614,7 +631,7 @@ class Screens {
 			if (Config.getOutputMode() == 1) {
 			
 				logger.debug("Displaying encrypted message");
-				System.out.println("Here is your encrypted message: " + output);
+				writeConsoleOut();
 				
 			} else {
 				
@@ -637,7 +654,7 @@ class Screens {
 			if (Config.getOutputMode() == 1) {
 			
 				logger.debug("Displaying decrypted message");
-				System.out.println("Here is your decrypted message: " + output);
+				writeConsoleOut();
 				
 			} else {
 				

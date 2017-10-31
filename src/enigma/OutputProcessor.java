@@ -65,6 +65,22 @@ public class OutputProcessor {
 	}
 
 	/*
+	 * Show the encoded message on the console, properly formatted
+	 */
+	public void displayMessageOutToConsole() {
+		
+		logger.debug("Running displayMessageOutToConsole()");
+		
+		System.out.println("Here is your processed message:");
+		String[] output = getFormattedMessageOut();
+		for (String line: output) {
+			System.out.println(line);
+		}
+		
+		logger.debug("displayMessageOutToConsole() completed successfully");
+		
+	}
+	/*
 	 * Create an HTML file with the encoded message and write it to file
 	 */
 	public void writeMessageOutToFile() {
