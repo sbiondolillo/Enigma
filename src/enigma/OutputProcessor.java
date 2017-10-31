@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -99,17 +98,18 @@ public class OutputProcessor {
 
 		logger.debug("Building HTML Header");
 		String output = "";
-		output += "<!DOCTYPE html><html>\n";
-		output += "<head><title>Your private message</title></head>\n";
-		output += "<body>\n";
+		output += "<!DOCTYPE html>\n<html>\n";
+		output += "<head>\n<title>Your private message</title>\n</head>\n";
+		output += "<body>\n<p>\n";
 
 		logger.debug("Calling getFormattedMessageOut() and adding lines to HTML file");
 		for (String line: getFormattedMessageOut()) {
 			output += line;
+			output += "<br>\n";
 		}
 
 		logger.debug("Building HTML Footer");
-		output += "\n<\body></html>";
+		output += "</p>\n</body>\n</html>";
 
 		logger.debug("buildHTMLFile() completed successfully");
 		return output;
@@ -119,7 +119,7 @@ public class OutputProcessor {
 	/*
 	 * Format the encoded message per project specs
 	 */
-	private ArrayList<String> getFormattedMessageOut() {
+	private String[] getFormattedMessageOut() {
 
 		logger.debug("Running getFormattedMessageOut()");
 
@@ -133,17 +133,8 @@ public class OutputProcessor {
 							String.class
 							);
 
-		logger.debug("Building ArrayList of tokens");
-		ArrayList<String> lines = new ArrayList<String>();
-		for (String token: tokens) {
-			StringBuilder line = new StringBuilder();
-			line.append(token);
-			line.append('\n');
-			lines.add(line.toString());
-		}
-
 		logger.debug("getFormattedMessageOut() completed successfully");
-		return lines;
+		return tokens;
 
 	}
 

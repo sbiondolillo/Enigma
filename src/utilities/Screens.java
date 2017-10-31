@@ -10,11 +10,13 @@
  *          0.0.4   10/25/17    Add log4j2 Logger into class
  *                              Add debugging statements for Logger
  *          0.0.5   10/26/17    Converted Errors class to static
+ *          0.0.6   10/31/17    Add methods for setting and processing Output
  */
 
 package utilities;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -24,6 +26,7 @@ import org.apache.logging.log4j.Logger;
 import enigma.Dictionary;
 import enigma.FileInputProcessor;
 import enigma.KeyboardInputProcessor;
+import enigma.OutputProcessor;
 import rotors.Rotor;
 import rotors.RotorController;
 
@@ -447,17 +450,147 @@ class Screens {
 	}
 		
 	/*
-	 * Display the screen where the user set's the machine's output
+	 * Display the screen where the user sets the machine's output
+	 * Set the output mode based on user entry
+	 * Write the output to file or console
 	 */
 	void displayOutputScreen() {
 		
 		logger.debug("Running displayOutputScreen()");
-		// TODO implement this
-		System.out.println("Oops, this is embarassing, there doesn't seem to be anything here.");
-		System.out.println("You will now be directed back to the Main Menu.");
-		System.out.println();
+		
+		logger.debug("Calling runOututInro()");
+		runOutputIntro();
+		
+		logger.debug("Calling selectOutputMode()");
+		selectOutputMode();
+		
+		if (Config.getOutputMode() == 2) {
+			
+			logger.debug("Calling setOutFilePath()");
+			setOutFilePath();
+			
+		}
+		else {
+			
+			logger.debug("Notifying user of console output");
+			System.out.println("OK, great, we'll display your message to the screen.");
+			
+		}
+		
+		logger.debug("Calling exitToMainMenu() from displayOutputScreen()");
+		exitToMainMenu();
 		
 		logger.debug("displayOutputScreen() completed successfully");
+		
+	}
+	
+	/*
+	 * Display the file/screen output mode select screen
+	 */
+	private void runOutputIntro() {
+		
+		logger.debug("Running runOutputIntro()");
+		
+		System.out.println("Welcome to the Output Settings menu!");
+		System.out.println();
+		System.out.println("You may choose to write your message to a file on your system");
+		System.out.println("or you may choose to simply display your message to the screen.");
+		
+		logger.debug("runOutputIntro() completed successfully");
+		
+	}
+	
+	/*
+	 * Set the output mode to file/screen based on user input
+	 */
+	private void selectOutputMode() {
+		
+		logger.debug("Running selectOutputMode()");
+		
+		int mode = 0;
+		while (mode < 1 || mode > 2) {
+			try {
+				
+				System.out.println("Enter 1 to display your message to the screen.");
+				System.out.println("Enter 2 to have the program write your message to a file on your system.");
+				mode = input.nextInt();
+				input.nextLine();
+				
+			}
+			catch (InputMismatchException e) {
+				
+				logger.error("Input error in selectOutputMode(): {}", e.getClass());
+				
+				logger.debug("Calling displayErrorScreen(output)");
+				displayErrorScreen("output");
+				
+				input.nextLine();
+				
+			}
+		}
+		
+		logger.debug("Calling Config.setOutputMode({})", mode);
+		Config.setOutputMode(mode);
+		
+		logger.debug("selectOutputMode() completed successfully");
+		
+	}
+	
+	/*
+	 * Allow the user to enter their own file path for output
+	 */
+	private void setOutFilePath() {
+		
+		logger.debug("Running setOutFilePath()");
+		
+		logger.debug("Displaying available drives");
+		System.out.println("OK, Please choose the drive where the file should be written. The following drives are available:");
+		File[] paths = File.listRoots();
+		for (File path:paths) {
+			System.out.println(path);
+		}
+		
+		logger.debug("Getting Drive selection from user");
+		System.out.print("Please enter your drive selection: ");
+		String drive = input.nextLine();
+		logger.debug("User selected drive {}", drive);
+		
+		logger.debug("Getting path selection from user");
+		System.out.println("OK, now please enter the folder on " + drive + " where the file should be written.");
+		System.out.println("Please terminate your file path in a back-slash character '\\' to ensure proper location.");
+		String path = input.nextLine();
+		logger.debug("User selected path {}", path);
+		
+		String filePath = drive + path + "output.html";
+		
+		logger.debug("Calling Config.setOutputFilePath({})", filePath);
+		Config.setOutputFilePath(filePath);
+		
+		logger.debug("setOutFilePath() completed successfully with outputFilePath set to {}", filePath);
+		
+	}
+	
+	/*
+	 * Write the contents of the encoded message to the specified file
+	 */
+	private void writeFileOut() {
+		
+		logger.debug("Running writeFileOut()");
+		
+		logger.debug("Calling Config.setFileOut()");
+		Config.setOutput(new OutputProcessor());
+		
+		logger.debug("Calling Config.getOutput().setMessageOut(cyphertext)");
+		Config.getOutput().setMessageOut(Config.getCypherText());
+		
+		logger.debug("Calling Config.getOutput().setOutputFilePath({})", Config.getOutputFilePath());
+		Config.getOutput().setOutputFilePath(Paths.get(Config.getOutputFilePath()));
+		
+		logger.debug("Calling Config.getOutput().writeMessageOutToFile()");
+		Config.getOutput().writeMessageOutToFile();
+		
+		logger.debug("readFileIn() completed successfully");
+		
 	}
 	
 	/*
@@ -478,8 +611,20 @@ class Screens {
 			logger.debug("Calling Config.setCypherText()");
 			Config.setCypherText(output);
 			
-			logger.debug("Displaying encrypted message");
-			System.out.println("Here is your encrypted message: " + output);
+			if (Config.getOutputMode() == 1) {
+			
+				logger.debug("Displaying encrypted message");
+				System.out.println("Here is your encrypted message: " + output);
+				
+			} else {
+				
+				logger.debug("Calling writeFileOut()");
+				writeFileOut();
+				
+				logger.debug("Notifying user of success writing encrypted message to file");
+				System.out.println("Your encrypted message has been successfully written to " + Config.getOutputFilePath());
+				
+			}
 			
 		} else {
 			
@@ -489,8 +634,20 @@ class Screens {
 			logger.debug("Calling Config.setCypherText()");
 			Config.setCypherText(output);
 			
-			logger.debug("Displaying decrypted message");
-			System.out.println("Here is your decrypted message: " + output);
+			if (Config.getOutputMode() == 1) {
+			
+				logger.debug("Displaying decrypted message");
+				System.out.println("Here is your decrypted message: " + output);
+				
+			} else {
+				
+				logger.debug("Calling writeFileOut()");
+				writeFileOut();
+				
+				logger.debug("Notifying user of success writing decrypted message to file");
+				System.out.println("Your decrypted message has been successfully written to " + Config.getOutputFilePath());
+				
+			}
 			
 		}
 		System.out.println();
