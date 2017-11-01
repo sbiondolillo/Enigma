@@ -12,6 +12,7 @@
  *         0.0.5 - 10/26/17 - Add log4j2 Logger into class
  *                            Add debugging statements for Logger
  *                            Removed Utilities instance variable
+ *         0.0.6 - 11/1/17    update readFileIn() to preserve input formatting
  */
 
 package enigma;
@@ -90,6 +91,8 @@ public class FileInputProcessor implements FileInput {
 		
 		while (fileScanner.hasNextLine()) {
 			messageIn += fileScanner.nextLine();
+			if (fileScanner.hasNextLine())
+				messageIn += "\n";
 		}
 		
 		logger.debug("readFileIn() completed successfully");

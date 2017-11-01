@@ -12,6 +12,7 @@
  *         0.0.6    10/26/17    Adjusted encode() to cache dictionary length and plaintext index
  *                              Add log4j2 Logger into class
  *                              Add debugging statements for Logger
+ *         0.0.7    11/1/17     Add functionality to encode() to handle CRLF characters
  */
 
 package rotors;
@@ -143,8 +144,17 @@ public class Rotor implements RotaryEncryptor {
 		
 		logger.debug("Running encode({})", plaintext);
 		
-		logger.debug("Calling Dictionary.contains({})", plaintext);
-		if (validCharacters.contains(plaintext)) {
+		if (plaintext.equals('\n')) {
+			
+			logger.debug("encode({}) completed successfully, returning '^'", plaintext);
+			return '^';
+			
+		} else if (plaintext.equals('^')) {
+			
+			logger.debug("encode({}) completed successfully, returning '\n'", plaintext);
+			return '\n';
+			
+		} else if (validCharacters.contains(plaintext)) {
 			
 			int currentIndex = index;
 			

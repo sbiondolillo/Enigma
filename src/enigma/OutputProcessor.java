@@ -4,6 +4,7 @@
  * CIS220M:HY1 Object Oriented Programming
  * Goal: To provide an object to handle the output of our encoded messages in the Enigma
  * Version 	0.0.1 - 10/31/17
+ *          0.0.2 - 11/1/17     Split Encryption/Decryption output processing into separate methods
  */
 
 package enigma;
@@ -91,7 +92,7 @@ public class OutputProcessor {
 		System.out.println("Here is your decrypted message:");
 		String[] output = getDecryptedMessageOut();
 		for (String line: output) {
-			System.out.println(line);
+			System.out.print(line);
 		}
 		
 		logger.debug("displayDecryptedMessageOutToConsole() completed successfully");
@@ -190,7 +191,7 @@ public class OutputProcessor {
 
 		logger.debug("Calling getDecryptedMessageOut() and adding lines to HTML file");
 		for (String line: getDecryptedMessageOut()) {
-			output += line;
+			output += line.replaceAll("\\^", "");
 			output += "<br>\n";
 		}
 
@@ -231,7 +232,7 @@ public class OutputProcessor {
 
 		logger.debug("Running getDecryptedMessageOut()");
 
-		String[] input = messageOut.split("^");
+		String[] input = messageOut.split("\n");
 
 		logger.debug("getDecryptededMessageOut() completed successfully");
 		return input;
