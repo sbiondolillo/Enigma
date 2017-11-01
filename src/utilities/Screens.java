@@ -380,6 +380,31 @@ class Screens {
 		
 		logger.debug("Running setInFilePath()");
 		
+		logger.debug("Calling getFilePathSelection()");
+		int useDefaultFilePath = getFilePathSelection();
+		
+		if (useDefaultFilePath == 2) {
+			
+			logger.debug("Calling getCustomFilePath()");
+			String filePath = getCustomInputFilePath();
+			
+			logger.debug("Calling Config.setInputFilePath({})", filePath);
+			Config.setInputFilePath(filePath);
+			
+			logger.debug("setInputFilePath() completed successfully with inputFilePath set to {}", filePath);
+			
+		} else {
+			
+			logger.debug("setInputFilePath() completed successfully with default path chosen.");
+		
+		}
+		
+	}
+	
+	private String getCustomInputFilePath() {
+		
+		logger.debug("Running getCustomInputFilePath()");
+		
 		logger.debug("Displaying available drives");
 		System.out.println("OK, Please choose the drive where the file exists. The following drives are available:");
 		File[] paths = File.listRoots();
@@ -395,14 +420,10 @@ class Screens {
 		logger.debug("Getting path selection from user");
 		System.out.println("OK, now please enter the location of the file on " + drive);
 		String path = input.nextLine();
-		logger.debug("User selected path {}", path);
-		
 		String filePath = drive + path;
 		
-		logger.debug("Calling Config.setInFilePath({})", filePath);
-		Config.setInputFilePath(filePath);
-		
-		logger.debug("setInFilePath() completed successfully with inFilePath set to {}", filePath);
+		logger.debug("getCustomInputFilePath() completed successfully, returning {}", filePath);
+		return filePath;
 		
 	}
 	
@@ -549,7 +570,7 @@ class Screens {
 		if (useDefaultFilePath == 2) {
 			
 			logger.debug("Calling getCustomFilePath()");
-			String filePath = getCustomFilePath() + "supersecretmessage.html";
+			String filePath = getCustomOutputFilePath() + "supersecretmessage.html";
 			
 			logger.debug("Calling Config.setOutputFilePath({})", filePath);
 			Config.setOutputFilePath(filePath);
@@ -564,7 +585,7 @@ class Screens {
 	}
 	
 	/*
-	 * Allow user to choose whether or not to use the default output file path
+	 * Allow user to choose whether or not to use the default file path
 	 */
 	private int getFilePathSelection() {
 		
@@ -602,7 +623,7 @@ class Screens {
 	/*
 	 * Allow the user to specify their own custom file path for output
 	 */
-	private String getCustomFilePath() {
+	private String getCustomOutputFilePath() {
 		
 		logger.debug("Running getCustomFilePath()");
 		
