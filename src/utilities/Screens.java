@@ -11,6 +11,7 @@
  *                              Add debugging statements for Logger
  *          0.0.5   10/26/17    Converted Errors class to static
  *          0.0.6   10/31/17    Add methods for setting and processing Output
+ *          0.0.7   11/1/17     Split encryption/decryption output into separate processes
  */
 
 package utilities;
@@ -666,8 +667,12 @@ class Screens {
 		logger.debug("Calling Config.getOutput().setOutputFilePath({})", Config.getOutputFilePath());
 		Config.getOutput().setOutputFilePath(Paths.get(Config.getOutputFilePath()));
 		
-		logger.debug("Calling Config.getOutput().writeMessageOutToFile()");
-		Config.getOutput().writeMessageOutToFile();
+		if (Config.getProgramMode() == 1) {
+		
+			logger.debug("Calling Config.getOutput().writeEncryptedMessageOutToFile()");
+			Config.getOutput().writeEncryptedMessageOutToFile();
+			
+		}
 		
 		logger.debug("writeFileOut() completed successfully");
 		
@@ -686,8 +691,12 @@ class Screens {
 		logger.debug("Calling Config.getOutput().setMessageOut(cyphertext)");
 		Config.getOutput().setMessageOut(Config.getCypherText());
 		
-		logger.debug("Calling Config.getOutput().displayMessageOutToConsole()");
-		Config.getOutput().displayMessageOutToConsole();
+		if (Config.getProgramMode() == 1) {
+			
+			logger.debug("Calling Config.getOutput().displayEncryptedMessageOutToConsole()");
+			Config.getOutput().displayEncryptedMessageOutToConsole();
+			
+		}
 		
 		logger.debug("writeConsoleOut() completed successfully");
 		
@@ -697,7 +706,6 @@ class Screens {
 	 * Display the results of the encryption/decryption
 	 */
 	void displayResultsScreen() {
-		// TODO implement this to either output file or display to console
 		
 		logger.debug("Running displayResultsScreen()");
 		
@@ -831,7 +839,6 @@ class Screens {
 	 * Display the final screen before the program exits
 	 */
 	void displayExitScreen() {
-		// TODO implement this
 		
 		logger.debug("Running displayExitScreen()");
 		
