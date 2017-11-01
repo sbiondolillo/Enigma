@@ -25,8 +25,8 @@ import rotors.Rotor;
 class Config {
 	
 	// TODO - fill these with default values
-	private static String inputFilePath = "./resources/misc/input.txt";
-	private static String outputFilePath = "./resources/misc/output.html";
+	private static String inputFilePath = "./resources/input.txt";
+	private static String outputFilePath = "./resources/output.html";
 	private static Rotor[] availableRotors;
 	private static int inputMode = 1;
 	private static int programMode = 1;
