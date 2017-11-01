@@ -8,6 +8,8 @@
  *                            Added getters and setter for new instance variables
  *          0.0.3   10/26/17  Add log4j2 Logger into class
  *                            Add debugging statements for Logger
+ *          0.0.4   10/31/17  Add default file paths for input/output
+ *                            Add instance variable for OutputProcessor and outputMode
  */
 
 package utilities;
