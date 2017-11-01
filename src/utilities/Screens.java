@@ -543,6 +543,69 @@ class Screens {
 		
 		logger.debug("Running setOutFilePath()");
 		
+		logger.debug("Calling getFilePathSelection()");
+		int useDefaultFilePath = getFilePathSelection();
+				
+		if (useDefaultFilePath == 2) {
+			
+			logger.debug("Calling getCustomFilePath()");
+			String filePath = getCustomFilePath() + "supersecretmessage.html";
+			
+			logger.debug("Calling Config.setOutputFilePath({})", filePath);
+			Config.setOutputFilePath(filePath);
+			
+			logger.debug("setOutFilePath() completed successfully with outputFilePath set to {}", filePath);
+			
+		} else {
+			
+			logger.debug("setOutFilePath() completed successfully with default path chosen.");
+		
+		}
+	}
+	
+	/*
+	 * Allow user to choose whether or not to use the default output file path
+	 */
+	private int getFilePathSelection() {
+		
+		logger.debug("Running getFilePathSelection()");
+		
+		logger.debug("Letting user choose default or custom file path");
+		System.out.println("OK, you can choose your own file or proceed with the default file.");
+		
+		int mode = 0;
+		while (mode < 1 || mode > 2) {
+			try {
+				
+				System.out.println("Enter 1 to proceed with the default file path.");
+				System.out.println("Enter 2 to select your own file path.");
+				mode = input.nextInt();
+				input.nextLine();
+				
+			}
+			catch (InputMismatchException e) {
+				
+				logger.error("Input error in getFilePathSelection(): {}", e.getClass());
+				
+				logger.debug("Calling displayErrorScreen(output)");
+				displayErrorScreen("output");
+				
+				input.nextLine();
+				
+			}
+		}
+		logger.debug("getFilePathSelection() completed successfully");
+		return mode;
+		
+	}
+	
+	/*
+	 * Allow the user to specify their own custom file path for output
+	 */
+	private String getCustomFilePath() {
+		
+		logger.debug("Running getCustomFilePath()");
+		
 		logger.debug("Displaying available drives");
 		System.out.println("OK, Please choose the drive where the file should be written. The following drives are available:");
 		File[] paths = File.listRoots();
@@ -559,14 +622,9 @@ class Screens {
 		System.out.println("OK, now please enter the folder on " + drive + " where the file should be written.");
 		System.out.println("Please terminate your file path in a back-slash character '\\' to ensure proper location.");
 		String path = input.nextLine();
-		logger.debug("User selected path {}", path);
 		
-		String filePath = drive + path + "supersecretmessage.html";
-		
-		logger.debug("Calling Config.setOutputFilePath({})", filePath);
-		Config.setOutputFilePath(filePath);
-		
-		logger.debug("setOutFilePath() completed successfully with outputFilePath set to {}", filePath);
+		logger.debug("getCustomFilePath() completed successfully, returning {}", path);
+		return path;
 		
 	}
 	
@@ -593,6 +651,9 @@ class Screens {
 		
 	}
 	
+	/*
+	 * Write the contents of the encoded message to the console
+	 */
 	private void writeConsoleOut() {
 		
 		logger.debug("Running writeConsoleOut()");
@@ -694,6 +755,9 @@ class Screens {
 		
 	}
 	
+	/*
+	 * Get the set of valid characters based on the active Rotors
+	 */
 	private Dictionary buildCharSet() {
 		
 		logger.debug("Running buildCharSet()");
