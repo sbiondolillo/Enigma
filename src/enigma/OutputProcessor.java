@@ -80,6 +80,24 @@ public class OutputProcessor {
 		logger.debug("displayEncryptedMessageOutToConsole() completed successfully");
 		
 	}
+	
+	/*
+	 * Show the decrypted message on the console, properly formatted
+	 */
+	public void displayDecryptedMessageOutToConsole() {
+		
+		logger.debug("Running displayDecryptedMessageOutToConsole()");
+		
+		System.out.println("Here is your decrypted message:");
+		String[] output = getDecryptedMessageOut();
+		for (String line: output) {
+			System.out.println(line);
+		}
+		
+		logger.debug("displayDecryptedMessageOutToConsole() completed successfully");
+		
+	}
+	
 	/*
 	 * Create an HTML file with the encrypted message and write it to file
 	 */
@@ -102,6 +120,31 @@ public class OutputProcessor {
 		}
 
 		logger.debug("writeEncryptedMessageOutToFile() completed successfully");
+
+	}
+	
+	/*
+	 * Create an HTML file with the decrypted message and write it to file
+	 */
+	public void writeDecryptedMessageOutToFile() {
+
+		logger.debug("Running writeDecryptedMessageOutToFile()");
+
+		logger.debug("Calling buildDecryptedHTMLFile()");
+		String output = buildDecryptedHTMLFile();
+
+		
+		logger.debug("Writing to file");
+		try  (BufferedWriter writer = Files.newBufferedWriter(outputFilePath,Charset.forName("UTF-8"))){
+			writer.write(output);
+		}
+		catch (IOException e) {
+			logger.error("File error in writeDecryptedMessageOutToFile(): " + e.getClass());
+			logger.error("Calling Errors.handleError(file)");
+			Utilities.handleError("file");
+		}
+
+		logger.debug("writeDecryptedMessageOutToFile() completed successfully");
 
 	}
 
@@ -131,6 +174,33 @@ public class OutputProcessor {
 		return output;
 
 	}
+	
+	/*
+	 * Create an HTML file populated with our decrypted message
+	 */
+	private String buildDecryptedHTMLFile() {
+
+		logger.debug("Running buildDecryptedHTMLFile()");
+
+		logger.debug("Building HTML Header");
+		String output = "";
+		output += "<!DOCTYPE html>\n<html>\n";
+		output += "<head>\n<title>Your private message</title>\n</head>\n";
+		output += "<body>\n<p>\n";
+
+		logger.debug("Calling getDecryptedMessageOut() and adding lines to HTML file");
+		for (String line: getDecryptedMessageOut()) {
+			output += line;
+			output += "<br>\n";
+		}
+
+		logger.debug("Building HTML Footer");
+		output += "</p>\n</body>\n</html>";
+
+		logger.debug("buildDecryptedHTMLFile() completed successfully");
+		return output;
+
+	}
 
 	/*
 	 * Format the encrypted message per project specs
@@ -151,6 +221,20 @@ public class OutputProcessor {
 
 		logger.debug("getEncryptededMessageOut() completed successfully");
 		return tokens;
+
+	}
+	
+	/*
+	 * Format the decrypted message per project specs
+	 */
+	private String[] getDecryptedMessageOut() {
+
+		logger.debug("Running getDecryptedMessageOut()");
+
+		String[] input = messageOut.split("^");
+
+		logger.debug("getDecryptededMessageOut() completed successfully");
+		return input;
 
 	}
 

@@ -672,6 +672,11 @@ class Screens {
 			logger.debug("Calling Config.getOutput().writeEncryptedMessageOutToFile()");
 			Config.getOutput().writeEncryptedMessageOutToFile();
 			
+		} else {
+			
+			logger.debug("Calling Config.getOutput().writeDecryptedMessageOutToFile()");
+			Config.getOutput().writeDecryptedMessageOutToFile();
+			
 		}
 		
 		logger.debug("writeFileOut() completed successfully");
@@ -695,6 +700,11 @@ class Screens {
 			
 			logger.debug("Calling Config.getOutput().displayEncryptedMessageOutToConsole()");
 			Config.getOutput().displayEncryptedMessageOutToConsole();
+			
+		} else {
+			
+			logger.debug("Calling Config.getOutput().displayDecryptedMessageOutToConsole()");
+			Config.getOutput().displayDecryptedMessageOutToConsole();
 			
 		}
 		
