@@ -1,2 +1,4 @@
 /bin/
 *.log
+resources/misc/input.txt
+resources/misc/output.txt
