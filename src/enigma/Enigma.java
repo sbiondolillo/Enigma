@@ -13,16 +13,16 @@
  *         0.0.5 - 10/25/17 Add log4j2 logging framework into project
  *                          Add log4j2 Logger into class
  *                          Add debugging statements for Logger
+ *         0.0.6 - 11/1/17  Removed unneessary methods and interface implementation
  */
 
 package enigma;
 
-import interfaces.EnigmaApparatus;
 import utilities.Utilities;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-public class Enigma implements EnigmaApparatus {
+public class Enigma {
 	
 	private Utilities utility = new Utilities();
 	private final static Logger logger = LogManager.getLogger(Enigma.class.getName());
@@ -47,46 +47,6 @@ public class Enigma implements EnigmaApparatus {
 		utility.load(2);
 		
 		logger.debug("runMainMenu() completed successfully");
-	}
-	
-	/*
-	 * Set up rotors needed for encryption
-	 */
-	@Override
-	public void configureRotors() {
-		//TODO - Create logic to allow users to set the Rotors themselves
-	}
-	
-	/*
-	 * Set up Enigma to receive input
-	 */
-	@Override
-	public void configureInput() {
-		// TODO - implement this or scrap it	
-	}
-	
-	/*
-	 * Encrypt/Decrypt input
-	 */
-	@Override
-	public void processInput() {
-		// TODO - implement this or scrap it	
-	}
-	
-	/*
-	 * Set up apparatus to transmit message
-	 */
-	@Override
-	public void configureOutput() {
-		// TODO - implement this or scrap it	
-	}
-	
-	/*
-	 * Send the final results out
-	 */
-	@Override
-	public void publishResults() {
-		// TODO - implement this or scrap it		
 	}
 	
 	/*
