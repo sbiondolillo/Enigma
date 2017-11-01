@@ -622,9 +622,10 @@ class Screens {
 		System.out.println("OK, now please enter the folder on " + drive + " where the file should be written.");
 		System.out.println("Please terminate your file path in a back-slash character '\\' to ensure proper location.");
 		String path = input.nextLine();
+		String filePath = drive + path;
 		
-		logger.debug("getCustomFilePath() completed successfully, returning {}", path);
-		return path;
+		logger.debug("getCustomFilePath() completed successfully, returning {}", filePath);
+		return filePath;
 		
 	}
 	
