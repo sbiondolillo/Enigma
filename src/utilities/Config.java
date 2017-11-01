@@ -8,6 +8,8 @@
  *                            Added getters and setter for new instance variables
  *          0.0.3   10/26/17  Add log4j2 Logger into class
  *                            Add debugging statements for Logger
+ *          0.0.4   10/31/17  Add default file paths for input/output
+ *                            Add instance variable for OutputProcessor and outputMode
  */
 
 package utilities;
@@ -17,18 +19,21 @@ import org.apache.logging.log4j.Logger;
 
 import enigma.FileInputProcessor;
 import enigma.KeyboardInputProcessor;
+import enigma.OutputProcessor;
 import rotors.Rotor;
 
 class Config {
 	
 	// TODO - fill these with default values
-	private static String inputFilePath;
-	private static String outputFilePath;
+	private static String inputFilePath = "./resources/input.txt";
+	private static String outputFilePath = "./resources/output.html";
 	private static Rotor[] availableRotors;
 	private static int inputMode = 1;
 	private static int programMode = 1;
+	private static int outputMode = 1;
 	private static KeyboardInputProcessor keyboardIn;
 	private static FileInputProcessor fileIn;
+	private static OutputProcessor output;
 	private static String plainText = "";
 	private static String cypherText = "";
 	private final static Logger logger = LogManager.getLogger(Config.class.getName());
@@ -177,6 +182,40 @@ class Config {
 		Config.cypherText = cypherText;
 		
 		logger.debug("setCypherText() completed successfully");
+		
+	}
+	public static OutputProcessor getOutput() {
+		
+		logger.debug("running getOutput()");
+		
+		logger.debug("getOutput() completed successfully");
+		return output;
+		
+	}
+	public static void setOutput(OutputProcessor output) {
+		
+		logger.debug("Running setOutput({})", output);
+		
+		Config.output = output;
+		
+		logger.debug("setOutput({}) completed successfully", output);
+		
+	}
+	public static int getOutputMode() {
+		
+		logger.debug("Running getOutputMode()");
+		
+		logger.debug("getOutputMode() completed successfully");
+		return outputMode;
+		
+	}
+	public static void setOutputMode(int outputMode) {
+		
+		logger.debug("Running setOutputMode({})", outputMode);
+		
+		Config.outputMode = outputMode;
+		
+		logger.debug("setOutputMode({}) completed succesfully", outputMode);
 		
 	}
 
