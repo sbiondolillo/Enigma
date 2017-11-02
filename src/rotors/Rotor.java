@@ -13,6 +13,7 @@
  *                              Add log4j2 Logger into class
  *                              Add debugging statements for Logger
  *         0.0.7    11/1/17     Add functionality to encode() to handle CRLF characters
+ *         0.0.8    11/2/17     Add functionality to encode() to handle space ' ' characters
  */
 
 package rotors;
@@ -153,6 +154,16 @@ public class Rotor implements RotaryEncryptor {
 			
 			logger.debug("encode({}) completed successfully, returning '\n'", plaintext);
 			return '\n';
+			
+		} else if (plaintext.equals(' ')) {
+			
+			logger.debug("encode({}) completed successfully, returning '\n'", plaintext);
+			return '~';
+			
+		} else if (plaintext.equals('~')) {
+			
+			logger.debug("encode({}) completed successfully, returning '\n'", plaintext);
+			return ' ';
 			
 		} else if (validCharacters.contains(plaintext)) {
 			
