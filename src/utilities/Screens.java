@@ -12,6 +12,7 @@
  *          0.0.5   10/26/17    Converted Errors class to static
  *          0.0.6   10/31/17    Add methods for setting and processing Output
  *          0.0.7   11/1/17     Split encryption/decryption output into separate processes
+ *          0.0.8   11/2/17     Adjust input/output file path setting to properly utilize default paths
  */
 
 package utilities;
@@ -396,6 +397,9 @@ class Screens {
 			
 		} else {
 			
+			logger.debug("Calling Config.setInputFilePath({})", Config.getDefaultInputFile());
+			Config.setInputFilePath(Config.getDefaultInputFile());
+			
 			logger.debug("setInputFilePath() completed successfully with default path chosen.");
 		
 		}
@@ -579,6 +583,9 @@ class Screens {
 			logger.debug("setOutFilePath() completed successfully with outputFilePath set to {}", filePath);
 			
 		} else {
+			
+			logger.debug("Calling Config.setOutputFilePath({})", Config.getDefaultOutputFile());
+			Config.setOutputFilePath(Config.getDefaultOutputFile());
 			
 			logger.debug("setOutFilePath() completed successfully with default path chosen.");
 		
