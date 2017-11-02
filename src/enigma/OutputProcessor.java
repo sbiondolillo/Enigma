@@ -5,6 +5,7 @@
  * Goal: To provide an object to handle the output of our encoded messages in the Enigma
  * Version 	0.0.1 - 10/31/17
  *          0.0.2 - 11/1/17     Split Encryption/Decryption output processing into separate methods
+ *          0.0.3 - 11/2/17     Fix formatting in displayDecryptedMessageOutToConsole()
  */
 
 package enigma;
@@ -92,7 +93,8 @@ public class OutputProcessor {
 		System.out.println("Here is your decrypted message:");
 		String[] output = getDecryptedMessageOut();
 		for (String line: output) {
-			System.out.print(line);
+			line = line.replaceAll("\\^", "");
+			System.out.println(line);
 		}
 		
 		logger.debug("displayDecryptedMessageOutToConsole() completed successfully");
