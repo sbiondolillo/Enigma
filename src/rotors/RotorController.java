@@ -9,6 +9,7 @@
  *                           Add debugging statements for Logger
  *                           Refactor initialization
  *          0.0.4   11/3/17  Add startingRotorIndexes instance variable and associated methods
+ *                           Add logic to reset() method
  */
 
 package rotors;
@@ -138,11 +139,19 @@ public class RotorController implements RotationManager{
 	}
 
 	/*
-	 * Reset the Rotors to the initial configuration given by the user
+	 * Reset the Rotors to the initial configuration
 	 */
 	@Override
 	public void reset() {
-		// TODO Set this up if we ever allow the user to manipulate the rotor configuration
+		
+		logger.debug("Running reset()");
+		
+		for (int i = 0; i < activeRotors.length - 1; i++) {
+			activeRotors[i].setIndex(startingRotorIndexes[i]);
+		}
+		decoder.setIndex(startingRotorIndexes[5]);
+		
+		logger.debug("reset() completed successfully");
 		
 	}
 	
