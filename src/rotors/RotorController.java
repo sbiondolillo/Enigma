@@ -8,6 +8,7 @@
  *          0.0.3   10/27/17 Add log4j2 Logger into class
  *                           Add debugging statements for Logger
  *                           Refactor initialization
+ *          0.0.4   11/3/17  Add startingRotorIndexes instance variable and associated methods
  */
 
 package rotors;
@@ -21,6 +22,7 @@ public class RotorController implements RotationManager{
 	
 	private Rotor[] activeRotors;
 	private Rotor decoder;
+	private final int[] startingRotorIndexes = new int[6];
 	private final static Logger logger = LogManager.getLogger(RotorController.class.getName());
 	
 	/*
@@ -53,6 +55,9 @@ public class RotorController implements RotationManager{
 		
 		logger.debug("Calling buildDecoder()");
 		buildDecoder();
+		
+		logger.debug("Calling setStartingIndexes()");
+		setStartingIndexes();
 		
 		logger.debug("RotorController(Rotor[] activeRotors) completed successfully");
 	}
@@ -200,6 +205,9 @@ public class RotorController implements RotationManager{
 		logger.debug("Calling buildDecoder()");
 		buildDecoder();
 		
+		logger.debug("Calling setStartingIndexes()");
+		setStartingIndexes();
+		
 		logger.debug("buildRotorArray() completed successfully");
 		
 	}
@@ -234,6 +242,25 @@ public class RotorController implements RotationManager{
 		decoder.setIndex(decodeOffset);
 		
 		logger.debug("buildDecoder() completed successfully");
+		
+	}
+	
+	/*
+	 * Store off the initial indexes of each Rotor so we can reset them after encryption/decryption
+	 */
+	private void setStartingIndexes() {
+		
+		logger.debug("Running setStartingIndexes()");
+		for (int i = 0; i < activeRotors.length - 1; i++) {
+			
+			logger.debug("Calling getIndex()");
+			startingRotorIndexes[i] = activeRotors[i].getIndex();
+		}
+		
+		logger.debug("Calling getIndex()");
+		startingRotorIndexes[5] = decoder.getIndex();
+		
+		logger.debug("setStartingIndexes() completed successfully");
 		
 	}
 
