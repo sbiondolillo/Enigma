@@ -6,6 +6,7 @@
  * Version 	0.0.1 - 10/31/17
  *          0.0.2 - 11/1/17     Split Encryption/Decryption output processing into separate methods
  *          0.0.3 - 11/2/17     Fix formatting in displayDecryptedMessageOutToConsole()
+ *          0.0.4 - 11/3/17     Minor fix to buildDecryptedHTMLFile(), should not have any '^' chars to strip
  */
 
 package enigma;
@@ -193,7 +194,7 @@ public class OutputProcessor {
 
 		logger.debug("Calling getDecryptedMessageOut() and adding lines to HTML file");
 		for (String line: getDecryptedMessageOut()) {
-			output += line.replaceAll("\\^", "");
+			output += line;
 			output += "<br>\n";
 		}
 

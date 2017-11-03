@@ -13,6 +13,7 @@
  *                           Add rotateRotors() method
  *                           Adjust encode() to utilize rotateRotors()
  *                           Break out setDecoderIndex() from buildDecoder() and modify decode() accordingly
+ *                           Modify decode() to strip newline chars from encrypted message
  */
 
 package rotors;
@@ -129,43 +130,6 @@ public class RotorController implements RotationManager{
 	}
 	
 	/*
-	 * Rotate the even Rotors three clicks on the even numbered characters
-	 * Rotate the odd Rotors one click on the odd numbered characters
-	 */
-	private void rotateRotors(int plaintextCharacterCount) {
-
-		logger.debug("Running rotateRotors({})", plaintextCharacterCount);
-		
-		if (plaintextCharacterCount % 2 == 0) {
-		
-			for (int i = 0; i < 3; i++) {
-				
-				logger.debug("Calling activeRotors[1].rotate()");
-				activeRotors[1].rotate();
-				
-				logger.debug("Calling activeRotors[3].rotate()");
-				activeRotors[3].rotate();
-			}
-
-		} else {
-
-			logger.debug("Calling activeRotors[0].rotate()");
-			activeRotors[0].rotate();
-			
-			logger.debug("Calling activeRotors[2].rotate()");
-			activeRotors[2].rotate();
-			
-			logger.debug("Calling activeRotors[4].rotate()");
-			activeRotors[4].rotate();
-
-		}
-		
-		logger.debug("rotateRotors({}) completed successfully", plaintextCharacterCount);
-		
-	}
-
-	
-	/*
 	 * Correctly decode a String by using the complementary decoder Rotor
 	 */
 	@Override
@@ -175,6 +139,10 @@ public class RotorController implements RotationManager{
 		
 		logger.debug("Building output String");
 		String output = "";
+		
+		// We don't care about preserving formatting of the encrypted source file
+		// proper formatting is embedded in the encrypted message text itself
+		cyphertext = cyphertext.replaceAll("\n", "");
 		
 		logger.debug("Passing cyphertext through decoder Rotor");
 		for (int i = 1; i < cyphertext.length() + 1; i++) {
@@ -191,6 +159,7 @@ public class RotorController implements RotationManager{
 			
 			logger.debug("Calling rotateRotors({})", i);
 			rotateRotors(i);
+				
 			
 		}
 
@@ -351,6 +320,42 @@ public class RotorController implements RotationManager{
 		startingRotorIndexes[5] = decoder.getIndex();
 		
 		logger.debug("setStartingIndexes() completed successfully");
+		
+	}
+	
+	/*
+	 * Rotate the even Rotors three clicks on the even numbered characters
+	 * Rotate the odd Rotors one click on the odd numbered characters
+	 */
+	private void rotateRotors(int plaintextCharacterCount) {
+
+		logger.debug("Running rotateRotors({})", plaintextCharacterCount);
+		
+		if (plaintextCharacterCount % 2 == 0) {
+		
+			for (int i = 0; i < 3; i++) {
+				
+				logger.debug("Calling activeRotors[1].rotate()");
+				activeRotors[1].rotate();
+				
+				logger.debug("Calling activeRotors[3].rotate()");
+				activeRotors[3].rotate();
+			}
+
+		} else {
+
+			logger.debug("Calling activeRotors[0].rotate()");
+			activeRotors[0].rotate();
+			
+			logger.debug("Calling activeRotors[2].rotate()");
+			activeRotors[2].rotate();
+			
+			logger.debug("Calling activeRotors[4].rotate()");
+			activeRotors[4].rotate();
+
+		}
+		
+		logger.debug("rotateRotors({}) completed successfully", plaintextCharacterCount);
 		
 	}
 
