@@ -8,6 +8,12 @@
  *          0.0.3   10/27/17 Add log4j2 Logger into class
  *                           Add debugging statements for Logger
  *                           Refactor initialization
+ *          0.0.4   11/3/17  Add startingRotorIndexes instance variable and associated methods
+ *                           Add logic to reset() method
+ *                           Add rotateRotors() method
+ *                           Adjust encode() to utilize rotateRotors()
+ *                           Break out setDecoderIndex() from buildDecoder() and modify decode() accordingly
+ *                           Modify decode() to strip newline chars from encrypted message
  */
 
 package rotors;
@@ -21,6 +27,7 @@ public class RotorController implements RotationManager{
 	
 	private Rotor[] activeRotors;
 	private Rotor decoder;
+	private final int[] startingRotorIndexes = new int[6];
 	private final static Logger logger = LogManager.getLogger(RotorController.class.getName());
 	
 	/*
@@ -53,6 +60,9 @@ public class RotorController implements RotationManager{
 		
 		logger.debug("Calling buildDecoder()");
 		buildDecoder();
+		
+		logger.debug("Calling setStartingIndexes()");
+		setStartingIndexes();
 		
 		logger.debug("RotorController(Rotor[] activeRotors) completed successfully");
 	}
@@ -88,16 +98,29 @@ public class RotorController implements RotationManager{
 		
 		logger.debug("Building output String");
 		String output = "";
+		int count = 1;
 		
 		logger.debug("Encoding plaintext using activeRotors[]");
 		for (char c: plaintext.toCharArray()) {
 			
-			char out = activeRotors[4].encode(activeRotors[3].encode(activeRotors[2].
-						encode(activeRotors[1].encode(activeRotors[0].encode(c)))));
+			char out = activeRotors[4]
+					   .encode(activeRotors[3]
+					   .encode(activeRotors[2]
+					   .encode(activeRotors[1]
+					   .encode(activeRotors[0]
+					   .encode(c)))));
 			output += out;
+			
+			logger.debug("calling rotateRotors({})", count);
+			rotateRotors(count);
+
+			count++;
 			
 		}
 		logger.debug("Encoding plaintext using activeRotors[] completed successfully");
+		
+		logger.debug("Calling reset()");
+		reset();
 		
 		System.out.println("Encoding...");
 		
@@ -117,14 +140,33 @@ public class RotorController implements RotationManager{
 		logger.debug("Building output String");
 		String output = "";
 		
-		logger.debug("Decoding cyphertext using decoder");
-		for (char c: cyphertext.toCharArray()) {
+		// We don't care about preserving formatting of the encrypted source file
+		// proper formatting is embedded in the encrypted message text itself
+		cyphertext = cyphertext.replaceAll("\n", "");
+		
+		logger.debug("Passing cyphertext through decoder Rotor");
+		for (int i = 1; i < cyphertext.length() + 1; i++) {
 			
-			char out = decoder.encode(c);
+			logger.debug("Calling setDecoderIndex()");
+			setDecoderIndex();
+			
+			char in = cyphertext.charAt(i-1);
+			
+			logger.debug("Calling decoder.encode({})", in);
+			char out = decoder.encode(in);
+			
 			output += out;
 			
+			logger.debug("Calling rotateRotors({})", i);
+			rotateRotors(i);
+				
+			
 		}
+
 		logger.debug("Decoding cyphertext using decoder completed successfully");
+		
+		logger.debug("Calling reset()");
+		reset();
 		
 		System.out.println("Decoding...");
 		
@@ -133,11 +175,22 @@ public class RotorController implements RotationManager{
 	}
 
 	/*
-	 * Reset the Rotors to the initial configuration given by the user
+	 * Reset the Rotors to the initial configuration
 	 */
 	@Override
 	public void reset() {
-		// TODO Set this up if we ever allow the user to manipulate the rotor configuration
+		
+		logger.debug("Running reset()");
+		
+		logger.debug("Resetting activeRotors");
+		for (int i = 0; i < activeRotors.length; i++) {
+			activeRotors[i].setIndex(startingRotorIndexes[i]);
+		}
+		
+		logger.debug("Resetting decoder");
+		decoder.setIndex(startingRotorIndexes[5]);
+		
+		logger.debug("reset() completed successfully");
 		
 	}
 	
@@ -200,6 +253,9 @@ public class RotorController implements RotationManager{
 		logger.debug("Calling buildDecoder()");
 		buildDecoder();
 		
+		logger.debug("Calling setStartingIndexes()");
+		setStartingIndexes();
+		
 		logger.debug("buildRotorArray() completed successfully");
 		
 	}
@@ -216,11 +272,24 @@ public class RotorController implements RotationManager{
 		logger.debug("Calling new Rotor()");
 		decoder = new Rotor();
 		
+		logger.debug("Calling setDecoderIndex()");
+		setDecoderIndex();
+		
+		logger.debug("buildDecoder() completed successfully");
+		
+	}
+	
+	/*
+	 * Calculates the necessary index to properly decode a character
+	 * Sets the decoder to that index
+	 */
+	private void setDecoderIndex() {
+		
 		int totalOffset = 0;
 		int decodeOffset;
 		
 		logger.debug("Caching dictionary length");
-		int dictionaryLength = activeRotors[0].getValidCharacters().length();
+		int dictionaryLength = activeRotors[0].getDictionaryLength();
 		
 		logger.debug("Summing Rotor indexes");
 		for (Rotor r: activeRotors) {
@@ -233,7 +302,60 @@ public class RotorController implements RotationManager{
 		logger.debug("Calling setIndex({})", decodeOffset);
 		decoder.setIndex(decodeOffset);
 		
-		logger.debug("buildDecoder() completed successfully");
+	}
+	
+	/*
+	 * Store off the initial indexes of each Rotor so we can reset them after encryption/decryption
+	 */
+	private void setStartingIndexes() {
+		
+		logger.debug("Running setStartingIndexes()");
+		for (int i = 0; i < activeRotors.length; i++) {
+			
+			logger.debug("Calling getIndex()");
+			startingRotorIndexes[i] = activeRotors[i].getIndex();
+		}
+		
+		logger.debug("Calling getIndex()");
+		startingRotorIndexes[5] = decoder.getIndex();
+		
+		logger.debug("setStartingIndexes() completed successfully");
+		
+	}
+	
+	/*
+	 * Rotate the even Rotors three clicks on the even numbered characters
+	 * Rotate the odd Rotors one click on the odd numbered characters
+	 */
+	private void rotateRotors(int plaintextCharacterCount) {
+
+		logger.debug("Running rotateRotors({})", plaintextCharacterCount);
+		
+		if (plaintextCharacterCount % 2 == 0) {
+		
+			for (int i = 0; i < 3; i++) {
+				
+				logger.debug("Calling activeRotors[1].rotate()");
+				activeRotors[1].rotate();
+				
+				logger.debug("Calling activeRotors[3].rotate()");
+				activeRotors[3].rotate();
+			}
+
+		} else {
+
+			logger.debug("Calling activeRotors[0].rotate()");
+			activeRotors[0].rotate();
+			
+			logger.debug("Calling activeRotors[2].rotate()");
+			activeRotors[2].rotate();
+			
+			logger.debug("Calling activeRotors[4].rotate()");
+			activeRotors[4].rotate();
+
+		}
+		
+		logger.debug("rotateRotors({}) completed successfully", plaintextCharacterCount);
 		
 	}
 

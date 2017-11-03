@@ -12,6 +12,10 @@
  *         0.0.6    10/26/17    Adjusted encode() to cache dictionary length and plaintext index
  *                              Add log4j2 Logger into class
  *                              Add debugging statements for Logger
+ *         0.0.7    11/1/17     Add functionality to encode() to handle CRLF characters
+ *         0.0.8    11/2/17     Add functionality to encode() to handle space ' ' characters
+ *         0.0.9    11/3/17     Make rotate() available to RotorController
+ *                              Add dictionaryLength instance variable and related functionality
  */
 
 package rotors;
@@ -19,7 +23,6 @@ package rotors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import enigma.Dictionary;
 import interfaces.RotaryEncryptor;
 
 public class Rotor implements RotaryEncryptor {
@@ -28,6 +31,7 @@ public class Rotor implements RotaryEncryptor {
 	 * Set up each rotor with an array of characters, an initial index, and a notch position
 	 */
 	private Dictionary validCharacters;
+	private int dictionaryLength;
 	private int index = 0;
 	private int notch = 9;
 	private final static Logger logger = LogManager.getLogger(Rotor.class.getName());
@@ -43,6 +47,8 @@ public class Rotor implements RotaryEncryptor {
 		logger.debug("Calling Dictionary()");
 		validCharacters = new Dictionary();
 		
+		dictionaryLength = validCharacters.length();
+		
 		logger.debug("Rotor() completed successfully");
 		
 	}
@@ -57,6 +63,8 @@ public class Rotor implements RotaryEncryptor {
 		
 		logger.debug("Calling Dictionary(Character[] completeCodex)");
 		validCharacters = new Dictionary(completeCodex);
+		
+		dictionaryLength = validCharacters.length();
 		
 		logger.debug("Rotor(Character[] completeCodex) completed successfully");
 		
@@ -75,6 +83,8 @@ public class Rotor implements RotaryEncryptor {
 		logger.debug("Calling Dictionary(Character[] completeCodex, int notch)");
 		validCharacters = new Dictionary(completeCodex);
 		this.notch = notch;
+		
+		dictionaryLength = validCharacters.length();
 		
 		logger.debug("Rotor(Character[] completeCodex, int notch) completed successfully");
 		
@@ -120,37 +130,59 @@ public class Rotor implements RotaryEncryptor {
 		return notch;
 		
 	}
+	public int getDictionaryLength() {
+		
+		logger.debug("Running getDictionaryLength()");
+		
+		logger.debug("getDictionaryLength() completed successfully");
+		return dictionaryLength;
+	}
 	
 	/*
 	 * Advances the index by 1 and wraps around the end, emulating a mechanical rotor
 	 */
-	private void rotate() {
+	void rotate() {
 		
 		logger.debug("Running rotate()");
 		
-		logger.debug("Calling Dictionary.length()");
-		index = (index + 1) % validCharacters.length();
+		index = (index + 1) % dictionaryLength;
 		
 		logger.debug("rotate() completed successfully, index at {}", index);
 	}
 	
 	/* 
 	 * Uses the current index to encode a single character.
-	 * Returns the encoded character or '#' if the encoding cannot be completed
+	 * @return the encoded character or '#' if the encoding cannot be completed
 	 */
 	@Override
 	public Character encode(Character plaintext) {
 		
 		logger.debug("Running encode({})", plaintext);
 		
-		logger.debug("Calling Dictionary.contains({})", plaintext);
-		if (validCharacters.contains(plaintext)) {
+		if (plaintext.equals('\n')) {
+			
+			logger.debug("encode({}) completed successfully, returning '^'", plaintext);
+			return '^';
+			
+		} else if (plaintext.equals('^')) {
+			
+			logger.debug("encode({}) completed successfully, returning '\n'", plaintext);
+			return '\n';
+			
+		} else if (plaintext.equals(' ')) {
+			
+			logger.debug("encode({}) completed successfully, returning '\n'", plaintext);
+			return '~';
+			
+		} else if (plaintext.equals('~')) {
+			
+			logger.debug("encode({}) completed successfully, returning '\n'", plaintext);
+			return ' ';
+			
+		} else if (validCharacters.contains(plaintext)) {
 			
 			int currentIndex = index;
-			
-			logger.debug("Calling Dictionary.length()");
-			int dictionaryLength = validCharacters.length();
-			
+						
 			logger.debug("Finding encoded character");
 			
 			logger.debug("Calling Dictionary.indexOf({})", plaintext);

@@ -10,9 +10,11 @@
  *          0.0.5 - 10/26/17  Add log4j2 Logger into class
  *                            Add debugging statements for Logger
  *                            Added instance variable length to reduce calls to length()
+ *          0.0.6 - 11/2/17   Removed space charcter from standard dictionary
+ *                            Refactored buildDictionary() to use fewer magic numbers
  */
 
-package enigma;
+package rotors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -107,21 +109,23 @@ public class Dictionary implements CharacterSet{
 		logger.debug("Running buildDictionary()");
 		
 		logger.debug("Building new Character[]");
-		dictionary = new Character[72];
+		dictionary = new Character[71];
 		
 		logger.debug("Populating Character[]");
+		Character[] letters = new Character[52];
 		for (int i = 0; i < 26; i++) {
 			int index = i + 65;
-			dictionary[i] = (char)index;
+			letters[i] = (char)index;
 		}
 		for (int i = 26; i < 52; i++) {
 			int index = i + 71;
-			dictionary[i] = (char)index;
+			letters[i] = (char)index;
 		}
-		Character[] punctuation = {'.', ',', ';', ':', '?', '!', '"', '\'', '-', ' '};
-		System.arraycopy(punctuation, 0, dictionary, 52, punctuation.length);
+		System.arraycopy(letters, 0, dictionary, 0, letters.length);
+		Character[] punctuation = {'.', ',', ';', ':', '?', '!', '"', '\'', '-'};
+		System.arraycopy(punctuation, 0, dictionary, letters.length, punctuation.length);
 		Character[] digits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-		System.arraycopy(digits, 0, dictionary, 62, digits.length);
+		System.arraycopy(digits, 0, dictionary, letters.length + punctuation.length, digits.length);
 		
 		logger.debug("Character[] built and populated successfully");
 		

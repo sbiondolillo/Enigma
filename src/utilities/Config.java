@@ -10,6 +10,7 @@
  *                            Add debugging statements for Logger
  *          0.0.4   10/31/17  Add default file paths for input/output
  *                            Add instance variable for OutputProcessor and outputMode
+ *          0.0.5   11/2/17   Add default path constants for input/output files                  
  */
 
 package utilities;
@@ -24,9 +25,10 @@ import rotors.Rotor;
 
 class Config {
 	
-	// TODO - fill these with default values
-	private static String inputFilePath = "./resources/input.txt";
-	private static String outputFilePath = "./resources/output.html";
+	private final static String DEFAULT_INPUT_FILE = "./resources/input.txt";
+	private final static String DEFAULT_OUTPUT_FILE = "./resources/output.html";
+	private static String inputFilePath;
+	private static String outputFilePath;
 	private static Rotor[] availableRotors;
 	private static int inputMode = 1;
 	private static int programMode = 1;
@@ -216,6 +218,22 @@ class Config {
 		Config.outputMode = outputMode;
 		
 		logger.debug("setOutputMode({}) completed succesfully", outputMode);
+		
+	}
+	public static String getDefaultInputFile() {
+		
+		logger.debug("Running getDaultInputFile()");
+		
+		logger.debug("getDaultInputFile() completed successfully");
+		return DEFAULT_INPUT_FILE;
+		
+	}
+	public static String getDefaultOutputFile() {
+		
+		logger.debug("Running getDaultOutputFile()");
+		
+		logger.debug("getDaultOutputFile() completed successfully");
+		return DEFAULT_OUTPUT_FILE;
 		
 	}
 

@@ -11,6 +11,8 @@
  *                              Add debugging statements for Logger
  *          0.0.5   10/26/17    Converted Errors class to static
  *          0.0.6   10/31/17    Add methods for setting and processing Output
+ *          0.0.7   11/1/17     Split encryption/decryption output into separate processes
+ *          0.0.8   11/2/17     Adjust input/output file path setting to properly utilize default paths
  */
 
 package utilities;
@@ -23,11 +25,9 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import enigma.Dictionary;
 import enigma.FileInputProcessor;
 import enigma.KeyboardInputProcessor;
 import enigma.OutputProcessor;
-import rotors.Rotor;
 import rotors.RotorController;
 
 class Screens {
@@ -395,6 +395,9 @@ class Screens {
 			
 		} else {
 			
+			logger.debug("Calling Config.setInputFilePath({})", Config.getDefaultInputFile());
+			Config.setInputFilePath(Config.getDefaultInputFile());
+			
 			logger.debug("setInputFilePath() completed successfully with default path chosen.");
 		
 		}
@@ -579,6 +582,9 @@ class Screens {
 			
 		} else {
 			
+			logger.debug("Calling Config.setOutputFilePath({})", Config.getDefaultOutputFile());
+			Config.setOutputFilePath(Config.getDefaultOutputFile());
+			
 			logger.debug("setOutFilePath() completed successfully with default path chosen.");
 		
 		}
@@ -666,8 +672,17 @@ class Screens {
 		logger.debug("Calling Config.getOutput().setOutputFilePath({})", Config.getOutputFilePath());
 		Config.getOutput().setOutputFilePath(Paths.get(Config.getOutputFilePath()));
 		
-		logger.debug("Calling Config.getOutput().writeMessageOutToFile()");
-		Config.getOutput().writeMessageOutToFile();
+		if (Config.getProgramMode() == 1) {
+		
+			logger.debug("Calling Config.getOutput().writeEncryptedMessageOutToFile()");
+			Config.getOutput().writeEncryptedMessageOutToFile();
+			
+		} else {
+			
+			logger.debug("Calling Config.getOutput().writeDecryptedMessageOutToFile()");
+			Config.getOutput().writeDecryptedMessageOutToFile();
+			
+		}
 		
 		logger.debug("writeFileOut() completed successfully");
 		
@@ -686,8 +701,17 @@ class Screens {
 		logger.debug("Calling Config.getOutput().setMessageOut(cyphertext)");
 		Config.getOutput().setMessageOut(Config.getCypherText());
 		
-		logger.debug("Calling Config.getOutput().displayMessageOutToConsole()");
-		Config.getOutput().displayMessageOutToConsole();
+		if (Config.getProgramMode() == 1) {
+			
+			logger.debug("Calling Config.getOutput().displayEncryptedMessageOutToConsole()");
+			Config.getOutput().displayEncryptedMessageOutToConsole();
+			
+		} else {
+			
+			logger.debug("Calling Config.getOutput().displayDecryptedMessageOutToConsole()");
+			Config.getOutput().displayDecryptedMessageOutToConsole();
+			
+		}
 		
 		logger.debug("writeConsoleOut() completed successfully");
 		
@@ -697,7 +721,6 @@ class Screens {
 	 * Display the results of the encryption/decryption
 	 */
 	void displayResultsScreen() {
-		// TODO implement this to either output file or display to console
 		
 		logger.debug("Running displayResultsScreen()");
 		
@@ -763,35 +786,14 @@ class Screens {
 		
 		logger.debug("Running displayValidCharScreen()");
 		
-		logger.debug("Calling buildCharSet()");
-		Dictionary validCharacters = buildCharSet();
-		
 		logger.debug("Displaying valid characters to user");
 		System.out.println("Here is a list of the valid characters for your input:");
-		System.out.println(validCharacters);
+		System.out.println(rc.getActiveRotors()[0].getValidCharacters());
 		System.out.println("If you enter any invalid characters, they will be encoded as a hash mark '#'");
 		System.out.println("You will now be directed back to the Main Menu.");
 		System.out.println();
 		
 		logger.debug("displayValidCharScreen() completed successfully");
-		
-	}
-	
-	/*
-	 * Get the set of valid characters based on the active Rotors
-	 */
-	private Dictionary buildCharSet() {
-		
-		logger.debug("Running buildCharSet()");
-		
-		logger.debug("Calling RotorController.getActiveRotors()");
-		Rotor[] baseRotor = rc.getActiveRotors();
-		
-		logger.debug("Calling Rotor.getValidCharacters()");
-		Dictionary charSet = baseRotor[0].getValidCharacters();
-		
-		logger.debug("buildCharSet() completed successfully");
-		return charSet;
 		
 	}
 	
@@ -831,7 +833,6 @@ class Screens {
 	 * Display the final screen before the program exits
 	 */
 	void displayExitScreen() {
-		// TODO implement this
 		
 		logger.debug("Running displayExitScreen()");
 		
