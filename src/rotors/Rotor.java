@@ -14,6 +14,7 @@
  *                              Add debugging statements for Logger
  *         0.0.7    11/1/17     Add functionality to encode() to handle CRLF characters
  *         0.0.8    11/2/17     Add functionality to encode() to handle space ' ' characters
+ *         0.0.9    11/3/17     Make rotate() available to RotorController
  */
 
 package rotors;
@@ -126,7 +127,7 @@ public class Rotor implements RotaryEncryptor {
 	/*
 	 * Advances the index by 1 and wraps around the end, emulating a mechanical rotor
 	 */
-	private void rotate() {
+	void rotate() {
 		
 		logger.debug("Running rotate()");
 		

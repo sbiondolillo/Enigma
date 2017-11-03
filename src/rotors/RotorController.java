@@ -10,6 +10,7 @@
  *                           Refactor initialization
  *          0.0.4   11/3/17  Add startingRotorIndexes instance variable and associated methods
  *                           Add logic to reset() method
+ *                           Add rotateRotors() method
  */
 
 package rotors;
@@ -111,6 +112,34 @@ public class RotorController implements RotationManager{
 		return output;
 		
 	}
+	
+	/*
+	 * Rotate the even Rotors three clicks on the even numbered characters
+	 * Rotate the odd Rotors one click on the odd numbered characters
+	 */
+	private void rotateRotors(int plaintextCharacterCount) {
+
+		logger.debug("Running rotateRotors({})", plaintextCharacterCount);
+		
+		if (plaintextCharacterCount % 2 == 0) {
+		
+			for (int i = 0; i < 3; i++) {
+				activeRotors[1].rotate();
+				activeRotors[3].rotate();
+			}
+
+		} else {
+
+			activeRotors[0].rotate();
+			activeRotors[2].rotate();
+			activeRotors[4].rotate();
+
+		}
+		
+		logger.debug("rotateRotors({}) completed successfully", plaintextCharacterCount);
+		
+	}
+
 	
 	/*
 	 * Correctly decode a String by using the complementary decoder Rotor
