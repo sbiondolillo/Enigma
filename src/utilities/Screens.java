@@ -28,8 +28,6 @@ import org.apache.logging.log4j.Logger;
 import enigma.FileInputProcessor;
 import enigma.KeyboardInputProcessor;
 import enigma.OutputProcessor;
-import rotors.Dictionary;
-import rotors.Rotor;
 import rotors.RotorController;
 
 class Screens {
@@ -788,35 +786,14 @@ class Screens {
 		
 		logger.debug("Running displayValidCharScreen()");
 		
-		logger.debug("Calling buildCharSet()");
-		Dictionary validCharacters = buildCharSet();
-		
 		logger.debug("Displaying valid characters to user");
 		System.out.println("Here is a list of the valid characters for your input:");
-		System.out.println(validCharacters);
+		System.out.println(rc.getActiveRotors()[0].getValidCharacters());
 		System.out.println("If you enter any invalid characters, they will be encoded as a hash mark '#'");
 		System.out.println("You will now be directed back to the Main Menu.");
 		System.out.println();
 		
 		logger.debug("displayValidCharScreen() completed successfully");
-		
-	}
-	
-	/*
-	 * Get the set of valid characters based on the active Rotors
-	 */
-	private Dictionary buildCharSet() {
-		
-		logger.debug("Running buildCharSet()");
-		
-		logger.debug("Calling RotorController.getActiveRotors()");
-		Rotor[] baseRotor = rc.getActiveRotors();
-		
-		logger.debug("Calling Rotor.getValidCharacters()");
-		Dictionary charSet = baseRotor[0].getValidCharacters();
-		
-		logger.debug("buildCharSet() completed successfully");
-		return charSet;
 		
 	}
 	
