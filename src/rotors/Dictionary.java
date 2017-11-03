@@ -14,7 +14,7 @@
  *                            Refactored buildDictionary() to use fewer magic numbers
  */
 
-package enigma;
+package rotors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

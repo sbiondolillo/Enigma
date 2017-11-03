@@ -25,10 +25,10 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import enigma.Dictionary;
 import enigma.FileInputProcessor;
 import enigma.KeyboardInputProcessor;
 import enigma.OutputProcessor;
+import rotors.Dictionary;
 import rotors.Rotor;
 import rotors.RotorController;
 
