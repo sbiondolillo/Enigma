@@ -13,6 +13,7 @@
  *          0.0.6   10/31/17    Add methods for setting and processing Output
  *          0.0.7   11/1/17     Split encryption/decryption output into separate processes
  *          0.0.8   11/2/17     Adjust input/output file path setting to properly utilize default paths
+ *          0.0.9   11/5/17     Modify input file selection to use GUI FileSelector
  */
 
 package utilities;
@@ -408,22 +409,19 @@ class Screens {
 		
 		logger.debug("Running getCustomInputFilePath()");
 		
-		logger.debug("Displaying available drives");
-		System.out.println("OK, Please choose the drive where the file exists. The following drives are available:");
-		File[] paths = File.listRoots();
-		for (File path:paths) {
-			System.out.println(path);
+		logger.debug("Building new FileSelector");
+		FileSelector fileSelector = new FileSelector("./resources");
+		
+		logger.debug("Displaying Open File Dialog");
+		String filePath = fileSelector.selectOpenFilePath();
+		
+		if (filePath.equals("")) {
+			
+			logger.debug("Using DEFAULT_INPUT_FILE");
+			System.out.println("We will proceed with the default file path." +
+					" You can access the Input settings menu again to change this.");
+			filePath = Config.getDefaultInputFile();
 		}
-		
-		logger.debug("Getting Drive selection from user");
-		System.out.print("Please enter your drive selection: ");
-		String drive = input.nextLine();
-		logger.debug("User selected drive {}", drive);
-		
-		logger.debug("Getting path selection from user");
-		System.out.println("OK, now please enter the location of the file on " + drive);
-		String path = input.nextLine();
-		String filePath = drive + path;
 		
 		logger.debug("getCustomInputFilePath() completed successfully, returning {}", filePath);
 		return filePath;
