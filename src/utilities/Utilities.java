@@ -10,18 +10,33 @@
  *                              Add debugging statements for Logger
  *          0.0.4   10/26/17    Converted handleError() to static
  *          0.0.5   11/5/17     Add method for formatting file paths to .html
+ *          0.0.6   11/6/17     Add method to initialize Config with default files
  */
 
 package utilities;
 
 import org.apache.logging.log4j.Logger;
+
+import java.io.File;
+import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 
 public class Utilities {        
 	
-	private Screens screenManager = new Screens();
+	private Screens screenManager;
 	private final static Logger logger = LogManager.getLogger(Utilities.class.getName());
 	
+	
+	public Utilities() {
+		
+		logger.debug("Building new Screens()");
+		screenManager = new Screens();
+		
+		logger.debug("Calling initializeConfig()");
+		initializeConfig();
+		
+	}
 	/*
 	 * Makes a call to a method in a class within the utilities package
 	 * @param code - an int provided by the user from an input prompt
@@ -135,4 +150,83 @@ public class Utilities {
 		return formattedFilePath;
 		
 	}
+    
+    private void initializeConfig() {
+    	
+    	Config.setInputFilePath(Config.getDefaultInputFile());
+    	Config.setOutputFilePath(Config.getDefaultOutputFile());
+    	createDefaultInputFile();
+    	createDefaultOutputFile();
+    	
+    	File defaultOutputFile = new File(Config.getDefaultOutputFile());
+    	try {
+    		defaultOutputFile.createNewFile();
+    	}
+    	catch (IOException e) {
+    		System.out.println("Unable to create default file: " + defaultOutputFile.getPath());
+    		System.out.println(e.getClass());
+    	}
+    }
+    
+    private void createDefaultInputFile() {
+    	
+    	File defaultInputFile = new File(Config.getDefaultInputFile());
+    	if (defaultInputFile.getParentFile().exists()) {
+	    	try {
+	    		defaultInputFile.createNewFile();
+	    	}
+	    	catch (IOException e) {
+	    		System.out.println("Unable to create default file: " + defaultInputFile.getPath());
+	    		System.out.println(e.getClass());
+	    	}
+    	}
+    	else {
+    		try {
+    			defaultInputFile.getParentFile().mkdirs();
+    		}
+    		catch (SecurityException e) {
+    			System.out.println("Unable to create parent directory for default file: " + defaultInputFile.getParent());
+    			System.out.println(e.getClass());
+    		}
+    		finally {
+    			try {
+					defaultInputFile.createNewFile();
+				} catch (IOException e) {
+					System.out.println("Unable to create default file: " + defaultInputFile.getPath());
+		    		System.out.println(e.getClass());
+				}
+    		}
+    	}
+    }
+    
+    private void createDefaultOutputFile() {
+    	
+    	File defaultOutputFile = new File(Config.getDefaultOutputFile());
+    	if (defaultOutputFile.getParentFile().exists()) {
+	    	try {
+	    		defaultOutputFile.createNewFile();
+	    	}
+	    	catch (IOException e) {
+	    		System.out.println("Unable to create default file: " + defaultOutputFile.getPath());
+	    		System.out.println(e.getClass());
+	    	}
+    	}
+    	else {
+    		try {
+    			defaultOutputFile.getParentFile().mkdirs();
+    		}
+    		catch (SecurityException e) {
+    			System.out.println("Unable to create parent directory for default file: " + defaultOutputFile.getParent());
+    			System.out.println(e.getClass());
+    		}
+    		finally {
+    			try {
+					defaultOutputFile.createNewFile();
+				} catch (IOException e) {
+					System.out.println("Unable to create default file: " + defaultOutputFile.getPath());
+		    		System.out.println(e.getClass());
+				}
+    		}
+    	}
+    }
 }
