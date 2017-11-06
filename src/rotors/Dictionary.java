@@ -109,7 +109,7 @@ public class Dictionary implements CharacterSet{
 		logger.debug("Running buildDictionary()");
 		
 		logger.debug("Building new Character[]");
-		dictionary = new Character[71];
+		dictionary = new Character[77];
 		
 		logger.debug("Populating Character[]");
 		Character[] letters = new Character[52];
@@ -122,7 +122,7 @@ public class Dictionary implements CharacterSet{
 			letters[i] = (char)index;
 		}
 		System.arraycopy(letters, 0, dictionary, 0, letters.length);
-		Character[] punctuation = {'.', ',', ';', ':', '?', '!', '"', '\'', '-'};
+		Character[] punctuation = {'.', ',', ';', ':', '?', '!', '"', '\'', '-','(',')','[',']','\\','/'};
 		System.arraycopy(punctuation, 0, dictionary, letters.length, punctuation.length);
 		Character[] digits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 		System.arraycopy(digits, 0, dictionary, letters.length + punctuation.length, digits.length);
