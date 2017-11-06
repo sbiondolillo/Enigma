@@ -14,7 +14,8 @@
  *          0.0.7   11/1/17     Split encryption/decryption output into separate processes
  *          0.0.8   11/2/17     Adjust input/output file path setting to properly utilize default paths
  *          0.0.9   11/5/17     Modify input file selection to use GUI FileSelector
- *                              Modify output file selection to use GUI FileSelector                       
+ *                              Modify output file selection to use GUI FileSelector
+ *          0.0.10  11/6/17     Added default constructor with logging                     
  */
 
 package utilities;
@@ -33,9 +34,29 @@ import rotors.RotorController;
 
 class Screens {
 	
-	private Scanner input = new Scanner(System.in);
-	private RotorController rc = new RotorController();
+	private Scanner input;
+	private RotorController rc;
 	private final static Logger logger = LogManager.getLogger(Screens.class.getName());
+	
+	
+	/*
+	 * Constructor - Default
+	 * Builds a Scanner for reading keyboard input
+	 * Builds a RotorController for managing encryption/decryption
+	 */
+	public Screens() {
+	
+		logger.debug("Running new Screens()");
+		
+		logger.debug("Building new Scanner(System.in)");
+		input = new Scanner(System.in);
+		
+		logger.debug("Building new RotorController()");
+		rc = new RotorController();
+		
+		logger.debug("new Screens() completed successfully");
+		
+	}
 	
 	/*
 	 * Display the initial prompt to the user when the program launches

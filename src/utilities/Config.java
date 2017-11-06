@@ -85,7 +85,7 @@ class Config {
 	}
 	static void setInputMode(int inputMode) {
 		
-		logger.debug("Calling setInputMode({})", inputMode);
+		logger.debug("Running setInputMode({})", inputMode);
 		
 		Config.inputMode = inputMode;
 		
@@ -153,7 +153,7 @@ class Config {
 	}
 	public static void setProgramMode(int programMode) {
 		
-		logger.debug("running setProgramMode({})", programMode);
+		logger.debug("Running setProgramMode({})", programMode);
 		
 		Config.programMode = programMode;
 		
@@ -170,7 +170,7 @@ class Config {
 	}
 	public static void setCypherText(String cypherText) {
 		
-		logger.debug("running setCypherText()");
+		logger.debug("Running setCypherText()");
 		
 		Config.cypherText = cypherText;
 		
@@ -179,9 +179,9 @@ class Config {
 	}
 	public static OutputProcessor getOutput() {
 		
-		logger.debug("running getOutput()");
+		logger.debug("Running getOutput()");
 		
-		logger.debug("getOutput() completed successfully");
+		logger.debug("getOutput() completed successfully, returning {}", output);
 		return output;
 		
 	}
@@ -198,7 +198,7 @@ class Config {
 		
 		logger.debug("Running getOutputMode()");
 		
-		logger.debug("getOutputMode() completed successfully");
+		logger.debug("getOutputMode() completed successfully, returning {}", outputMode);
 		return outputMode;
 		
 	}
@@ -213,17 +213,17 @@ class Config {
 	}
 	public static String getDefaultInputFile() {
 		
-		logger.debug("Running getDaultInputFile()");
+		logger.debug("Running getDefaultInputFile()");
 		
-		logger.debug("getDaultInputFile() completed successfully");
+		logger.debug("getDefaultInputFile() completed successfully, returning {}", DEFAULT_INPUT_FILE);
 		return DEFAULT_INPUT_FILE;
 		
 	}
 	public static String getDefaultOutputFile() {
 		
-		logger.debug("Running getDaultOutputFile()");
+		logger.debug("Running getDefaultOutputFile()");
 		
-		logger.debug("getDaultOutputFile() completed successfully");
+		logger.debug("getDefaultOutputFile() completed successfully, returning {}", DEFAULT_OUTPUT_FILE);
 		return DEFAULT_OUTPUT_FILE;
 		
 	}

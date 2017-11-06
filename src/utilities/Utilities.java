@@ -37,11 +37,15 @@ public class Utilities {
 	 */
 	public Utilities() {
 		
+		logger.debug("Running new Utilities()");
+		
 		logger.debug("Building new Screens()");
 		screenManager = new Screens();
 		
 		logger.debug("Calling initializeConfig()");
 		initializeConfig();
+		
+		logger.debug("new Utilities() completed successfully");
 		
 	}
 	
@@ -182,7 +186,7 @@ public class Utilities {
     		
 	    	try {
 	    		
-	    		logger.debug("Parent directory {} exists, creating new file: {}", newFile.getParent(), newFile.getName());
+	    		logger.debug("Parent directory {} exists, calling File.createNewFile()", newFile.getParent());
 	    		newFile.createNewFile();
 	    		
 	    	}
@@ -206,7 +210,7 @@ public class Utilities {
     		}
     		catch (SecurityException e) {
     			
-    			logger.error("File error in createDefaultOutputFile(): {}", e.getClass());
+    			logger.error("File error in createFile(): {}", e.getClass());
 	    		
 	    		logger.debug("Calling handleError(file)");
 	    		handleError("file");
@@ -222,7 +226,7 @@ public class Utilities {
 				}
     			catch (IOException e) {
     				
-    				logger.error("File error in createDefaultInputFile(): {}", e.getClass());
+    				logger.error("File error in createFile(): {}", e.getClass());
     	    		
     	    		logger.debug("Calling handleError(file)");
     	    		handleError("file");
