@@ -573,7 +573,7 @@ class Screens {
 		if (useDefaultFilePath == 2) {
 			
 			logger.debug("Calling getCustomFilePath()");
-			String filePath = formatHTMLFilePath(getCustomOutputFilePath());
+			String filePath = Utilities.formatHTMLFilePath(getCustomOutputFilePath());
 			
 			logger.debug("Calling Config.setOutputFilePath({})", filePath);
 			Config.setOutputFilePath(filePath);
@@ -652,38 +652,7 @@ class Screens {
 		
 	}
 	
-	private String formatHTMLFilePath(String filePath) {
-		
-		logger.debug("Running formatHTMLFilePath({})", filePath);
-		
-		String formattedFilePath;
-		
-		if (!filePath.matches("*.html")) {
-			
-			if (filePath.matches("*.*")) {
-				
-				logger.debug("Changing file extension to .html");
-				formattedFilePath = filePath.substring(0, filePath.lastIndexOf("."));
-				formattedFilePath += ".html";
-				
-			}
-			else {
-				
-				logger.debug("Adding .html file extension");
-				formattedFilePath = filePath + ".html";
-				
-			}
-		}
-		else {
-			
-			formattedFilePath = filePath;
-			
-		}
-		
-		logger.debug("formatHTMLFilePath({}) completed successfully, returning {}", filePath, formattedFilePath);
-		return formattedFilePath;
-		
-	}
+	
 	
 	/*
 	 * Write the contents of the encoded message to the specified file

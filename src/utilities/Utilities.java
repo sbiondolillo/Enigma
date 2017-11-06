@@ -9,6 +9,7 @@
  *          0.0.3   10/25/17    Add log4j2 Logger into class
  *                              Add debugging statements for Logger
  *          0.0.4   10/26/17    Converted handleError() to static
+ *          0.0.5   11/5/17     Add method for formatting file paths to .html
  */
 
 package utilities;
@@ -87,4 +88,37 @@ public class Utilities {
     	logger.error("handleError({}) completed successfully", type);
     	
     }
+    
+    public static String formatHTMLFilePath(String filePath) {
+    		
+		logger.debug("Running formatHTMLFilePath({})", filePath);
+		
+		String formattedFilePath;
+		
+		if (!filePath.matches("*.html")) {
+			
+			if (filePath.matches("*.*")) {
+				
+				logger.debug("Changing file extension to .html");
+				formattedFilePath = filePath.substring(0, filePath.lastIndexOf("."));
+				formattedFilePath += ".html";
+				
+			}
+			else {
+				
+				logger.debug("Adding .html file extension");
+				formattedFilePath = filePath + ".html";
+				
+			}
+		}
+		else {
+			
+			formattedFilePath = filePath;
+			
+		}
+		
+		logger.debug("formatHTMLFilePath({}) completed successfully, returning {}", filePath, formattedFilePath);
+		return formattedFilePath;
+		
+	}
 }
