@@ -14,6 +14,8 @@
  *          0.0.7   11/1/17     Split encryption/decryption output into separate processes
  *          0.0.8   11/2/17     Adjust input/output file path setting to properly utilize default paths
  *          0.0.9   11/5/17     Modify input file selection to use GUI FileSelector
+ *                              Modify output file selection to use GUI FileSelector
+ *                              Add method for formatting output file path
  */
 
 package utilities;
@@ -571,7 +573,7 @@ class Screens {
 		if (useDefaultFilePath == 2) {
 			
 			logger.debug("Calling getCustomFilePath()");
-			String filePath = getCustomOutputFilePath() + "supersecretmessage.html";
+			String filePath = formatHTMLFilePath(getCustomOutputFilePath());
 			
 			logger.debug("Calling Config.setOutputFilePath({})", filePath);
 			Config.setOutputFilePath(filePath);
@@ -629,28 +631,57 @@ class Screens {
 	 */
 	private String getCustomOutputFilePath() {
 		
-		logger.debug("Running getCustomFilePath()");
+		logger.debug("Running getCustomOutputFilePath()");
 		
-		logger.debug("Displaying available drives");
-		System.out.println("OK, Please choose the drive where the file should be written. The following drives are available:");
-		File[] paths = File.listRoots();
-		for (File path:paths) {
-			System.out.println(path);
+		logger.debug("Building new FileSelector");
+		FileSelector fileSelector = new FileSelector("./resources");
+		
+		logger.debug("Displaying Save File Dialog");
+		String filePath = fileSelector.selectSaveFilePath();
+		
+		if (filePath.equals("")) {
+			
+			logger.debug("Using DEFAULT_OUTPUT_FILE");
+			System.out.println("We will proceed with the default file path." +
+					" You can access the Output settings menu again to change this.");
+			filePath = Config.getDefaultOutputFile();
 		}
 		
-		logger.debug("Getting Drive selection from user");
-		System.out.print("Please enter your drive selection: ");
-		String drive = input.nextLine();
-		logger.debug("User selected drive {}", drive);
-		
-		logger.debug("Getting path selection from user");
-		System.out.println("OK, now please enter the folder on " + drive + " where the file should be written.");
-		System.out.println("Please terminate your file path in a back-slash character '\\' to ensure proper location.");
-		String path = input.nextLine();
-		String filePath = drive + path;
-		
-		logger.debug("getCustomFilePath() completed successfully, returning {}", filePath);
+		logger.debug("getCustomOutputFilePath() completed successfully, returning {}", filePath);
 		return filePath;
+		
+	}
+	
+	private String formatHTMLFilePath(String filePath) {
+		
+		logger.debug("Running formatHTMLFilePath({})", filePath);
+		
+		String formattedFilePath;
+		
+		if (!filePath.matches("*.html")) {
+			
+			if (filePath.matches("*.*")) {
+				
+				logger.debug("Changing file extension to .html");
+				formattedFilePath = filePath.substring(0, filePath.lastIndexOf("."));
+				formattedFilePath += ".html";
+				
+			}
+			else {
+				
+				logger.debug("Adding .html file extension");
+				formattedFilePath = filePath + ".html";
+				
+			}
+		}
+		else {
+			
+			formattedFilePath = filePath;
+			
+		}
+		
+		logger.debug("formatHTMLFilePath({}) completed successfully, returning {}", filePath, formattedFilePath);
+		return formattedFilePath;
 		
 	}
 	
