@@ -13,7 +13,8 @@
  *         0.0.5 - 10/25/17 Add log4j2 logging framework into project
  *                          Add log4j2 Logger into class
  *                          Add debugging statements for Logger
- *         0.0.6 - 11/1/17  Removed unneessary methods and interface implementation
+ *         0.0.6 - 11/1/17  Removed unnecessary methods and interface implementation
+ *         0.0.7 - 11/6/17  Added default constructor with logging
  */
 
 package enigma;
@@ -24,8 +25,23 @@ import org.apache.logging.log4j.LogManager;
 
 public class Enigma {
 	
-	private Utilities utility = new Utilities();
+	private Utilities utility;
 	private final static Logger logger = LogManager.getLogger(Enigma.class.getName());
+	
+	/*
+	 * Constructor - Default
+	 * Builds a Utilities object to handle program execution and coordination
+	 */
+	public Enigma() {
+		
+		logger.debug("Running new Enigma()");
+		
+		logger.debug("Building new Utilities()");
+		utility = new Utilities();
+		
+		logger.debug("new Enigma() completed successfully");
+		
+	}
 	
 	/*
 	 * Introduce the program
@@ -50,8 +66,10 @@ public class Enigma {
 	}
 	
 	/*
-	 *  Main - Sequentially call the input,processing,output routines
-	 *  	   to yield a final encrypted/decrypted message
+	 *  Main
+	 *  Create an Enigma()
+	 *  Put the user into the Menus screens
+	 *  Allow the user to view the various Menus until they choose to exit
 	 */
 	public static void main(String[] args) {
 		
@@ -60,15 +78,12 @@ public class Enigma {
 		logger.debug("Building new Enigma()");
 		Enigma enigmaMachine = new Enigma();
 		
-		logger.debug("new Enigma() built successfully");
-		
-		logger.debug("Calling enigmaMachine.introduceProgram()");
+		logger.debug("Calling introduceProgram()");
 		enigmaMachine.introduceProgram();
 		
-		// Allow the user to navigate the menus until they quit
 		while (true) {
 			
-			logger.debug("Calling enigmaMachine.runMainMenu()");
+			logger.debug("Calling runMainMenu()");
 			enigmaMachine.runMainMenu();
 			
 		}

@@ -13,11 +13,13 @@
  *          0.0.6   10/31/17    Add methods for setting and processing Output
  *          0.0.7   11/1/17     Split encryption/decryption output into separate processes
  *          0.0.8   11/2/17     Adjust input/output file path setting to properly utilize default paths
+ *          0.0.9   11/5/17     Modify input file selection to use GUI FileSelector
+ *                              Modify output file selection to use GUI FileSelector
+ *          0.0.10  11/6/17     Added default constructor with logging                     
  */
 
 package utilities;
 
-import java.io.File;
 import java.nio.file.Paths;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -32,9 +34,29 @@ import rotors.RotorController;
 
 class Screens {
 	
-	private Scanner input = new Scanner(System.in);
-	private RotorController rc = new RotorController();
+	private Scanner input;
+	private RotorController rc;
 	private final static Logger logger = LogManager.getLogger(Screens.class.getName());
+	
+	
+	/*
+	 * Constructor - Default
+	 * Builds a Scanner for reading keyboard input
+	 * Builds a RotorController for managing encryption/decryption
+	 */
+	public Screens() {
+	
+		logger.debug("Running new Screens()");
+		
+		logger.debug("Building new Scanner(System.in)");
+		input = new Scanner(System.in);
+		
+		logger.debug("Building new RotorController()");
+		rc = new RotorController();
+		
+		logger.debug("new Screens() completed successfully");
+		
+	}
 	
 	/*
 	 * Display the initial prompt to the user when the program launches
@@ -408,22 +430,19 @@ class Screens {
 		
 		logger.debug("Running getCustomInputFilePath()");
 		
-		logger.debug("Displaying available drives");
-		System.out.println("OK, Please choose the drive where the file exists. The following drives are available:");
-		File[] paths = File.listRoots();
-		for (File path:paths) {
-			System.out.println(path);
+		logger.debug("Building new FileSelector");
+		FileSelector fileSelector = new FileSelector("./resources/misc");
+		
+		logger.debug("Displaying Open File Dialog");
+		String filePath = fileSelector.selectOpenFilePath();
+		
+		if (filePath.equals("")) {
+			
+			logger.debug("Using DEFAULT_INPUT_FILE");
+			System.out.println("We will proceed with the default file path." +
+					" You can access the Input settings menu again to change this.");
+			filePath = Config.getDefaultInputFile();
 		}
-		
-		logger.debug("Getting Drive selection from user");
-		System.out.print("Please enter your drive selection: ");
-		String drive = input.nextLine();
-		logger.debug("User selected drive {}", drive);
-		
-		logger.debug("Getting path selection from user");
-		System.out.println("OK, now please enter the location of the file on " + drive);
-		String path = input.nextLine();
-		String filePath = drive + path;
 		
 		logger.debug("getCustomInputFilePath() completed successfully, returning {}", filePath);
 		return filePath;
@@ -573,7 +592,7 @@ class Screens {
 		if (useDefaultFilePath == 2) {
 			
 			logger.debug("Calling getCustomFilePath()");
-			String filePath = getCustomOutputFilePath() + "supersecretmessage.html";
+			String filePath = Utilities.formatHTMLFilePath(getCustomOutputFilePath());
 			
 			logger.debug("Calling Config.setOutputFilePath({})", filePath);
 			Config.setOutputFilePath(filePath);
@@ -631,30 +650,28 @@ class Screens {
 	 */
 	private String getCustomOutputFilePath() {
 		
-		logger.debug("Running getCustomFilePath()");
+		logger.debug("Running getCustomOutputFilePath()");
 		
-		logger.debug("Displaying available drives");
-		System.out.println("OK, Please choose the drive where the file should be written. The following drives are available:");
-		File[] paths = File.listRoots();
-		for (File path:paths) {
-			System.out.println(path);
+		logger.debug("Building new FileSelector");
+		FileSelector fileSelector = new FileSelector("./resources/misc");
+		
+		logger.debug("Displaying Save File Dialog");
+		String filePath = fileSelector.selectSaveFilePath();
+		
+		if (filePath.equals("")) {
+			
+			logger.debug("Using DEFAULT_OUTPUT_FILE");
+			System.out.println("We will proceed with the default file path." +
+					" You can access the Output settings menu again to change this.");
+			filePath = Config.getDefaultOutputFile();
 		}
 		
-		logger.debug("Getting Drive selection from user");
-		System.out.print("Please enter your drive selection: ");
-		String drive = input.nextLine();
-		logger.debug("User selected drive {}", drive);
-		
-		logger.debug("Getting path selection from user");
-		System.out.println("OK, now please enter the folder on " + drive + " where the file should be written.");
-		System.out.println("Please terminate your file path in a back-slash character '\\' to ensure proper location.");
-		String path = input.nextLine();
-		String filePath = drive + path;
-		
-		logger.debug("getCustomFilePath() completed successfully, returning {}", filePath);
+		logger.debug("getCustomOutputFilePath() completed successfully, returning {}", filePath);
 		return filePath;
 		
 	}
+	
+	
 	
 	/*
 	 * Write the contents of the encoded message to the specified file

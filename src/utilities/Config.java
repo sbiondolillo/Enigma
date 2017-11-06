@@ -10,7 +10,8 @@
  *                            Add debugging statements for Logger
  *          0.0.4   10/31/17  Add default file paths for input/output
  *                            Add instance variable for OutputProcessor and outputMode
- *          0.0.5   11/2/17   Add default path constants for input/output files                  
+ *          0.0.5   11/2/17   Add default path constants for input/output files
+ *          0.0.6   11/6/17   Remove unused availableRotors[] field     
  */
 
 package utilities;
@@ -21,15 +22,13 @@ import org.apache.logging.log4j.Logger;
 import enigma.FileInputProcessor;
 import enigma.KeyboardInputProcessor;
 import enigma.OutputProcessor;
-import rotors.Rotor;
 
 class Config {
 	
-	private final static String DEFAULT_INPUT_FILE = "./resources/input.txt";
-	private final static String DEFAULT_OUTPUT_FILE = "./resources/output.html";
+	private final static String DEFAULT_INPUT_FILE = "./resources/misc/input.txt";
+	private final static String DEFAULT_OUTPUT_FILE = "./resources/misc/output.html";
 	private static String inputFilePath;
 	private static String outputFilePath;
-	private static Rotor[] availableRotors;
 	private static int inputMode = 1;
 	private static int programMode = 1;
 	private static int outputMode = 1;
@@ -76,14 +75,6 @@ class Config {
 		logger.debug("setOutputFilePath({}) completed successfully", output);
 		
 	}
-	static Rotor[] getAvailableRotors() {
-		
-		logger.debug("Running getAvailableRotors()");
-		
-		logger.debug("getAvailableRotors() completed successfully, returning {}", (Object)availableRotors);
-		return availableRotors;
-		
-	}
 	static int getInputMode() {
 		
 		logger.debug("Running getInputMode()");
@@ -94,7 +85,7 @@ class Config {
 	}
 	static void setInputMode(int inputMode) {
 		
-		logger.debug("Calling setInputMode({})", inputMode);
+		logger.debug("Running setInputMode({})", inputMode);
 		
 		Config.inputMode = inputMode;
 		
@@ -162,7 +153,7 @@ class Config {
 	}
 	public static void setProgramMode(int programMode) {
 		
-		logger.debug("running setProgramMode({})", programMode);
+		logger.debug("Running setProgramMode({})", programMode);
 		
 		Config.programMode = programMode;
 		
@@ -179,7 +170,7 @@ class Config {
 	}
 	public static void setCypherText(String cypherText) {
 		
-		logger.debug("running setCypherText()");
+		logger.debug("Running setCypherText()");
 		
 		Config.cypherText = cypherText;
 		
@@ -188,9 +179,9 @@ class Config {
 	}
 	public static OutputProcessor getOutput() {
 		
-		logger.debug("running getOutput()");
+		logger.debug("Running getOutput()");
 		
-		logger.debug("getOutput() completed successfully");
+		logger.debug("getOutput() completed successfully, returning {}", output);
 		return output;
 		
 	}
@@ -207,7 +198,7 @@ class Config {
 		
 		logger.debug("Running getOutputMode()");
 		
-		logger.debug("getOutputMode() completed successfully");
+		logger.debug("getOutputMode() completed successfully, returning {}", outputMode);
 		return outputMode;
 		
 	}
@@ -222,17 +213,17 @@ class Config {
 	}
 	public static String getDefaultInputFile() {
 		
-		logger.debug("Running getDaultInputFile()");
+		logger.debug("Running getDefaultInputFile()");
 		
-		logger.debug("getDaultInputFile() completed successfully");
+		logger.debug("getDefaultInputFile() completed successfully, returning {}", DEFAULT_INPUT_FILE);
 		return DEFAULT_INPUT_FILE;
 		
 	}
 	public static String getDefaultOutputFile() {
 		
-		logger.debug("Running getDaultOutputFile()");
+		logger.debug("Running getDefaultOutputFile()");
 		
-		logger.debug("getDaultOutputFile() completed successfully");
+		logger.debug("getDefaultOutputFile() completed successfully, returning {}", DEFAULT_OUTPUT_FILE);
 		return DEFAULT_OUTPUT_FILE;
 		
 	}

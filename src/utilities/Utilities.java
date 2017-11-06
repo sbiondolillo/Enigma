@@ -9,17 +9,45 @@
  *          0.0.3   10/25/17    Add log4j2 Logger into class
  *                              Add debugging statements for Logger
  *          0.0.4   10/26/17    Converted handleError() to static
+ *          0.0.5   11/5/17     Add method for formatting file paths to .html
+ *          0.0.6   11/6/17     Add method to initialize Config with default files
+ *                              Add default constructor which calls the new Config initializer
+ *                              Add method to create files in the file system
  */
 
 package utilities;
 
 import org.apache.logging.log4j.Logger;
+
+import java.io.File;
+import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 
 public class Utilities {        
 	
-	private Screens screenManager = new Screens();
+	private Screens screenManager;
 	private final static Logger logger = LogManager.getLogger(Utilities.class.getName());
+	
+	
+	/*
+	 * Constructor - Default
+	 * Builds a Screens object for displaying the program menus
+	 * Sets up the default input/output files as defined in Config
+	 */
+	public Utilities() {
+		
+		logger.debug("Running new Utilities()");
+		
+		logger.debug("Building new Screens()");
+		screenManager = new Screens();
+		
+		logger.debug("Calling initializeConfig()");
+		initializeConfig();
+		
+		logger.debug("new Utilities() completed successfully");
+		
+	}
 	
 	/*
 	 * Makes a call to a method in a class within the utilities package
@@ -87,4 +115,152 @@ public class Utilities {
     	logger.error("handleError({}) completed successfully", type);
     	
     }
+    
+    /*
+     * Adds .html file extension to file names without an extension
+     * Changes existing file extensions to .html
+     */
+    public static String formatHTMLFilePath(String filePath) {
+    		
+		logger.debug("Running formatHTMLFilePath({})", filePath);
+		
+		String formattedFilePath;
+		
+		/*
+		 * Regex:
+		 * Starts with - ^
+		 * Any number of any type of characters - (.+)
+		 * Followed by ".html" - (\\.html)
+		 */
+		if (!filePath.matches("^(.+)(\\.html)")) {
+			
+			logger.debug("Current file path not formatted correctly");
+			
+			/*
+			 * Regex:
+			 * Starts with - ^
+			 * Any number of any type of characters - (.+)
+			 * Followed by a dot character - (\\.)
+			 * Followed by any number of any type of characters - (.+)
+			 */
+			if (filePath.matches("^(.+)(\\.)(.+)")) {
+				
+				logger.debug("Changing file extension to .html");
+				formattedFilePath = filePath.substring(0, filePath.lastIndexOf("."));
+				formattedFilePath += ".html";
+				
+			}
+			else {
+				
+				logger.debug("Adding .html file extension");
+				formattedFilePath = filePath + ".html";
+				
+			}
+		}
+		else {
+			
+			logger.debug("Current file path formatted correctly");
+			formattedFilePath = filePath;
+			
+		}
+		
+		logger.debug("formatHTMLFilePath({}) completed successfully, returning {}", filePath, formattedFilePath);
+		return formattedFilePath;
+		
+	}
+    
+    /*
+     * Creates a file given a file path
+     * Creates parent directories if necessary
+     * @param filePath - a String denoting a location in the file system
+     */
+    public static void createFile(String filePath) {
+    	
+    	logger.debug("Running createFile()");
+    	
+    	logger.debug("Building new File({})", filePath);
+    	File newFile = new File(filePath);
+    	
+    	logger.debug("Checking for existence of parent directory {}", newFile.getParent());
+    	if (newFile.getParentFile().exists()) {
+    		
+	    	try {
+	    		
+	    		logger.debug("Parent directory {} exists, calling File.createNewFile()", newFile.getParent());
+	    		newFile.createNewFile();
+	    		
+	    	}
+	    	catch (IOException e) {
+	    		
+	    		logger.error("File error in createFile(): {}", e.getClass());
+	    		
+	    		logger.debug("Calling handleError(file)");
+	    		handleError("file");
+	    		
+	    	}
+	    	
+    	}
+    	else {
+    		
+    		try {
+    			
+    			logger.debug("Parent directory {} does not exist, creating directory", newFile.getParent());
+    			newFile.getParentFile().mkdirs();
+    			
+    		}
+    		catch (SecurityException e) {
+    			
+    			logger.error("File error in createFile(): {}", e.getClass());
+	    		
+	    		logger.debug("Calling handleError(file)");
+	    		handleError("file");
+    			
+    		}
+    		finally {
+    			
+    			try {
+    				
+    				logger.debug("Creating new file: {}", newFile.getName());
+					newFile.createNewFile();
+					
+				}
+    			catch (IOException e) {
+    				
+    				logger.error("File error in createFile(): {}", e.getClass());
+    	    		
+    	    		logger.debug("Calling handleError(file)");
+    	    		handleError("file");
+		    		
+				}
+    			
+    		}
+    		
+    	}
+    	
+    }
+    
+    /*
+     * Sets the input and output file paths in Config to the default values
+     * Creates any missing files among the defaults
+     */
+    private void initializeConfig() {
+    	
+    	logger.debug("Running initializeConfig()");
+    	
+    	logger.debug("Calling Config.setInputFilePath({})", Config.getDefaultInputFile());
+    	Config.setInputFilePath(Config.getDefaultInputFile());
+    	
+    	logger.debug("Calling Config.setOutputFilePath({})", Config.getDefaultOutputFile());
+    	Config.setOutputFilePath(Config.getDefaultOutputFile());
+    	
+    	logger.debug("Calling createFile({})", Config.getDefaultInputFile());
+    	createFile(Config.getDefaultInputFile());
+    	
+    	logger.debug("Calling createFile({})", Config.getDefaultOutputFile());
+    	createFile(Config.getDefaultOutputFile());
+    	
+    	logger.debug("initializeConfig() completed successfully");
+    	
+    }
+    
 }
