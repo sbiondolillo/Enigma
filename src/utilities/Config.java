@@ -25,8 +25,8 @@ import rotors.Rotor;
 
 class Config {
 	
-	private final static String DEFAULT_INPUT_FILE = "./resources/input.txt";
-	private final static String DEFAULT_OUTPUT_FILE = "./resources/output.html";
+	private final static String DEFAULT_INPUT_FILE = "./resources/misc/input.txt";
+	private final static String DEFAULT_OUTPUT_FILE = "./resources/misc/output.html";
 	private static String inputFilePath;
 	private static String outputFilePath;
 	private static Rotor[] availableRotors;

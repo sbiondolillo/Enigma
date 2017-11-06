@@ -412,7 +412,7 @@ class Screens {
 		logger.debug("Running getCustomInputFilePath()");
 		
 		logger.debug("Building new FileSelector");
-		FileSelector fileSelector = new FileSelector("./resources");
+		FileSelector fileSelector = new FileSelector("./resources/misc");
 		
 		logger.debug("Displaying Open File Dialog");
 		String filePath = fileSelector.selectOpenFilePath();
@@ -634,7 +634,7 @@ class Screens {
 		logger.debug("Running getCustomOutputFilePath()");
 		
 		logger.debug("Building new FileSelector");
-		FileSelector fileSelector = new FileSelector("./resources");
+		FileSelector fileSelector = new FileSelector("./resources/misc");
 		
 		logger.debug("Displaying Save File Dialog");
 		String filePath = fileSelector.selectSaveFilePath();
