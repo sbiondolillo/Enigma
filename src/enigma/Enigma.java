@@ -13,7 +13,7 @@
  *         0.0.5 - 10/25/17 Add log4j2 logging framework into project
  *                          Add log4j2 Logger into class
  *                          Add debugging statements for Logger
- *         0.0.6 - 11/1/17  Removed unneessary methods and interface implementation
+ *         0.0.6 - 11/1/17  Removed unnecessary methods and interface implementation
  */
 
 package enigma;
