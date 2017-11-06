@@ -14,13 +14,11 @@
  *          0.0.7   11/1/17     Split encryption/decryption output into separate processes
  *          0.0.8   11/2/17     Adjust input/output file path setting to properly utilize default paths
  *          0.0.9   11/5/17     Modify input file selection to use GUI FileSelector
- *                              Modify output file selection to use GUI FileSelector
- *                              Add method for formatting output file path
+ *                              Modify output file selection to use GUI FileSelector                       
  */
 
 package utilities;
 
-import java.io.File;
 import java.nio.file.Paths;
 import java.util.InputMismatchException;
 import java.util.Scanner;

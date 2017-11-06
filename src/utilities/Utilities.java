@@ -95,9 +95,22 @@ public class Utilities {
 		
 		String formattedFilePath;
 		
-		if (!filePath.matches("*.html")) {
+		/*
+		 * Regex:
+		 * Starts with - ^
+		 * Any number of any type of characters - (.+)
+		 * Followed by ".html" - (\\.html)
+		 */
+		if (!filePath.matches("^(.+)(\\.html)")) {
 			
-			if (filePath.matches("*.*")) {
+			/*
+			 * Regex:
+			 * Starts with - ^
+			 * Any number of any type of characters - (.+)
+			 * Followed by a dot character - (\\.)
+			 * Followed by any number of any type of characters - (.+)
+			 */
+			if (filePath.matches("^(.+)(\\.)(.+)")) {
 				
 				logger.debug("Changing file extension to .html");
 				formattedFilePath = filePath.substring(0, filePath.lastIndexOf("."));
@@ -113,6 +126,7 @@ public class Utilities {
 		}
 		else {
 			
+			logger.debug("Current file path formatted correctly");
 			formattedFilePath = filePath;
 			
 		}
