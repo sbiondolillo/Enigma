@@ -24,7 +24,7 @@ class FileSelector {
 	
 	private String filePath = "";	
 	private JFileChooser fileChooser = null;
-	private final static Logger logger = LogManager.getLogger(Screens.class.getName());
+	private final static Logger logger = LogManager.getLogger(FileSelector.class.getName());
 	
 	/*
 	 * Constructor
