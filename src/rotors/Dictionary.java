@@ -10,8 +10,9 @@
  *          0.0.5 - 10/26/17  Add log4j2 Logger into class
  *                            Add debugging statements for Logger
  *                            Added instance variable length to reduce calls to length()
- *          0.0.6 - 11/2/17   Removed space charcter from standard dictionary
+ *          0.0.6 - 11/2/17   Removed space character from standard dictionary
  *                            Refactored buildDictionary() to use fewer magic numbers
+ *          0.0.7 - 11/6/17   Added punctuation characters to standard dictionary
  */
 
 package rotors;
