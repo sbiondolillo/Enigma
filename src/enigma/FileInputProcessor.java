@@ -14,6 +14,7 @@
  *                            Removed Utilities instance variable
  *         0.0.6 - 11/1/17    update readFileIn() to preserve input formatting
  *         0.0.7 - 11/9/17    Refactor class to use BufferedReaders instead of Scanners
+ *         0.0.8 - 11/10/17   Abstract html/txt reading methods out of readFileIn()
  */
 
 package enigma;
@@ -71,7 +72,7 @@ public class FileInputProcessor implements FileInput {
 	}
 	
 	/*
-	 * Getters for instance variables
+	 * Getters/Setters for instance variables
 	 */
 	public String getMessageIn() {
 		
@@ -83,7 +84,7 @@ public class FileInputProcessor implements FileInput {
 	}
 	
 	/*
-	 * Reads in the next line from the file in and stores it in messageIn
+	 * Reads in the text from a html/txt file and stores it in messageIn
 	 */
 	@Override
 	public void readFileIn() {
@@ -94,39 +95,62 @@ public class FileInputProcessor implements FileInput {
 			
 			if (fileExtension.equals("html")) {
 				
-				logger.debug("Reading HTML file into messageIn");
-				
-				logger.debug("Building new HTMLParser()");
-				HTMLParser parser = new HTMLParser();
-				
-				logger.debug("Calling parseHTMLFile({})", inputFile.getPath());
-				messageIn = parser.parseHTMLFile(inputFile);
+				logger.debug("Calling readHTMLFileIn()");
+				readHTMLFileIn();
 				
 			}
 			else {
 				
-				String line = null;
-				
-				logger.debug("Reading text file into messageIn");
-				while((line = bufferedReader.readLine()) != null) {
-					messageIn += line;
-					messageIn += "\n";
-				}
+				logger.debug("Calling readTextFileIn()");
+				readTextFileIn();
 				
 			}
 			
-			logger.debug("Closing bufferedReader");
+			logger.debug("Closing bufferedReader");				
 			bufferedReader.close();
 			
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
 			
 			logger.error("File error in readFileIn(): {}", e.getClass());
 			
 			logger.debug("Calling Utilities.handleError(file)");
 			Utilities.handleError("file");
+			
 		}
 		
 		logger.debug("readFileIn() completed successfully");
+		
+	}
+	
+	private void readHTMLFileIn() {
+		
+		logger.debug("Running readHTMLFileIn()");
+		
+		logger.debug("Building new HTMLParser()");
+		HTMLParser parser = new HTMLParser();
+		
+		logger.debug("Calling parseHTMLFile({})", inputFile.getPath());
+		messageIn = parser.parseHTMLFile(inputFile);
+		
+		logger.debug("readHTMLFileIn() completed successfully");
+		
+	}
+	
+	private void readTextFileIn() throws IOException {
+		
+		logger.debug("Running readTextFileIn()");
+		
+		String line = null;
+		
+		logger.debug("Reading text file into messageIn");
+		while((line = bufferedReader.readLine()) != null) {
+			messageIn += line;
+			messageIn += "\n";
+		}
+		
+		logger.debug("readTextFileIn() completed successfully");
+		
 	}
 	
 
