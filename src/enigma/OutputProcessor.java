@@ -9,11 +9,13 @@
  *          0.0.4 - 11/3/17     Minor fix to buildDecryptedHTMLFile(), should not have any '^' chars to strip
  *          0.0.5 - 11/9/17     Remove unnecessary newline characters from encrypted html file
  *                              to allow for proper parsing when encrypted html files are used as input
+ *          0.0.6 - 11/10/17    Create methods for writing to .txt files
  */
 
 package enigma;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -111,9 +113,20 @@ public class OutputProcessor {
 
 		logger.debug("Running writeEncryptedMessageOutToFile()");
 
-		logger.debug("Calling buildEncryptedHTMLFile()");
-		String output = buildEncryptedHTMLFile();
-
+		String output;
+		
+		if (Utilities.getExtension(new File(outputFilePath.toString())).equals("html")) {
+			
+			logger.debug("Calling buildEncryptedHTMLFile()");
+			output = buildEncryptedHTMLFile();
+			
+		}
+		else {
+			
+			logger.debug("Calling buildEncryptedTextFile()");
+			output = buildEncryptedTextFile();
+			
+		}
 		
 		logger.debug("Writing to file");
 		try  (BufferedWriter writer = Files.newBufferedWriter(outputFilePath,Charset.forName("UTF-8"))){
@@ -136,9 +149,20 @@ public class OutputProcessor {
 
 		logger.debug("Running writeDecryptedMessageOutToFile()");
 
-		logger.debug("Calling buildDecryptedHTMLFile()");
-		String output = buildDecryptedHTMLFile();
-
+		String output;
+		
+		if (Utilities.getExtension(new File(outputFilePath.toString())).equals("html")) {
+			
+			logger.debug("Calling buildDecryptedHTMLFile()");
+			output = buildDecryptedHTMLFile();
+			
+		}
+		else {
+			
+			logger.debug("Calling buildDecryptedTextFile()");
+			output = buildDecryptedTextFile();
+			
+		}
 		
 		logger.debug("Writing to file");
 		try  (BufferedWriter writer = Files.newBufferedWriter(outputFilePath,Charset.forName("UTF-8"))){
@@ -182,6 +206,26 @@ public class OutputProcessor {
 	}
 	
 	/*
+	 * Create an .txt file populated with our encrypted message
+	 */
+	private String buildEncryptedTextFile() {
+
+		logger.debug("Running buildEncryptedTextFile()");
+		
+		String output = "";
+
+		logger.debug("Calling getEncryptedMessageOut() and adding lines to .txt file");
+		for (String line: getEncryptedMessageOut()) {
+			output += line;
+			output += "\n";
+		}
+
+		logger.debug("buildEncryptedTextFile() completed successfully");
+		return output;
+
+	}
+	
+	/*
 	 * Create an HTML file populated with our decrypted message
 	 */
 	private String buildDecryptedHTMLFile() {
@@ -204,6 +248,26 @@ public class OutputProcessor {
 		output += "</body></html>";
 
 		logger.debug("buildDecryptedHTMLFile() completed successfully");
+		return output;
+
+	}
+	
+	/*
+	 * Create an .txt file populated with our decrypted message
+	 */
+	private String buildDecryptedTextFile() {
+
+		logger.debug("Running buildDecryptedTextFile()");
+
+		String output = "";
+
+		logger.debug("Calling getDecryptedMessageOut() and adding lines to .txt file");
+		for (String line: getDecryptedMessageOut()) {
+			output += line;
+			output += "\n";
+		}
+
+		logger.debug("buildDecryptedTextFile() completed successfully");
 		return output;
 
 	}

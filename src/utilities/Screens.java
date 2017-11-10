@@ -15,11 +15,13 @@
  *          0.0.8   11/2/17     Adjust input/output file path setting to properly utilize default paths
  *          0.0.9   11/5/17     Modify input file selection to use GUI FileSelector
  *                              Modify output file selection to use GUI FileSelector
- *          0.0.10  11/6/17     Added default constructor with logging                     
+ *          0.0.10  11/6/17     Added default constructor with logging
+ *          0.0.11  11/10/17    Adjust setOutFilePath() to turn any non-html file into a .txt file              
  */
 
 package utilities;
 
+import java.io.File;
 import java.nio.file.Paths;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -592,7 +594,14 @@ class Screens {
 		if (useDefaultFilePath == 2) {
 			
 			logger.debug("Calling getCustomFilePath()");
-			String filePath = Utilities.formatHTMLFilePath(getCustomOutputFilePath());
+			String filePath = getCustomOutputFilePath();
+			
+			if (!Utilities.getExtension(new File(filePath)).equals("html")) {
+				
+				logger.debug("Calling Utilities.formatFilePath({},txt)", filePath);
+				filePath = Utilities.formatFilePath(filePath, "txt");
+				
+			}
 			
 			logger.debug("Calling Config.setOutputFilePath({})", filePath);
 			Config.setOutputFilePath(filePath);
