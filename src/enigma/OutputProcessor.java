@@ -190,9 +190,9 @@ public class OutputProcessor {
 
 		logger.debug("Building HTML Header");
 		String output = "";
-		output += "<!DOCTYPE html>\n<html>\n";
-		output += "<head>\n<title>Your private message</title>\n</head>\n";
-		output += "<body>\n<p>\n";
+		output += "<!DOCTYPE html><html>";
+		output += "<head><title>Your private message</title></head>";
+		output += "<body>";
 
 		logger.debug("Calling getDecryptedMessageOut() and adding lines to HTML file");
 		for (String line: getDecryptedMessageOut()) {
@@ -201,7 +201,7 @@ public class OutputProcessor {
 		}
 
 		logger.debug("Building HTML Footer");
-		output += "</p>\n</body>\n</html>";
+		output += "</body></html>";
 
 		logger.debug("buildDecryptedHTMLFile() completed successfully");
 		return output;
