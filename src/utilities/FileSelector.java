@@ -224,7 +224,7 @@ class FileSelector {
 		        return true;
 		    }
 			
-			String extension = getExtension(f);
+			String extension = Utilities.getExtension(f);
 		    if (extension != null) {
 		        if (extension.equals("html") ||
 		            extension.equals("txt")) {
@@ -241,17 +241,6 @@ class FileSelector {
 		public String getDescription() {
 			return ".txt or .html only";
 		}
-		
-		private String getExtension(File f) {
-	        String ext = null;
-	        String s = f.getName();
-	        int i = s.lastIndexOf('.');
-
-	        if (i > 0 &&  i < s.length() - 1) {
-	            ext = s.substring(i+1).toLowerCase();
-	        }
-	        return ext;
-	    }
 
 	}
 

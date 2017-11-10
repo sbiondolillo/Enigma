@@ -13,6 +13,7 @@
  *          0.0.6   11/6/17     Add method to initialize Config with default files
  *                              Add default constructor which calls the new Config initializer
  *                              Add method to create files in the file system
+ *          0.0.7   11/9/17     Add method for extracting file extensions
  */
 
 package utilities;
@@ -237,6 +238,20 @@ public class Utilities {
     		
     	}
     	
+    }
+    
+    /*
+     * Returns the file extension of a given file, omitting the dot (.) character
+     */
+    public static String getExtension(File f) {
+        String ext = null;
+        String s = f.getName();
+        int i = s.lastIndexOf('.');
+
+        if (i > 0 &&  i < s.length() - 1) {
+            ext = s.substring(i+1).toLowerCase();
+        }
+        return ext;
     }
     
     /*
