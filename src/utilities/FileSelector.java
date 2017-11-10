@@ -6,7 +6,8 @@
  * Version  0.0.1   11/5/17     
  *          0.0.2   11/6/17     Made class package-private and updated documentation
  *                              Add log4j2 Logger into class
- *                              Add debugging statements for Logger           
+ *                              Add debugging statements for Logger
+ *          0.0.3   11/9/17     Add FileFilter to select only .txt or .html files      
  */
 
 package utilities;
@@ -16,6 +17,7 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -77,6 +79,8 @@ class FileSelector {
 		    }   
 		    
 		};
+		fileChooser.addChoosableFileFilter(new TextHTMLFilter());
+		fileChooser.setAcceptAllFileFilterUsed(false);
 	
 	}
 
@@ -210,6 +214,34 @@ class FileSelector {
     	logger.debug("selectSaveFilePath() completed successfully, returning {}", saveFilePath);
         return saveFilePath;
         
+	}
+	
+	private class TextHTMLFilter extends FileFilter{
+
+		@Override
+		public boolean accept(File f) {
+			if (f.isDirectory()) {
+		        return true;
+		    }
+			
+			String extension = Utilities.getExtension(f);
+		    if (extension != null) {
+		        if (extension.equals("html") ||
+		            extension.equals("txt")) {
+		                return true;
+		        } else {
+		            return false;
+		        }
+		    }
+		    
+			return false;
+		}
+
+		@Override
+		public String getDescription() {
+			return ".txt or .html only";
+		}
+
 	}
 
 }

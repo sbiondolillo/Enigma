@@ -13,6 +13,8 @@
  *          0.0.6   11/6/17     Add method to initialize Config with default files
  *                              Add default constructor which calls the new Config initializer
  *                              Add method to create files in the file system
+ *          0.0.7   11/9/17     Add method for extracting file extensions
+ *          0.0.8   11/10/17    Convert formatHTMLFilePath into more generic foramtFilePath for more utility
  */
 
 package utilities;
@@ -120,9 +122,9 @@ public class Utilities {
      * Adds .html file extension to file names without an extension
      * Changes existing file extensions to .html
      */
-    public static String formatHTMLFilePath(String filePath) {
+    public static String formatFilePath(String filePath, String extension) {
     		
-		logger.debug("Running formatHTMLFilePath({})", filePath);
+		logger.debug("Running formatFilePath({},{})", filePath, extension);
 		
 		String formattedFilePath;
 		
@@ -132,7 +134,7 @@ public class Utilities {
 		 * Any number of any type of characters - (.+)
 		 * Followed by ".html" - (\\.html)
 		 */
-		if (!filePath.matches("^(.+)(\\.html)")) {
+		if (!filePath.matches("^(.+)(\\." + extension + ")")) {
 			
 			logger.debug("Current file path not formatted correctly");
 			
@@ -145,15 +147,15 @@ public class Utilities {
 			 */
 			if (filePath.matches("^(.+)(\\.)(.+)")) {
 				
-				logger.debug("Changing file extension to .html");
+				logger.debug("Changing file extension to .{}", extension);
 				formattedFilePath = filePath.substring(0, filePath.lastIndexOf("."));
-				formattedFilePath += ".html";
+				formattedFilePath += "." + extension;
 				
 			}
 			else {
 				
-				logger.debug("Adding .html file extension");
-				formattedFilePath = filePath + ".html";
+				logger.debug("Adding .{} file extension", extension);
+				formattedFilePath = filePath + "." + extension;
 				
 			}
 		}
@@ -164,7 +166,7 @@ public class Utilities {
 			
 		}
 		
-		logger.debug("formatHTMLFilePath({}) completed successfully, returning {}", filePath, formattedFilePath);
+		logger.debug("formatFilePath({},{}) completed successfully, returning {}", filePath, extension, formattedFilePath);
 		return formattedFilePath;
 		
 	}
@@ -237,6 +239,20 @@ public class Utilities {
     		
     	}
     	
+    }
+    
+    /*
+     * Returns the file extension of a given file, omitting the dot (.) character
+     */
+    public static String getExtension(File f) {
+        String ext = null;
+        String s = f.getName();
+        int i = s.lastIndexOf('.');
+
+        if (i > 0 &&  i < s.length() - 1) {
+            ext = s.substring(i+1).toLowerCase();
+        }
+        return ext;
     }
     
     /*

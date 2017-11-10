@@ -15,11 +15,13 @@
  *          0.0.8   11/2/17     Adjust input/output file path setting to properly utilize default paths
  *          0.0.9   11/5/17     Modify input file selection to use GUI FileSelector
  *                              Modify output file selection to use GUI FileSelector
- *          0.0.10  11/6/17     Added default constructor with logging                     
+ *          0.0.10  11/6/17     Added default constructor with logging
+ *          0.0.11  11/10/17    Adjust setOutFilePath() to turn any non-html file into a .txt file              
  */
 
 package utilities;
 
+import java.io.File;
 import java.nio.file.Paths;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -353,7 +355,11 @@ class Screens {
 		System.out.println("Welcome to the Input Settings menu!");
 		System.out.println();
 		System.out.println("You may choose to use a file on your system as the input");
-		System.out.println("or you may choose to simply type your message into the keyboard.");
+		System.out.println("You may also choose to type your message in via the keyboard");
+		System.out.println();
+		System.out.println("Please note that the system is only designed to read in .html or .txt files");
+		System.out.println("Files in other formats may yield inaccurate results");
+		System.out.println();
 		
 		logger.debug("runInputIntro() completed successfully");
 		
@@ -370,7 +376,7 @@ class Screens {
 		while (mode < 1 || mode > 2) {
 			try {
 				
-				System.out.println("Enter 1 to enter your message via the keyboard.");
+				System.out.println("Enter 1 to type your message in via the keyboard.");
 				System.out.println("Enter 2 to have the program read your message from a file on your system.");
 				mode = input.nextInt();
 				input.nextLine();
@@ -537,7 +543,11 @@ class Screens {
 		System.out.println("Welcome to the Output Settings menu!");
 		System.out.println();
 		System.out.println("You may choose to write your message to a file on your system");
-		System.out.println("or you may choose to simply display your message to the screen.");
+		System.out.println("You may also choose to display your message to the screen");
+		System.out.println();
+		System.out.println("Please note that the system is only designed to write to .html or .txt files");
+		System.out.println("Files in other formats will be converted to .txt for accurate processing");
+		System.out.println();
 		
 		logger.debug("runOutputIntro() completed successfully");
 		
@@ -592,7 +602,14 @@ class Screens {
 		if (useDefaultFilePath == 2) {
 			
 			logger.debug("Calling getCustomFilePath()");
-			String filePath = Utilities.formatHTMLFilePath(getCustomOutputFilePath());
+			String filePath = getCustomOutputFilePath();
+			
+			if (!Utilities.getExtension(new File(filePath)).equals("html")) {
+				
+				logger.debug("Calling Utilities.formatFilePath({},txt)", filePath);
+				filePath = Utilities.formatFilePath(filePath, "txt");
+				
+			}
 			
 			logger.debug("Calling Config.setOutputFilePath({})", filePath);
 			Config.setOutputFilePath(filePath);
