@@ -7,6 +7,8 @@
  *          0.0.2 - 11/1/17     Split Encryption/Decryption output processing into separate methods
  *          0.0.3 - 11/2/17     Fix formatting in displayDecryptedMessageOutToConsole()
  *          0.0.4 - 11/3/17     Minor fix to buildDecryptedHTMLFile(), should not have any '^' chars to strip
+ *          0.0.5 - 11/9/17     Remove unnecessary newline characters from encrypted html file
+ *                              to allow for proper parsing when encrypted html files are used as input
  */
 
 package enigma;
@@ -161,18 +163,18 @@ public class OutputProcessor {
 
 		logger.debug("Building HTML Header");
 		String output = "";
-		output += "<!DOCTYPE html>\n<html>\n";
-		output += "<head>\n<title>Your private message</title>\n</head>\n";
-		output += "<body>\n<p>\n";
+		output += "<!DOCTYPE html><html>";
+		output += "<head><title>Your private message</title></head>";
+		output += "<body>";
 
 		logger.debug("Calling getEncryptedMessageOut() and adding lines to HTML file");
 		for (String line: getEncryptedMessageOut()) {
 			output += line;
-			output += "<br>\n";
+			output += "<br>";
 		}
 
 		logger.debug("Building HTML Footer");
-		output += "</p>\n</body>\n</html>";
+		output += "</body></html>";
 
 		logger.debug("buildEncryptedHTMLFile() completed successfully");
 		return output;
