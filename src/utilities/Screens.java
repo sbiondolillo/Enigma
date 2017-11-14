@@ -16,7 +16,8 @@
  *          0.0.9   11/5/17     Modify input file selection to use GUI FileSelector
  *                              Modify output file selection to use GUI FileSelector
  *          0.0.10  11/6/17     Added default constructor with logging
- *          0.0.11  11/10/17    Adjust setOutFilePath() to turn any non-html file into a .txt file              
+ *          0.0.11  11/10/17    Adjust setOutFilePath() to turn any non-html file into a .txt file
+ *          0.0.12  11/14/17    Built out displayConfigScreen()            
  */
 
 package utilities;
@@ -851,15 +852,56 @@ class Screens {
 	 * Display the screen where the user can view configuration info - no mods
 	 */
 	void displayConfigScreen() {
-		// TODO implement this
 		
 		logger.debug("Running displayConfigScreen()");
 		
-		System.out.println("Oops, this is embarassing, there doesn't seem to be anything here.");
-		System.out.println("You will now be directed back to the Main Menu.");
-		System.out.println();
+		runConfigIntro();
+		displayProgramModeSettings();
+		displayInputSettings();
+		displayOutputSettings();
+		runConfigOutro();
 		
 		logger.debug("displayConfigScreen() completed successfully");
+		
+	}
+	
+	private void runConfigIntro() {
+		
+		logger.debug("Running runConfigIntro()");
+		
+		logger.debug("runConfigIntro() completed successfully");
+		
+	}
+	
+	private void displayProgramModeSettings() {
+		
+		logger.debug("Running displayProgramModeSettings()");
+		
+		logger.debug("displayProgramModeSettings() completed successfully");
+		
+	}
+	
+	private void displayInputSettings() {
+		
+		logger.debug("Running displayInputSettings()");
+		
+		logger.debug("displayInputSettings() completed successfully");
+		
+	}
+	
+	private void displayOutputSettings() {
+		
+		logger.debug("Running displayOutputSettings()");
+		
+		logger.debug("displayOutputSettings() completed successfully");
+		
+	}
+	
+	private void runConfigOutro() {
+		
+		logger.debug("Running runConfigOutro()");
+		
+		logger.debug("runConfigOutro() completed successfully");
 		
 	}
 	
