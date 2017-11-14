@@ -869,6 +869,12 @@ class Screens {
 		
 		logger.debug("Running runConfigIntro()");
 		
+		System.out.println();
+		System.out.println("Welcome to the Configuration Menu!");
+		System.out.println("From here you will be able to view the current status " + 
+							"of the most important settings in the Enigma");
+		System.out.println();
+		
 		logger.debug("runConfigIntro() completed successfully");
 		
 	}
@@ -876,6 +882,9 @@ class Screens {
 	private void displayProgramModeSettings() {
 		
 		logger.debug("Running displayProgramModeSettings()");
+		
+		System.out.println("The program is currently set to " + 
+							(Config.getProgramMode() == 1 ? "Encrypt": "Decrypt") + " mode.");
 		
 		logger.debug("displayProgramModeSettings() completed successfully");
 		
@@ -885,6 +894,10 @@ class Screens {
 		
 		logger.debug("Running displayInputSettings()");
 		
+		System.out.println("The program is currently set to read from " +
+							(Config.getInputMode() == 1 ? "the keyboard.": 
+								"the following file: " + Config.getInputFilePath()) );
+		
 		logger.debug("displayInputSettings() completed successfully");
 		
 	}
@@ -893,13 +906,24 @@ class Screens {
 		
 		logger.debug("Running displayOutputSettings()");
 		
+		System.out.println("The program is currently set to output results to " +
+				(Config.getOutputMode() == 1 ? "the screen.": 
+					"the following file: " + Config.getOutputFilePath()) );
+		
 		logger.debug("displayOutputSettings() completed successfully");
 		
 	}
 	
+	@SuppressWarnings("unused")
 	private void runConfigOutro() {
 		
 		logger.debug("Running runConfigOutro()");
+		
+		System.out.println("If you wish to change any of these settings, you may do so from the Main Menu.");
+		System.out.println();
+		System.out.println("Please press ENTER to be taken back to the Main menu.");
+		System.out.println();
+		String exit = input.nextLine();
 		
 		logger.debug("runConfigOutro() completed successfully");
 		
