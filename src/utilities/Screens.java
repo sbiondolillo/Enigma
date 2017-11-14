@@ -17,7 +17,9 @@
  *                              Modify output file selection to use GUI FileSelector
  *          0.0.10  11/6/17     Added default constructor with logging
  *          0.0.11  11/10/17    Adjust setOutFilePath() to turn any non-html file into a .txt file
- *          0.0.12  11/14/17    Built out displayConfigScreen()            
+ *          0.0.12  11/14/17    Built out displayConfigScreen()
+ *                              Revise formatting on various screens and adjust 
+ *                              to utilize Outro methods which call exitToMainMenu()            
  */
 
 package utilities;
@@ -229,8 +231,10 @@ class Screens {
 		
 		logger.debug("Running exitToMainMenu()");
 		
-		System.out.println("OK, we're all set. You will now be directed back to the Main Menu.");
 		System.out.println();
+		System.out.println("Please press ENTER to be taken back to the Main menu.");
+		System.out.println();
+		input.nextLine();
 		
 		logger.debug("exitToMainMenu() completed successfully");
 		
@@ -250,8 +254,8 @@ class Screens {
 		logger.debug("Calling selectProgramMode()");
 		selectProgramMode();
 		
-		logger.debug("Calling exitToMainMenu() from displayModeScreen()");
-		exitToMainMenu();
+		logger.debug("Calling runModeOutro()");
+		runModeOutro();
 		
 		logger.debug("displayModeScreen() completed successfully");
 		
@@ -264,6 +268,7 @@ class Screens {
 		
 		logger.debug("Running runModeIntro()");
 		
+		System.out.println();
 		System.out.println("Welcome to the Mode Select menu!");
 		System.out.println();
 		System.out.println("From here, you can decide if you want to encrypt a new message to be shared");
@@ -308,6 +313,21 @@ class Screens {
 		
 	}
 	
+	private void runModeOutro() {
+		
+		logger.debug("Running runModeOutro()");
+		
+		System.out.println();
+		System.out.println("The program has been set to " + 
+						(Config.getProgramMode() == 1 ? "Encrypt": "Decrypt") + " mode.");
+		
+		logger.debug("Calling exitToMainMenu() from runModeOutro()");
+		exitToMainMenu();
+		
+		logger.debug("runModeOutro() completed successfully");
+		
+	}
+	
 	/*
 	 * Display the screen where the user sets the machine's input
 	 * Set the input mode based on user entry
@@ -339,8 +359,8 @@ class Screens {
 			
 		}
 		
-		logger.debug("Calling exitToMainMenu() from displayInputScreen()");
-		exitToMainMenu();
+		logger.debug("Calling runInputOutro()");
+		runInputOutro();
 		
 		logger.debug("displayInputScreen() completed successfully");
 		
@@ -353,6 +373,7 @@ class Screens {
 		
 		logger.debug("Running runInputIntro()");
 		
+		System.out.println();
 		System.out.println("Welcome to the Input Settings menu!");
 		System.out.println();
 		System.out.println("You may choose to use a file on your system as the input");
@@ -498,7 +519,21 @@ class Screens {
 		logger.debug("getKeyboardInput() completed successfully");
 		
 	}
+	
+	private void runInputOutro() {
 		
+		logger.debug("Running runInputOutro()");
+		
+		System.out.println();
+		System.out.println("The program has been set to read from " +
+				(Config.getInputMode() == 1 ? "the keyboard.": Config.getInputFilePath()) );
+		
+		logger.debug("Calling exitToMainMenu() from runInputOutro()");
+		exitToMainMenu();
+		
+		logger.debug("runInputOutro() completed successfully");
+		
+	}
 	/*
 	 * Display the screen where the user sets the machine's output
 	 * Set the output mode based on user entry
@@ -508,7 +543,7 @@ class Screens {
 		
 		logger.debug("Running displayOutputScreen()");
 		
-		logger.debug("Calling runOututInro()");
+		logger.debug("Calling runOutputInro()");
 		runOutputIntro();
 		
 		logger.debug("Calling selectOutputMode()");
@@ -527,8 +562,8 @@ class Screens {
 			
 		}
 		
-		logger.debug("Calling exitToMainMenu() from displayOutputScreen()");
-		exitToMainMenu();
+		logger.debug("Calling runOutputOutro()");
+		runOutputOutro();
 		
 		logger.debug("displayOutputScreen() completed successfully");
 		
@@ -541,6 +576,7 @@ class Screens {
 		
 		logger.debug("Running runOutputIntro()");
 		
+		System.out.println();
 		System.out.println("Welcome to the Output Settings menu!");
 		System.out.println();
 		System.out.println("You may choose to write your message to a file on your system");
@@ -752,6 +788,21 @@ class Screens {
 		
 	}
 	
+	private void runOutputOutro() {
+		
+		logger.debug("Running runOutputOutro()");
+		
+		System.out.println();
+		System.out.println("The program has been set to output results to " +
+				(Config.getOutputMode() == 1 ? "the screen.": Config.getOutputFilePath()) );
+		
+		logger.debug("Calling exitToMainMenu() from runOutputOutro()");
+		exitToMainMenu();
+		
+		logger.debug("runOutputOutro() completed successfully");
+		
+	}
+	
 	/*
 	 * Display the results of the encryption/decryption
 	 */
@@ -759,15 +810,19 @@ class Screens {
 		
 		logger.debug("Running displayResultsScreen()");
 		
-		String input = Config.getPlainText();
-		String output;
+		System.out.println();
+		System.out.println("Your results are now being processed.");
+		System.out.println();
+		
+		String inputText = Config.getPlainText();
+		String outputText;
 		if (Config.getProgramMode() == 1) {
 			
 			logger.debug("calling RotorController.encode()");
-			output = rc.encode(input);
+			outputText = rc.encode(inputText);
 			
 			logger.debug("Calling Config.setCypherText()");
-			Config.setCypherText(output);
+			Config.setCypherText(outputText);
 			
 			if (Config.getOutputMode() == 1) {
 			
@@ -787,10 +842,10 @@ class Screens {
 		} else {
 			
 			logger.debug("calling RotorController.decode()");
-			output = rc.decode(input);
+			outputText = rc.decode(inputText);
 			
 			logger.debug("Calling Config.setCypherText()");
-			Config.setCypherText(output);
+			Config.setCypherText(outputText);
 			
 			if (Config.getOutputMode() == 1) {
 			
@@ -808,7 +863,9 @@ class Screens {
 			}
 			
 		}
-		System.out.println();
+		
+		logger.debug("Calling exitToMainMenu() from displayResultsScreen()");
+		exitToMainMenu();
 		
 		logger.debug("displayResultsScreen() completed successfully");
 		
@@ -822,11 +879,13 @@ class Screens {
 		logger.debug("Running displayValidCharScreen()");
 		
 		logger.debug("Displaying valid characters to user");
+		System.out.println();
 		System.out.println("Here is a list of the valid characters for your input:");
 		System.out.println(rc.getActiveRotors()[0].getValidCharacters());
 		System.out.println("If you enter any invalid characters, they will be encoded as a hash mark '#'");
-		System.out.println("You will now be directed back to the Main Menu.");
-		System.out.println();
+		
+		logger.debug("Calling exitToMainMenu() from displayValidCharScreen()");
+		exitToMainMenu();
 		
 		logger.debug("displayValidCharScreen() completed successfully");
 		
@@ -840,9 +899,11 @@ class Screens {
 		
 		logger.debug("Running displayAboutScreen()");
 		
-		System.out.println("Oops, this is embarassing, there doesn't seem to be anything here.");
-		System.out.println("You will now be directed back to the Main Menu.");
 		System.out.println();
+		System.out.println("Oops, this is embarassing, there doesn't seem to be anything here.");
+		
+		logger.debug("Calling exitToMainMenu() from displayAboutScreen()");
+		exitToMainMenu();
 		
 		logger.debug("displayAboutScreen() completed successfully");
 		
@@ -914,16 +975,15 @@ class Screens {
 		
 	}
 	
-	@SuppressWarnings("unused")
 	private void runConfigOutro() {
 		
 		logger.debug("Running runConfigOutro()");
 		
+		System.out.println();
 		System.out.println("If you wish to change any of these settings, you may do so from the Main Menu.");
-		System.out.println();
-		System.out.println("Please press ENTER to be taken back to the Main menu.");
-		System.out.println();
-		String exit = input.nextLine();
+
+		logger.debug("Calling exitToMainMenu() from runConfigOutro()");
+		exitToMainMenu();
 		
 		logger.debug("runConfigOutro() completed successfully");
 		
@@ -936,6 +996,7 @@ class Screens {
 		
 		logger.debug("Running displayExitScreen()");
 		
+		System.out.println();
 		System.out.println("Thanks for using the Enigma. Have a great day!");
 		System.out.println();
 		
