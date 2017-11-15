@@ -21,7 +21,8 @@
  *                              Revise formatting on various screens and adjust 
  *                              to utilize Outro methods which call exitToMainMenu() 
  *          0.0.13  11/15/17    Move methods to read in input to displayResultsScreen()
- *                              Build displayAboutScreen() and set it to run at the start of the program          
+ *                              Build displayAboutScreen() and set it to run at the start of the program
+ *                              Modify text formatting for more pleasing user experience        
  */
 
 package utilities;
@@ -134,6 +135,7 @@ class Screens {
 		logger.debug("Running showProgramOptions()");
 		
 		System.out.println("Welcome to the Main menu!");
+		System.out.println();
 		System.out.println("Enter 1 to select encrypt or decrypt mode");
 		System.out.println("Enter 2 to configure your input settings");
 		System.out.println("Enter 3 to configure your output settings");
@@ -283,6 +285,7 @@ class Screens {
 		System.out.println();
 		System.out.println("From here, you can decide if you want to encrypt a new message to be shared");
 		System.out.println("or decrypt a message you received from another user.");
+		System.out.println();
 		
 		logger.debug("runModeIntro() completed successfully");
 		
@@ -360,9 +363,7 @@ class Screens {
 		}
 		else {
 			
-			System.out.println();
-			System.out.println("OK, great, we will use the keyboard for input.");
-			System.out.println("You will be prompted to type your input when you are ready to process and output your message.");
+			logger.debug("User selected keyboard input");
 			
 		}
 		
@@ -406,7 +407,7 @@ class Screens {
 			try {
 				
 				System.out.println("Enter 1 to type your message in via the keyboard.");
-				System.out.println("Enter 2 to have the program read your message from a file on your system.");
+				System.out.print("Enter 2 to have the program read your message from a file on your system: ");
 				mode = input.nextInt();
 				input.nextLine();
 				
@@ -491,6 +492,8 @@ class Screens {
 		System.out.println();
 		System.out.println("The program has been set to read from " +
 				(Config.getInputMode() == 1 ? "the keyboard.": Config.getInputFilePath()) );
+		if (Config.getInputMode() == 1)
+			System.out.println("You will be prompted to type your input when you are ready to process and output your message.");
 		
 		logger.debug("Calling exitToMainMenu() from runInputOutro()");
 		exitToMainMenu();
@@ -521,8 +524,7 @@ class Screens {
 		}
 		else {
 			
-			logger.debug("Notifying user of console output");
-			System.out.println("OK, great, we'll display your message to the screen.");
+			logger.debug("User selected console output");
 			
 		}
 		
@@ -566,7 +568,7 @@ class Screens {
 			try {
 				
 				System.out.println("Enter 1 to display your message to the screen.");
-				System.out.println("Enter 2 to have the program write your message to a file on your system.");
+				System.out.print("Enter 2 to have the program write your message to a file on your system: ");
 				mode = input.nextInt();
 				input.nextLine();
 				
@@ -635,14 +637,16 @@ class Screens {
 		logger.debug("Running getFilePathSelection()");
 		
 		logger.debug("Letting user choose default or custom file path");
+		System.out.println();
 		System.out.println("OK, you can choose your own file or proceed with the default file.");
+		System.out.println();
 		
 		int mode = 0;
 		while (mode < 1 || mode > 2) {
 			try {
 				
 				System.out.println("Enter 1 to proceed with the default file path.");
-				System.out.println("Enter 2 to select your own file path.");
+				System.out.print("Enter 2 to select your own file path: ");
 				mode = input.nextInt();
 				input.nextLine();
 				
@@ -933,13 +937,13 @@ class Screens {
 		System.out.println("Welcome to the General Info / Instruction menu!");
 		System.out.println();
 		System.out.println("This program was designed to mimic the Enigma encryption machine made famous by");
-		System.out.println("the Nazi command structure during the second World War. In this machine, a series");
-		System.out.println("of moving rotors are used to scramble a message into an encrypted message and then");
-		System.out.println("another machine uses those same rotors to decrypt the message at another time and place.");
+		System.out.println("the Nazi command structure during the Second World War. In that machine, a series");
+		System.out.println("of moving rotors were used to scramble a message into an encrypted message and then");
+		System.out.println("another machine used those same rotors to decrypt the message at another time and place.");
 		System.out.println();
-		System.out.println("While some of the features of the German Enigma have been set aside, the main components");
-		System.out.println("have been replicated here. As such, there are three primary settings which need to be");
-		System.out.println("established in order for the machine to function as intended:");
+		System.out.println("While some of the features of the German Enigma have been set aside, some of the main");
+		System.out.println("components have been replicated here. As such, there are three primary settings which");
+		System.out.println("need to be established in order for the machine to function as intended:");
 		System.out.println();
 		System.out.println("1) The user must decide to either encrypt or decrypt a given message. This is done by ");
 		System.out.println("   choosing screen #1 from the Main menu.");
@@ -1001,6 +1005,7 @@ class Screens {
 		
 		System.out.println();
 		System.out.println("Welcome to the Configuration Menu!");
+		System.out.println();
 		System.out.println("From here you will be able to view the current status " + 
 							"of the most important settings in the Enigma");
 		System.out.println();

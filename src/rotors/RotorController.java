@@ -14,6 +14,7 @@
  *                           Adjust encode() to utilize rotateRotors()
  *                           Break out setDecoderIndex() from buildDecoder() and modify decode() accordingly
  *                           Modify decode() to strip newline chars from encrypted message
+ *          0.0.5   11/15/17 Remove "Encoding..." and "Decoding..." prompts for style reasons
  */
 
 package rotors;
@@ -122,8 +123,6 @@ public class RotorController implements RotationManager{
 		logger.debug("Calling reset()");
 		reset();
 		
-		System.out.println("Encoding...");
-		
 		logger.debug("encode(plaintext) completed successfully");
 		return output;
 		
@@ -167,8 +166,6 @@ public class RotorController implements RotationManager{
 		
 		logger.debug("Calling reset()");
 		reset();
-		
-		System.out.println("Decoding...");
 		
 		logger.debug("decode(cyphertext) completed successfully");
 		return output;

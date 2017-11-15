@@ -7,7 +7,8 @@
  *          0.0.2   11/6/17     Made class package-private and updated documentation
  *                              Add log4j2 Logger into class
  *                              Add debugging statements for Logger
- *          0.0.3   11/9/17     Add FileFilter to select only .txt or .html files      
+ *          0.0.3   11/9/17     Add FileFilter to select only .txt or .html files
+ *          0.0.4   11/15/17    Minor text formatting adjustment for style reasons   
  */
 
 package utilities;
@@ -114,6 +115,7 @@ class FileSelector {
     		
        		File openFile = fileChooser.getSelectedFile();
        		openFilePath = openFile.getPath();
+       		System.out.println();
         	System.out.println("You selected: " + openFilePath);
         	
         	logger.debug("Testing if user selected file is readable");
@@ -160,6 +162,7 @@ class FileSelector {
     		
         	File saveFile = fileChooser.getSelectedFile();
         	saveFilePath = saveFile.getPath();
+        	System.out.println();
         	System.out.println("You selected: " + saveFilePath);
         	
         	logger.debug("Testing if user selected file is writeable");
