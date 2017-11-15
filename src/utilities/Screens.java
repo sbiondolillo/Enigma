@@ -19,7 +19,8 @@
  *          0.0.11  11/10/17    Adjust setOutFilePath() to turn any non-html file into a .txt file
  *          0.0.12  11/14/17    Built out displayConfigScreen()
  *                              Revise formatting on various screens and adjust 
- *                              to utilize Outro methods which call exitToMainMenu()            
+ *                              to utilize Outro methods which call exitToMainMenu() 
+ *          0.0.13  11/15/17    Move methods to read in input to displayResultsScreen()           
  */
 
 package utilities;
@@ -331,7 +332,6 @@ class Screens {
 	/*
 	 * Display the screen where the user sets the machine's input
 	 * Set the input mode based on user entry
-	 * Read in the input behind the scenes
 	 */
 	void displayInputScreen() {
 		
@@ -348,14 +348,12 @@ class Screens {
 			logger.debug("Calling setInFilePath()");
 			setInFilePath();
 			
-			logger.debug("Calling readFileIn()");
-			readFileIn();
-			
 		}
 		else {
 			
-			logger.debug("Calling getKeyboardInput()");
-			getKeyboardInput();
+			System.out.println();
+			System.out.println("OK, great, we will use the keyboard for input.");
+			System.out.println("You will be prompted to type your input when you are ready to process and output your message.");
 			
 		}
 		
@@ -474,49 +472,6 @@ class Screens {
 		
 		logger.debug("getCustomInputFilePath() completed successfully, returning {}", filePath);
 		return filePath;
-		
-	}
-	
-	/*
-	 * Read the contents of the specified file into the plainText Config variable
-	 */
-	private void readFileIn() {
-		
-		logger.debug("Running readFileIn()");
-		
-		logger.debug("Calling Config.setFileIn()");
-		Config.setFileIn(new FileInputProcessor(Config.getInputFilePath()));
-		
-		logger.debug("Calling Config.getFileIn().readFileIn()");
-		Config.getFileIn().readFileIn();
-		
-		logger.debug("Calling Config.setPlainText()");
-		Config.setPlainText(Config.getFileIn().getMessageIn());
-		
-		logger.debug("readFileIn() completed successfully");
-		
-	}
-	
-	/*
-	 * Allow user to enter their plaintext directly through the keyboard
-	 */
-	private void getKeyboardInput() {
-		
-		logger.debug("Running getKeyboardInput()");
-		
-		logger.debug("Calling Config.setKeyboardIn()");
-		Config.setKeyboardIn(new KeyboardInputProcessor());
-		
-		logger.debug("Getting message from user");
-		System.out.println("OK, great, we'll use the keyboard for input. Please type your message: ");
-		
-		logger.debug("Calling Config.getKeyboardIn().readKeyBoardIn()");
-		Config.getKeyboardIn().readKeyBoardIn();
-		
-		logger.debug("Calling Config.setPlainText()");
-		Config.setPlainText(Config.getKeyboardIn().getMessageIn());
-		
-		logger.debug("getKeyboardInput() completed successfully");
 		
 	}
 	
@@ -810,64 +765,130 @@ class Screens {
 		
 		logger.debug("Running displayResultsScreen()");
 		
-		System.out.println();
-		System.out.println("Your results are now being processed.");
-		System.out.println();
+		logger.debug("Calling setInputText()");
+		String inputText = setInputText();
 		
-		String inputText = Config.getPlainText();
+		logger.debug("Calling setOutputText()");
+		setOutputText(inputText);
+		
+		System.out.println();
+		System.out.println("Your results are now being processed...");
+		System.out.println();
+				
+		if (Config.getOutputMode() == 1) {
+		
+			logger.debug("Displaying message to screen");
+			
+			logger.debug("Calling writeConsoleOut()");
+			writeConsoleOut();
+			
+		} else {
+			
+			logger.debug("Writing message to file");
+			
+			logger.debug("Calling writeFileOut()");
+			writeFileOut();
+			
+			logger.debug("Notifying user of success writing message to file");
+			System.out.println("Your " + (Config.getProgramMode() == 1 ? "encrypted": "decrypted") + 
+					" message has been successfully written to " + Config.getOutputFilePath());
+			
+		}
+			
+		
+		logger.debug("Calling exitToMainMenu() from displayResultsScreen()");
+		exitToMainMenu();
+		
+		logger.debug("displayResultsScreen() completed successfully");
+		
+	}
+	
+	private String setInputText() {
+		
+		logger.debug("Running setInputText()");
+		
+		if (Config.getInputMode() == 1) {
+			
+			logger.debug("Calling getKeyboardInput()");
+			getKeyboardInput();
+			
+		} else {
+			
+			logger.debug("Calling readFileIn()");
+			readFileIn();
+		}
+		
+		logger.debug("setInputText() completed successfully");
+		return Config.getPlainText();
+		
+	}
+	
+	/*
+	 * Read the contents of the user-specified file into the plainText Config variable
+	 */
+	private void readFileIn() {
+		
+		logger.debug("Running readFileIn()");
+		
+		logger.debug("Calling Config.setFileIn()");
+		Config.setFileIn(new FileInputProcessor(Config.getInputFilePath()));
+		
+		logger.debug("Calling Config.getFileIn().readFileIn()");
+		Config.getFileIn().readFileIn();
+		
+		logger.debug("Calling Config.setPlainText()");
+		Config.setPlainText(Config.getFileIn().getMessageIn());
+		
+		logger.debug("readFileIn() completed successfully");
+		
+	}
+	
+	/*
+	 * Allow user to enter their message directly through the keyboard
+	 */
+	private void getKeyboardInput() {
+		
+		logger.debug("Running getKeyboardInput()");
+		
+		logger.debug("Calling Config.setKeyboardIn()");
+		Config.setKeyboardIn(new KeyboardInputProcessor());
+		
+		logger.debug("Getting message from user");
+		System.out.println("You have chosen to enter your message via the keyboard. Please type your message now.");
+		System.out.println("Please note that hitting ENTER will end your input session.");
+		
+		logger.debug("Calling Config.getKeyboardIn().readKeyBoardIn()");
+		Config.getKeyboardIn().readKeyBoardIn();
+		
+		logger.debug("Calling Config.setPlainText()");
+		Config.setPlainText(Config.getKeyboardIn().getMessageIn());
+		
+		logger.debug("getKeyboardInput() completed successfully");
+		
+	}
+	
+	private void setOutputText(String inputText) {
+		
+		logger.debug("Running setOutputText()");
+		
 		String outputText;
+		
 		if (Config.getProgramMode() == 1) {
 			
 			logger.debug("calling RotorController.encode()");
 			outputText = rc.encode(inputText);
-			
-			logger.debug("Calling Config.setCypherText()");
-			Config.setCypherText(outputText);
-			
-			if (Config.getOutputMode() == 1) {
-			
-				logger.debug("Displaying encrypted message");
-				writeConsoleOut();
-				
-			} else {
-				
-				logger.debug("Calling writeFileOut()");
-				writeFileOut();
-				
-				logger.debug("Notifying user of success writing encrypted message to file");
-				System.out.println("Your encrypted message has been successfully written to " + Config.getOutputFilePath());
-				
-			}
 			
 		} else {
 			
 			logger.debug("calling RotorController.decode()");
 			outputText = rc.decode(inputText);
 			
-			logger.debug("Calling Config.setCypherText()");
-			Config.setCypherText(outputText);
-			
-			if (Config.getOutputMode() == 1) {
-			
-				logger.debug("Displaying decrypted message");
-				writeConsoleOut();
-				
-			} else {
-				
-				logger.debug("Calling writeFileOut()");
-				writeFileOut();
-				
-				logger.debug("Notifying user of success writing decrypted message to file");
-				System.out.println("Your decrypted message has been successfully written to " + Config.getOutputFilePath());
-				
-			}
-			
 		}
 		
-		logger.debug("Calling exitToMainMenu() from displayResultsScreen()");
-		exitToMainMenu();
+		logger.debug("Calling Config.setCypherText()");
+		Config.setCypherText(outputText);
 		
-		logger.debug("displayResultsScreen() completed successfully");
+		logger.debug("setOutputText() completed successfully");
 		
 	}
 	
@@ -882,6 +903,7 @@ class Screens {
 		System.out.println();
 		System.out.println("Here is a list of the valid characters for your input:");
 		System.out.println(rc.getActiveRotors()[0].getValidCharacters());
+		System.out.println();
 		System.out.println("If you enter any invalid characters, they will be encoded as a hash mark '#'");
 		
 		logger.debug("Calling exitToMainMenu() from displayValidCharScreen()");
