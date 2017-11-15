@@ -20,7 +20,8 @@
  *          0.0.12  11/14/17    Built out displayConfigScreen()
  *                              Revise formatting on various screens and adjust 
  *                              to utilize Outro methods which call exitToMainMenu() 
- *          0.0.13  11/15/17    Move methods to read in input to displayResultsScreen()           
+ *          0.0.13  11/15/17    Move methods to read in input to displayResultsScreen()
+ *                              Build displayAboutScreen() and set it to run at the start of the program          
  */
 
 package utilities;
@@ -87,9 +88,17 @@ class Screens {
 		logger.debug("Running runWelcomeIntro()");
 		
 		System.out.println("Welcome to the Enigma!");
-		System.out.println("This program will allow you to encrypt a message to be shared with other users.");
-		System.out.println("This program will also allow you to decrypt a message received from other users.");
 		System.out.println();
+		System.out.println("You will now be shown some basic information about this program and instructions");
+		System.out.println("on how to use it effectively. After that, you will be taken to the Main menu where");
+		System.out.println("you can make your selections");
+		System.out.println();
+		System.out.println("Please press ENTER to proceed.");
+		System.out.println();
+		input.nextLine();
+		
+		logger.debug("Calling displayAboutScreen() from runWelcomeIntro()");
+		displayAboutScreen();
 		
 		logger.debug("runWelcomeIntro() completed successfully");
 		
@@ -131,7 +140,7 @@ class Screens {
 		System.out.println("Enter 4 to process and output your message");
 		System.out.println("Enter 5 to view a list of valid input characters");
 		System.out.println("Enter 6 to view a list of all current settings");
-		System.out.println("Enter 7 to view general information about the Enigma");
+		System.out.println("Enter 7 to view general information about the Enigma, including operating instructions");
 		System.out.println("Enter 8 to quit the program");
 		
 		logger.debug("showProgramOptions() completed successfully");
@@ -233,7 +242,7 @@ class Screens {
 		logger.debug("Running exitToMainMenu()");
 		
 		System.out.println();
-		System.out.println("Please press ENTER to be taken back to the Main menu.");
+		System.out.println("Please press ENTER to be taken to the Main menu.");
 		System.out.println();
 		input.nextLine();
 		
@@ -917,12 +926,50 @@ class Screens {
 	 * Display the screen where users can get general info about the program
 	 */
 	void displayAboutScreen() {
-		// TODO implement this
 		
 		logger.debug("Running displayAboutScreen()");
 		
 		System.out.println();
-		System.out.println("Oops, this is embarassing, there doesn't seem to be anything here.");
+		System.out.println("Welcome to the General Info / Instruction menu!");
+		System.out.println();
+		System.out.println("This program was designed to mimic the Enigma encryption machine made famous by");
+		System.out.println("the Nazi command structure during the second World War. In this machine, a series");
+		System.out.println("of moving rotors are used to scramble a message into an encrypted message and then");
+		System.out.println("another machine uses those same rotors to decrypt the message at another time and place.");
+		System.out.println();
+		System.out.println("While some of the features of the German Enigma have been set aside, the main components");
+		System.out.println("have been replicated here. As such, there are three primary settings which need to be");
+		System.out.println("established in order for the machine to function as intended:");
+		System.out.println();
+		System.out.println("1) The user must decide to either encrypt or decrypt a given message. This is done by ");
+		System.out.println("   choosing screen #1 from the Main menu.");
+		System.out.println("2) The user must specify where the message will originate. Much like the original, there");
+		System.out.println("   is an option to type the message in via the keyboard. Keyboard entry only allows a single");
+		System.out.println("   line of text to be entered at a time. For multi-line messages, the machine is configured");
+		System.out.println("   to read messages from either .txt or .html files. This is all done by choosing screen #2");
+		System.out.println("   from the Main menu.");
+		System.out.println("3) The user must specify where the final message will be displayed. Much like the original,");
+		System.out.println("   the message may be displayed immediately from within the machine itself. If you prefer,");
+		System.out.println("   you may choose to have the message written out to a .txt or .html file. This is all done ");
+		System.out.println("   by choosing screen #3 from the Main menu.");
+		System.out.println();
+		System.out.println("Once these settings have been configured, you may proceed to process your message and output");
+		System.out.println("your results. The program will read from your specified input source and write to your specified");
+		System.out.println("output source. This process is initiated by selecting screen #4 from the Main menu.");
+		System.out.println();
+		System.out.println("It is important to keep in mind that there are a limited set of characters which this program");
+		System.out.println("can encrypt or decrypt properly. The original, unencrypted message must only contain characters");
+		System.out.println("from this set in order to produce a proper output after encrypting and finally decrypting the");
+		System.out.println("original message. To view a list of valid characters for your original message, select screen #5");
+		System.out.println("from the Main menu.");
+		System.out.println();
+		System.out.println("If, at any time, you need to verify the settings of this program, simply select screen #6 from ");
+		System.out.println("the Main menu and you will be shown the three key settings described above. You will almost ");
+		System.out.println("certainly want to verify these before processing and outputting your final message.");
+		System.out.println();
+		System.out.println("If you are feeling lost at any point, simply select screen #7 from the Main menu to view these");
+		System.out.println("instructions again. Thank you for using the Enigma!");
+		
 		
 		logger.debug("Calling exitToMainMenu() from displayAboutScreen()");
 		exitToMainMenu();
