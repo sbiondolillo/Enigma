@@ -22,7 +22,8 @@
  *                              to utilize Outro methods which call exitToMainMenu() 
  *          0.0.13  11/15/17    Move methods to read in input to displayResultsScreen()
  *                              Build displayAboutScreen() and set it to run at the start of the program
- *                              Modify text formatting for more pleasing user experience        
+ *                              Modify text formatting for more pleasing user experience
+ *                              Update documentation       
  */
 
 package utilities;
@@ -326,6 +327,9 @@ class Screens {
 		
 	}
 	
+	/*
+	 * Confirm mode settings with user and redirect to Main menu
+	 */
 	private void runModeOutro() {
 		
 		logger.debug("Running runModeOutro()");
@@ -462,6 +466,9 @@ class Screens {
 		
 	}
 	
+	/*
+	 * Let the user set their own file path with a GUI dialog
+	 */
 	private String getCustomInputFilePath() {
 		
 		logger.debug("Running getCustomInputFilePath()");
@@ -485,6 +492,9 @@ class Screens {
 		
 	}
 	
+	/*
+	 * Confirm input settings with user and redirect to Main menu
+	 */
 	private void runInputOutro() {
 		
 		logger.debug("Running runInputOutro()");
@@ -501,10 +511,10 @@ class Screens {
 		logger.debug("runInputOutro() completed successfully");
 		
 	}
+	
 	/*
 	 * Display the screen where the user sets the machine's output
 	 * Set the output mode based on user entry
-	 * Write the output to file or console
 	 */
 	void displayOutputScreen() {
 		
@@ -693,8 +703,6 @@ class Screens {
 		
 	}
 	
-	
-	
 	/*
 	 * Write the contents of the encoded message to the specified file
 	 */
@@ -756,6 +764,9 @@ class Screens {
 		
 	}
 	
+	/*
+	 * Confirm output settings with user and redirect to Main menu
+	 */
 	private void runOutputOutro() {
 		
 		logger.debug("Running runOutputOutro()");
@@ -816,6 +827,10 @@ class Screens {
 		
 	}
 	
+	/*
+	 * Either gets keyboard input from the user or reads from file
+	 * @returns the String stored in Config.plainText
+	 */
 	private String setInputText() {
 		
 		logger.debug("Running setInputText()");
@@ -858,6 +873,7 @@ class Screens {
 	
 	/*
 	 * Allow user to enter their message directly through the keyboard
+	 * saves the user entry into Config.plainText
 	 */
 	private void getKeyboardInput() {
 		
@@ -880,6 +896,9 @@ class Screens {
 		
 	}
 	
+	/*
+	 * Either encrypts or decrypts the user-supplied message base on the programMode
+	 */
 	private void setOutputText(String inputText) {
 		
 		logger.debug("Running setOutputText()");
@@ -928,6 +947,7 @@ class Screens {
 	
 	/*
 	 * Display the screen where users can get general info about the program
+	 * and instructions on how to use the various parts of the program
 	 */
 	void displayAboutScreen() {
 		
@@ -983,7 +1003,8 @@ class Screens {
 	}
 	
 	/*
-	 * Display the screen where the user can view configuration info - no mods
+	 * Display the screen where the user can view configuration info
+	 * no modifications to program settings are made here
 	 */
 	void displayConfigScreen() {
 		
@@ -999,6 +1020,9 @@ class Screens {
 		
 	}
 	
+	/*
+	 * Introduce the current settings menu
+	 */
 	private void runConfigIntro() {
 		
 		logger.debug("Running runConfigIntro()");
@@ -1014,6 +1038,9 @@ class Screens {
 		
 	}
 	
+	/*
+	 * Display current settings for encrypt/decrypt mode
+	 */
 	private void displayProgramModeSettings() {
 		
 		logger.debug("Running displayProgramModeSettings()");
@@ -1025,6 +1052,9 @@ class Screens {
 		
 	}
 	
+	/*
+	 * Display current settings for keyboard/file input
+	 */
 	private void displayInputSettings() {
 		
 		logger.debug("Running displayInputSettings()");
@@ -1037,6 +1067,9 @@ class Screens {
 		
 	}
 	
+	/*
+	 * Display current settings for console/file output
+	 */
 	private void displayOutputSettings() {
 		
 		logger.debug("Running displayOutputSettings()");
@@ -1049,6 +1082,9 @@ class Screens {
 		
 	}
 	
+	/*
+	 * Confirm all settings and redirect user to Main menu
+	 */
 	private void runConfigOutro() {
 		
 		logger.debug("Running runConfigOutro()");
