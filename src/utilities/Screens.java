@@ -1159,9 +1159,14 @@ class Screens {
 		
 			
 		static void fileError() {
-			// TODO - build method to display File Error Screen
+			
 			logger.debug("running Errors.fileError()");
-			System.out.println("Sorry, unable to access that file. You will now be directed to the Main menu");
+			
+			System.out.println();
+			System.out.println("Sorry, unable to access your file. Please see the error message above for details. " + 
+								"You will now be taken back to the Main menu");
+			System.out.println("If you continue to have trouble, please contact Customer Support" +
+					" at enigmasupport@gmail.com and reference the error message printed above.");
 			System.out.println();
 			
 			logger.debug("Errors.fileError() completed successfully");
@@ -1178,9 +1183,13 @@ class Screens {
 		}
 		
 		static void inputError() {
-			// TODO - build method to display Input Error Screen
+			
 			logger.debug("running Errors.inputError()");
-			System.out.println("Sorry, you have entered an invalid input.");
+			
+			System.out.println();
+			System.out.println("Sorry, you have entered an invalid input. Please try again.");
+			System.out.println("If you continue to have trouble, please contact Customer Support" +
+								" at enigmasupport@gmail.com and reference the error message printed above.");
 			System.out.println();
 			
 			logger.debug("Errors.inputError() completed successfully");

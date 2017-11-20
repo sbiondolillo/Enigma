@@ -111,10 +111,10 @@ public class Utilities {
      */
     public static void handleError(String type) {
     	
-    	logger.error("Running handleError({})", type);
+    	logger.debug("Running handleError({})", type);
     	Screens.displayErrorScreen(type);
     	
-    	logger.error("handleError({}) completed successfully", type);
+    	logger.debug("handleError({}) completed successfully", type);
     	
     }
     
