@@ -194,6 +194,17 @@ class FileSelector {
         			logger.debug("User selected file does not exist, attempting to create it");
         			try {
         			
+        				if (!Utilities.getExtension(saveFile).equals("html")) {
+        					
+        					logger.debug("User supplied invalid save file extension.");
+        					
+        					logger.debug("Calling Utilities.formatFilePath({},txt)", filePath);
+        					saveFilePath = Utilities.formatFilePath(saveFilePath, "txt");
+        					System.out.println("In order to proceed, your file will be saved as: " + saveFilePath);
+        					saveFile = new File(saveFilePath);
+        					
+        				}
+        				
         				logger.debug("Calling createNewFile()");
         				saveFile.createNewFile();
         				

@@ -132,7 +132,8 @@ public class Utilities {
 		 * Regex:
 		 * Starts with - ^
 		 * Any number of any type of characters - (.+)
-		 * Followed by ".html" - (\\.html)
+		 * Followed by a dot character - (\\.)
+		 * Followed by extension - + extension + )
 		 */
 		if (!filePath.matches("^(.+)(\\." + extension + ")")) {
 			
