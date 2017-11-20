@@ -23,7 +23,8 @@
  *          0.0.13  11/15/17    Move methods to read in input to displayResultsScreen()
  *                              Build displayAboutScreen() and set it to run at the start of the program
  *                              Modify text formatting for more pleasing user experience
- *                              Update documentation       
+ *                              Update documentation
+ *          0.0.14  11/20/17    Refine Input/File error handling   
  */
 
 package utilities;
@@ -1163,10 +1164,10 @@ class Screens {
 			logger.debug("running Errors.fileError()");
 			
 			System.out.println();
-			System.out.println("Sorry, unable to access your file. Please see the error message above for details. " + 
-								"You will now be taken back to the Main menu");
-			System.out.println("If you continue to have trouble, please contact Customer Support" +
-					" at enigmasupport@gmail.com and reference the error message printed above.");
+			System.out.println("Sorry, unable to access your file. Please see the error message above for details.");
+			System.out.println("You will now be taken back to the Main menu");
+			System.out.println("If you continue to have trouble, please contact Customer Support at enigmasupport@gmail.com.");
+			System.out.println("Please include the error message printed above when you contact Customer Support.");
 			System.out.println();
 			
 			logger.debug("Errors.fileError() completed successfully");
@@ -1188,8 +1189,8 @@ class Screens {
 			
 			System.out.println();
 			System.out.println("Sorry, you have entered an invalid input. Please try again.");
-			System.out.println("If you continue to have trouble, please contact Customer Support" +
-								" at enigmasupport@gmail.com and reference the error message printed above.");
+			System.out.println("If you continue to have trouble, please contact Customer Support at enigmasupport@gmail.com.");
+			System.out.println("Please include the error message printed above when you contact Customer Support.");
 			System.out.println();
 			
 			logger.debug("Errors.inputError() completed successfully");

@@ -9,6 +9,7 @@
  *                              Add debugging statements for Logger
  *          0.0.3   11/9/17     Add FileFilter to select only .txt or .html files
  *          0.0.4   11/15/17    Minor text formatting adjustment for style reasons   
+ *          0.0.5   11/20/17    Modify Open/Save file selection to reject invalid/inaccessible paths
  */
 
 package utilities;
@@ -127,8 +128,11 @@ class FileSelector {
        		}
        		else {
         	
-       			logger.debug("User selected file is not readable");
-       			System.out.println("Sorry, you can't read from this file!");
+       			logger.debug("User selected file is not readable. Using default path.");
+       			System.out.println("Sorry, you can't read from this file! Setting program to read from the default input file.");
+       			
+       			logger.debug("selectOpenFilePath() completed successfully, returning {}", Config.getDefaultInputFile());
+       			return Config.getDefaultInputFile();
         	
        		}
         
@@ -179,7 +183,10 @@ class FileSelector {
         		if (saveFile.exists()) {
         	
         			logger.debug("User selected file exists, user lacks write permission");
-        			System.out.println("Sorry, you don't have permission to write to this file!");
+        			System.out.println("Sorry, you don't have permission to write to this file! Using default path.");
+        			
+        			logger.debug("selectSaveFilePath() completed successfully, returning {}", Config.getDefaultOutputFile());
+           			return Config.getDefaultOutputFile();
         		
         		}
         		else {
