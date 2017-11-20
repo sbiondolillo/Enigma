@@ -26,7 +26,7 @@ import enigma.OutputProcessor;
 class Config {
 	
 	private final static String DEFAULT_INPUT_FILE = "./resources/misc/input.txt";
-	private final static String DEFAULT_OUTPUT_FILE = "./resources/misc/output.txt";
+	private final static String DEFAULT_OUTPUT_FILE = "./resources/misc/output.html";
 	private static String inputFilePath;
 	private static String outputFilePath;
 	private static int inputMode = 1;

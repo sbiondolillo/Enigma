@@ -7,7 +7,9 @@
  *          0.0.2   11/6/17     Made class package-private and updated documentation
  *                              Add log4j2 Logger into class
  *                              Add debugging statements for Logger
- *          0.0.3   11/9/17     Add FileFilter to select only .txt or .html files      
+ *          0.0.3   11/9/17     Add FileFilter to select only .txt or .html files
+ *          0.0.4   11/15/17    Minor text formatting adjustment for style reasons   
+ *          0.0.5   11/20/17    Modify Open/Save file selection to reject invalid/inaccessible paths
  */
 
 package utilities;
@@ -114,6 +116,7 @@ class FileSelector {
     		
        		File openFile = fileChooser.getSelectedFile();
        		openFilePath = openFile.getPath();
+       		System.out.println();
         	System.out.println("You selected: " + openFilePath);
         	
         	logger.debug("Testing if user selected file is readable");
@@ -125,8 +128,11 @@ class FileSelector {
        		}
        		else {
         	
-       			logger.debug("User selected file is not readable");
-       			System.out.println("Sorry, you can't read from this file!");
+       			logger.debug("User selected file is not readable. Using default path.");
+       			System.out.println("Sorry, you can't read from this file! Setting program to read from the default input file.");
+       			
+       			logger.debug("selectOpenFilePath() completed successfully, returning {}", Config.getDefaultInputFile());
+       			return Config.getDefaultInputFile();
         	
        		}
         
@@ -160,6 +166,7 @@ class FileSelector {
     		
         	File saveFile = fileChooser.getSelectedFile();
         	saveFilePath = saveFile.getPath();
+        	System.out.println();
         	System.out.println("You selected: " + saveFilePath);
         	
         	logger.debug("Testing if user selected file is writeable");
@@ -176,7 +183,10 @@ class FileSelector {
         		if (saveFile.exists()) {
         	
         			logger.debug("User selected file exists, user lacks write permission");
-        			System.out.println("Sorry, you don't have permission to write to this file!");
+        			System.out.println("Sorry, you don't have permission to write to this file! Using default path.");
+        			
+        			logger.debug("selectSaveFilePath() completed successfully, returning {}", Config.getDefaultOutputFile());
+           			return Config.getDefaultOutputFile();
         		
         		}
         		else {
@@ -184,6 +194,17 @@ class FileSelector {
         			logger.debug("User selected file does not exist, attempting to create it");
         			try {
         			
+        				if (!Utilities.getExtension(saveFile).equals("html")) {
+        					
+        					logger.debug("User supplied invalid save file extension.");
+        					
+        					logger.debug("Calling Utilities.formatFilePath({},txt)", filePath);
+        					saveFilePath = Utilities.formatFilePath(saveFilePath, "txt");
+        					System.out.println("In order to proceed, your file will be saved as: " + saveFilePath);
+        					saveFile = new File(saveFilePath);
+        					
+        				}
+        				
         				logger.debug("Calling createNewFile()");
         				saveFile.createNewFile();
         				
@@ -193,6 +214,7 @@ class FileSelector {
         			}
         			catch (IOException e) {
         			
+        				System.out.println();
         				logger.error("File error in selectSaveFilePath(): {}", e.getClass());
         	    		
         	    		logger.debug("Calling handleError(file)");

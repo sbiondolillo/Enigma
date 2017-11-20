@@ -111,10 +111,10 @@ public class Utilities {
      */
     public static void handleError(String type) {
     	
-    	logger.error("Running handleError({})", type);
+    	logger.debug("Running handleError({})", type);
     	Screens.displayErrorScreen(type);
     	
-    	logger.error("handleError({}) completed successfully", type);
+    	logger.debug("handleError({}) completed successfully", type);
     	
     }
     
@@ -132,7 +132,8 @@ public class Utilities {
 		 * Regex:
 		 * Starts with - ^
 		 * Any number of any type of characters - (.+)
-		 * Followed by ".html" - (\\.html)
+		 * Followed by a dot character - (\\.)
+		 * Followed by extension - + extension + )
 		 */
 		if (!filePath.matches("^(.+)(\\." + extension + ")")) {
 			
@@ -194,6 +195,7 @@ public class Utilities {
 	    	}
 	    	catch (IOException e) {
 	    		
+	    		System.out.println();
 	    		logger.error("File error in createFile(): {}", e.getClass());
 	    		
 	    		logger.debug("Calling handleError(file)");
@@ -212,6 +214,7 @@ public class Utilities {
     		}
     		catch (SecurityException e) {
     			
+    			System.out.println();
     			logger.error("File error in createFile(): {}", e.getClass());
 	    		
 	    		logger.debug("Calling handleError(file)");
@@ -228,6 +231,7 @@ public class Utilities {
 				}
     			catch (IOException e) {
     				
+    				System.out.println();
     				logger.error("File error in createFile(): {}", e.getClass());
     	    		
     	    		logger.debug("Calling handleError(file)");

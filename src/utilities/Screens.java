@@ -16,7 +16,15 @@
  *          0.0.9   11/5/17     Modify input file selection to use GUI FileSelector
  *                              Modify output file selection to use GUI FileSelector
  *          0.0.10  11/6/17     Added default constructor with logging
- *          0.0.11  11/10/17    Adjust setOutFilePath() to turn any non-html file into a .txt file              
+ *          0.0.11  11/10/17    Adjust setOutFilePath() to turn any non-html file into a .txt file
+ *          0.0.12  11/14/17    Built out displayConfigScreen()
+ *                              Revise formatting on various screens and adjust 
+ *                              to utilize Outro methods which call exitToMainMenu() 
+ *          0.0.13  11/15/17    Move methods to read in input to displayResultsScreen()
+ *                              Build displayAboutScreen() and set it to run at the start of the program
+ *                              Modify text formatting for more pleasing user experience
+ *                              Update documentation
+ *          0.0.14  11/20/17    Refine Input/File error handling   
  */
 
 package utilities;
@@ -83,9 +91,17 @@ class Screens {
 		logger.debug("Running runWelcomeIntro()");
 		
 		System.out.println("Welcome to the Enigma!");
-		System.out.println("This program will allow you to encrypt a message to be shared with other users.");
-		System.out.println("This program will also allow you to decrypt a message received from other users.");
 		System.out.println();
+		System.out.println("You will now be shown some basic information about this program and instructions");
+		System.out.println("on how to use it effectively. After that, you will be taken to the Main menu where");
+		System.out.println("you can make your selections");
+		System.out.println();
+		System.out.println("Please press ENTER to proceed.");
+		System.out.println();
+		input.nextLine();
+		
+		logger.debug("Calling displayAboutScreen() from runWelcomeIntro()");
+		displayAboutScreen();
 		
 		logger.debug("runWelcomeIntro() completed successfully");
 		
@@ -121,13 +137,14 @@ class Screens {
 		logger.debug("Running showProgramOptions()");
 		
 		System.out.println("Welcome to the Main menu!");
+		System.out.println();
 		System.out.println("Enter 1 to select encrypt or decrypt mode");
 		System.out.println("Enter 2 to configure your input settings");
 		System.out.println("Enter 3 to configure your output settings");
 		System.out.println("Enter 4 to process and output your message");
 		System.out.println("Enter 5 to view a list of valid input characters");
 		System.out.println("Enter 6 to view a list of all current settings");
-		System.out.println("Enter 7 to view general information about the Enigma");
+		System.out.println("Enter 7 to view general information about the Enigma, including operating instructions");
 		System.out.println("Enter 8 to quit the program");
 		
 		logger.debug("showProgramOptions() completed successfully");
@@ -152,6 +169,7 @@ class Screens {
 			}
 			catch (InputMismatchException e) {
 				
+				System.out.println();
 				logger.error("Input error in getProgramSelection(): {}", e.getClass());
 				
 				logger.debug("Calling displayErrorScreen(input)");
@@ -228,8 +246,10 @@ class Screens {
 		
 		logger.debug("Running exitToMainMenu()");
 		
-		System.out.println("OK, we're all set. You will now be directed back to the Main Menu.");
 		System.out.println();
+		System.out.println("Please press ENTER to be taken to the Main menu.");
+		System.out.println();
+		input.nextLine();
 		
 		logger.debug("exitToMainMenu() completed successfully");
 		
@@ -249,8 +269,8 @@ class Screens {
 		logger.debug("Calling selectProgramMode()");
 		selectProgramMode();
 		
-		logger.debug("Calling exitToMainMenu() from displayModeScreen()");
-		exitToMainMenu();
+		logger.debug("Calling runModeOutro()");
+		runModeOutro();
 		
 		logger.debug("displayModeScreen() completed successfully");
 		
@@ -263,10 +283,12 @@ class Screens {
 		
 		logger.debug("Running runModeIntro()");
 		
+		System.out.println();
 		System.out.println("Welcome to the Mode Select menu!");
 		System.out.println();
 		System.out.println("From here, you can decide if you want to encrypt a new message to be shared");
 		System.out.println("or decrypt a message you received from another user.");
+		System.out.println();
 		
 		logger.debug("runModeIntro() completed successfully");
 		
@@ -290,6 +312,7 @@ class Screens {
 			}
 			catch (InputMismatchException e) {
 				
+				System.out.println();
 				logger.error("Input error in selectProgramMode(): {}", e.getClass());
 				
 				logger.debug("Calling displayErrorScreen(input)");
@@ -308,9 +331,26 @@ class Screens {
 	}
 	
 	/*
+	 * Confirm mode settings with user and redirect to Main menu
+	 */
+	private void runModeOutro() {
+		
+		logger.debug("Running runModeOutro()");
+		
+		System.out.println();
+		System.out.println("The program has been set to " + 
+						(Config.getProgramMode() == 1 ? "Encrypt": "Decrypt") + " mode.");
+		
+		logger.debug("Calling exitToMainMenu() from runModeOutro()");
+		exitToMainMenu();
+		
+		logger.debug("runModeOutro() completed successfully");
+		
+	}
+	
+	/*
 	 * Display the screen where the user sets the machine's input
 	 * Set the input mode based on user entry
-	 * Read in the input behind the scenes
 	 */
 	void displayInputScreen() {
 		
@@ -327,19 +367,15 @@ class Screens {
 			logger.debug("Calling setInFilePath()");
 			setInFilePath();
 			
-			logger.debug("Calling readFileIn()");
-			readFileIn();
-			
 		}
 		else {
 			
-			logger.debug("Calling getKeyboardInput()");
-			getKeyboardInput();
+			logger.debug("User selected keyboard input");
 			
 		}
 		
-		logger.debug("Calling exitToMainMenu() from displayInputScreen()");
-		exitToMainMenu();
+		logger.debug("Calling runInputOutro()");
+		runInputOutro();
 		
 		logger.debug("displayInputScreen() completed successfully");
 		
@@ -352,6 +388,7 @@ class Screens {
 		
 		logger.debug("Running runInputIntro()");
 		
+		System.out.println();
 		System.out.println("Welcome to the Input Settings menu!");
 		System.out.println();
 		System.out.println("You may choose to use a file on your system as the input");
@@ -377,13 +414,14 @@ class Screens {
 			try {
 				
 				System.out.println("Enter 1 to type your message in via the keyboard.");
-				System.out.println("Enter 2 to have the program read your message from a file on your system.");
+				System.out.print("Enter 2 to have the program read your message from a file on your system: ");
 				mode = input.nextInt();
 				input.nextLine();
 				
 			}
 			catch (InputMismatchException e) {
 				
+				System.out.println();
 				logger.error("Input error in selectInputMode(): {}", e.getClass());
 				
 				logger.debug("Calling displayErrorScreen(input)");
@@ -432,6 +470,9 @@ class Screens {
 		
 	}
 	
+	/*
+	 * Let the user set their own file path with a GUI dialog
+	 */
 	private String getCustomInputFilePath() {
 		
 		logger.debug("Running getCustomInputFilePath()");
@@ -456,58 +497,34 @@ class Screens {
 	}
 	
 	/*
-	 * Read the contents of the specified file into the plainText Config variable
+	 * Confirm input settings with user and redirect to Main menu
 	 */
-	private void readFileIn() {
+	private void runInputOutro() {
 		
-		logger.debug("Running readFileIn()");
+		logger.debug("Running runInputOutro()");
 		
-		logger.debug("Calling Config.setFileIn()");
-		Config.setFileIn(new FileInputProcessor(Config.getInputFilePath()));
+		System.out.println();
+		System.out.println("The program has been set to read from " +
+				(Config.getInputMode() == 1 ? "the keyboard.": Config.getInputFilePath()) );
+		if (Config.getInputMode() == 1)
+			System.out.println("You will be prompted to type your input when you are ready to process and output your message.");
 		
-		logger.debug("Calling Config.getFileIn().readFileIn()");
-		Config.getFileIn().readFileIn();
+		logger.debug("Calling exitToMainMenu() from runInputOutro()");
+		exitToMainMenu();
 		
-		logger.debug("Calling Config.setPlainText()");
-		Config.setPlainText(Config.getFileIn().getMessageIn());
-		
-		logger.debug("readFileIn() completed successfully");
+		logger.debug("runInputOutro() completed successfully");
 		
 	}
 	
 	/*
-	 * Allow user to enter their plaintext directly through the keyboard
-	 */
-	private void getKeyboardInput() {
-		
-		logger.debug("Running getKeyboardInput()");
-		
-		logger.debug("Calling Config.setKeyboardIn()");
-		Config.setKeyboardIn(new KeyboardInputProcessor());
-		
-		logger.debug("Getting message from user");
-		System.out.println("OK, great, we'll use the keyboard for input. Please type your message: ");
-		
-		logger.debug("Calling Config.getKeyboardIn().readKeyBoardIn()");
-		Config.getKeyboardIn().readKeyBoardIn();
-		
-		logger.debug("Calling Config.setPlainText()");
-		Config.setPlainText(Config.getKeyboardIn().getMessageIn());
-		
-		logger.debug("getKeyboardInput() completed successfully");
-		
-	}
-		
-	/*
 	 * Display the screen where the user sets the machine's output
 	 * Set the output mode based on user entry
-	 * Write the output to file or console
 	 */
 	void displayOutputScreen() {
 		
 		logger.debug("Running displayOutputScreen()");
 		
-		logger.debug("Calling runOututInro()");
+		logger.debug("Calling runOutputInro()");
 		runOutputIntro();
 		
 		logger.debug("Calling selectOutputMode()");
@@ -521,13 +538,12 @@ class Screens {
 		}
 		else {
 			
-			logger.debug("Notifying user of console output");
-			System.out.println("OK, great, we'll display your message to the screen.");
+			logger.debug("User selected console output");
 			
 		}
 		
-		logger.debug("Calling exitToMainMenu() from displayOutputScreen()");
-		exitToMainMenu();
+		logger.debug("Calling runOutputOutro()");
+		runOutputOutro();
 		
 		logger.debug("displayOutputScreen() completed successfully");
 		
@@ -540,6 +556,7 @@ class Screens {
 		
 		logger.debug("Running runOutputIntro()");
 		
+		System.out.println();
 		System.out.println("Welcome to the Output Settings menu!");
 		System.out.println();
 		System.out.println("You may choose to write your message to a file on your system");
@@ -565,13 +582,14 @@ class Screens {
 			try {
 				
 				System.out.println("Enter 1 to display your message to the screen.");
-				System.out.println("Enter 2 to have the program write your message to a file on your system.");
+				System.out.print("Enter 2 to have the program write your message to a file on your system: ");
 				mode = input.nextInt();
 				input.nextLine();
 				
 			}
 			catch (InputMismatchException e) {
 				
+				System.out.println();
 				logger.error("Input error in selectOutputMode(): {}", e.getClass());
 				
 				logger.debug("Calling displayErrorScreen(output)");
@@ -634,20 +652,23 @@ class Screens {
 		logger.debug("Running getFilePathSelection()");
 		
 		logger.debug("Letting user choose default or custom file path");
+		System.out.println();
 		System.out.println("OK, you can choose your own file or proceed with the default file.");
+		System.out.println();
 		
 		int mode = 0;
 		while (mode < 1 || mode > 2) {
 			try {
 				
 				System.out.println("Enter 1 to proceed with the default file path.");
-				System.out.println("Enter 2 to select your own file path.");
+				System.out.print("Enter 2 to select your own file path: ");
 				mode = input.nextInt();
 				input.nextLine();
 				
 			}
 			catch (InputMismatchException e) {
 				
+				System.out.println();
 				logger.error("Input error in getFilePathSelection(): {}", e.getClass());
 				
 				logger.debug("Calling displayErrorScreen(output)");
@@ -687,8 +708,6 @@ class Screens {
 		return filePath;
 		
 	}
-	
-	
 	
 	/*
 	 * Write the contents of the encoded message to the specified file
@@ -752,64 +771,162 @@ class Screens {
 	}
 	
 	/*
+	 * Confirm output settings with user and redirect to Main menu
+	 */
+	private void runOutputOutro() {
+		
+		logger.debug("Running runOutputOutro()");
+		
+		System.out.println();
+		System.out.println("The program has been set to output results to " +
+				(Config.getOutputMode() == 1 ? "the screen.": Config.getOutputFilePath()) );
+		
+		logger.debug("Calling exitToMainMenu() from runOutputOutro()");
+		exitToMainMenu();
+		
+		logger.debug("runOutputOutro() completed successfully");
+		
+	}
+	
+	/*
 	 * Display the results of the encryption/decryption
 	 */
 	void displayResultsScreen() {
 		
 		logger.debug("Running displayResultsScreen()");
 		
-		String input = Config.getPlainText();
-		String output;
+		logger.debug("Calling setInputText()");
+		String inputText = setInputText();
+		
+		logger.debug("Calling setOutputText()");
+		setOutputText(inputText);
+		
+		System.out.println();
+		System.out.println("Your results are now being processed...");
+		System.out.println();
+				
+		if (Config.getOutputMode() == 1) {
+		
+			logger.debug("Displaying message to screen");
+			
+			logger.debug("Calling writeConsoleOut()");
+			writeConsoleOut();
+			
+		} else {
+			
+			logger.debug("Writing message to file");
+			
+			logger.debug("Calling writeFileOut()");
+			writeFileOut();
+			
+			logger.debug("Notifying user of success writing message to file");
+			System.out.println("Your " + (Config.getProgramMode() == 1 ? "encrypted": "decrypted") + 
+					" message has been successfully written to " + Config.getOutputFilePath());
+			
+		}
+			
+		
+		logger.debug("Calling exitToMainMenu() from displayResultsScreen()");
+		exitToMainMenu();
+		
+		logger.debug("displayResultsScreen() completed successfully");
+		
+	}
+	
+	/*
+	 * Either gets keyboard input from the user or reads from file
+	 * @returns the String stored in Config.plainText
+	 */
+	private String setInputText() {
+		
+		logger.debug("Running setInputText()");
+		
+		if (Config.getInputMode() == 1) {
+			
+			logger.debug("Calling getKeyboardInput()");
+			getKeyboardInput();
+			
+		} else {
+			
+			logger.debug("Calling readFileIn()");
+			readFileIn();
+		}
+		
+		logger.debug("setInputText() completed successfully");
+		return Config.getPlainText();
+		
+	}
+	
+	/*
+	 * Read the contents of the user-specified file into the plainText Config variable
+	 */
+	private void readFileIn() {
+		
+		logger.debug("Running readFileIn()");
+		
+		logger.debug("Calling Config.setFileIn()");
+		Config.setFileIn(new FileInputProcessor(Config.getInputFilePath()));
+		
+		logger.debug("Calling Config.getFileIn().readFileIn()");
+		Config.getFileIn().readFileIn();
+		
+		logger.debug("Calling Config.setPlainText()");
+		Config.setPlainText(Config.getFileIn().getMessageIn());
+		
+		logger.debug("readFileIn() completed successfully");
+		
+	}
+	
+	/*
+	 * Allow user to enter their message directly through the keyboard
+	 * saves the user entry into Config.plainText
+	 */
+	private void getKeyboardInput() {
+		
+		logger.debug("Running getKeyboardInput()");
+		
+		logger.debug("Calling Config.setKeyboardIn()");
+		Config.setKeyboardIn(new KeyboardInputProcessor());
+		
+		logger.debug("Getting message from user");
+		System.out.println("You have chosen to enter your message via the keyboard. Please type your message now.");
+		System.out.println("Please note that hitting ENTER will end your input session.");
+		
+		logger.debug("Calling Config.getKeyboardIn().readKeyBoardIn()");
+		Config.getKeyboardIn().readKeyBoardIn();
+		
+		logger.debug("Calling Config.setPlainText()");
+		Config.setPlainText(Config.getKeyboardIn().getMessageIn());
+		
+		logger.debug("getKeyboardInput() completed successfully");
+		
+	}
+	
+	/*
+	 * Either encrypts or decrypts the user-supplied message base on the programMode
+	 */
+	private void setOutputText(String inputText) {
+		
+		logger.debug("Running setOutputText()");
+		
+		String outputText;
+		
 		if (Config.getProgramMode() == 1) {
 			
 			logger.debug("calling RotorController.encode()");
-			output = rc.encode(input);
-			
-			logger.debug("Calling Config.setCypherText()");
-			Config.setCypherText(output);
-			
-			if (Config.getOutputMode() == 1) {
-			
-				logger.debug("Displaying encrypted message");
-				writeConsoleOut();
-				
-			} else {
-				
-				logger.debug("Calling writeFileOut()");
-				writeFileOut();
-				
-				logger.debug("Notifying user of success writing encrypted message to file");
-				System.out.println("Your encrypted message has been successfully written to " + Config.getOutputFilePath());
-				
-			}
+			outputText = rc.encode(inputText);
 			
 		} else {
 			
 			logger.debug("calling RotorController.decode()");
-			output = rc.decode(input);
-			
-			logger.debug("Calling Config.setCypherText()");
-			Config.setCypherText(output);
-			
-			if (Config.getOutputMode() == 1) {
-			
-				logger.debug("Displaying decrypted message");
-				writeConsoleOut();
-				
-			} else {
-				
-				logger.debug("Calling writeFileOut()");
-				writeFileOut();
-				
-				logger.debug("Notifying user of success writing decrypted message to file");
-				System.out.println("Your decrypted message has been successfully written to " + Config.getOutputFilePath());
-				
-			}
+			outputText = rc.decode(inputText);
 			
 		}
-		System.out.println();
 		
-		logger.debug("displayResultsScreen() completed successfully");
+		logger.debug("Calling Config.setCypherText()");
+		Config.setCypherText(outputText);
+		
+		logger.debug("setOutputText() completed successfully");
 		
 	}
 	
@@ -821,11 +938,14 @@ class Screens {
 		logger.debug("Running displayValidCharScreen()");
 		
 		logger.debug("Displaying valid characters to user");
+		System.out.println();
 		System.out.println("Here is a list of the valid characters for your input:");
 		System.out.println(rc.getActiveRotors()[0].getValidCharacters());
-		System.out.println("If you enter any invalid characters, they will be encoded as a hash mark '#'");
-		System.out.println("You will now be directed back to the Main Menu.");
 		System.out.println();
+		System.out.println("If you enter any invalid characters, they will be encoded as a hash mark '#'");
+		
+		logger.debug("Calling exitToMainMenu() from displayValidCharScreen()");
+		exitToMainMenu();
 		
 		logger.debug("displayValidCharScreen() completed successfully");
 		
@@ -833,33 +953,155 @@ class Screens {
 	
 	/*
 	 * Display the screen where users can get general info about the program
+	 * and instructions on how to use the various parts of the program
 	 */
 	void displayAboutScreen() {
-		// TODO implement this
 		
 		logger.debug("Running displayAboutScreen()");
 		
-		System.out.println("Oops, this is embarassing, there doesn't seem to be anything here.");
-		System.out.println("You will now be directed back to the Main Menu.");
 		System.out.println();
+		System.out.println("Welcome to the General Info / Instruction menu!");
+		System.out.println();
+		System.out.println("This program was designed to mimic the Enigma encryption machine made famous by");
+		System.out.println("the Nazi command structure during the Second World War. In that machine, a series");
+		System.out.println("of moving rotors were used to scramble a message into an encrypted message and then");
+		System.out.println("another machine used those same rotors to decrypt the message at another time and place.");
+		System.out.println();
+		System.out.println("While some of the features of the German Enigma have been set aside, some of the main");
+		System.out.println("components have been replicated here. As such, there are three primary settings which");
+		System.out.println("need to be established in order for the machine to function as intended:");
+		System.out.println();
+		System.out.println("1) The user must decide to either encrypt or decrypt a given message. This is done by ");
+		System.out.println("   choosing screen #1 from the Main menu.");
+		System.out.println("2) The user must specify where the message will originate. Much like the original, there");
+		System.out.println("   is an option to type the message in via the keyboard. Keyboard entry only allows a single");
+		System.out.println("   line of text to be entered at a time. For multi-line messages, the machine is configured");
+		System.out.println("   to read messages from either .txt or .html files. This is all done by choosing screen #2");
+		System.out.println("   from the Main menu.");
+		System.out.println("3) The user must specify where the final message will be displayed. Much like the original,");
+		System.out.println("   the message may be displayed immediately from within the machine itself. If you prefer,");
+		System.out.println("   you may choose to have the message written out to a .txt or .html file. This is all done ");
+		System.out.println("   by choosing screen #3 from the Main menu.");
+		System.out.println();
+		System.out.println("Once these settings have been configured, you may proceed to process your message and output");
+		System.out.println("your results. The program will read from your specified input source and write to your specified");
+		System.out.println("output source. This process is initiated by selecting screen #4 from the Main menu.");
+		System.out.println();
+		System.out.println("It is important to keep in mind that there are a limited set of characters which this program");
+		System.out.println("can encrypt or decrypt properly. The original, unencrypted message must only contain characters");
+		System.out.println("from this set in order to produce a proper output after encrypting and finally decrypting the");
+		System.out.println("original message. To view a list of valid characters for your original message, select screen #5");
+		System.out.println("from the Main menu.");
+		System.out.println();
+		System.out.println("If, at any time, you need to verify the settings of this program, simply select screen #6 from ");
+		System.out.println("the Main menu and you will be shown the three key settings described above. You will almost ");
+		System.out.println("certainly want to verify these before processing and outputting your final message.");
+		System.out.println();
+		System.out.println("If you are feeling lost at any point, simply select screen #7 from the Main menu to view these");
+		System.out.println("instructions again. Thank you for using the Enigma!");
+		
+		
+		logger.debug("Calling exitToMainMenu() from displayAboutScreen()");
+		exitToMainMenu();
 		
 		logger.debug("displayAboutScreen() completed successfully");
 		
 	}
 	
 	/*
-	 * Display the screen where the user can view configuration info - no mods
+	 * Display the screen where the user can view configuration info
+	 * no modifications to program settings are made here
 	 */
 	void displayConfigScreen() {
-		// TODO implement this
 		
 		logger.debug("Running displayConfigScreen()");
 		
-		System.out.println("Oops, this is embarassing, there doesn't seem to be anything here.");
-		System.out.println("You will now be directed back to the Main Menu.");
-		System.out.println();
+		runConfigIntro();
+		displayProgramModeSettings();
+		displayInputSettings();
+		displayOutputSettings();
+		runConfigOutro();
 		
 		logger.debug("displayConfigScreen() completed successfully");
+		
+	}
+	
+	/*
+	 * Introduce the current settings menu
+	 */
+	private void runConfigIntro() {
+		
+		logger.debug("Running runConfigIntro()");
+		
+		System.out.println();
+		System.out.println("Welcome to the Configuration Menu!");
+		System.out.println();
+		System.out.println("From here you will be able to view the current status " + 
+							"of the most important settings in the Enigma");
+		System.out.println();
+		
+		logger.debug("runConfigIntro() completed successfully");
+		
+	}
+	
+	/*
+	 * Display current settings for encrypt/decrypt mode
+	 */
+	private void displayProgramModeSettings() {
+		
+		logger.debug("Running displayProgramModeSettings()");
+		
+		System.out.println("The program is currently set to " + 
+							(Config.getProgramMode() == 1 ? "Encrypt": "Decrypt") + " mode.");
+		
+		logger.debug("displayProgramModeSettings() completed successfully");
+		
+	}
+	
+	/*
+	 * Display current settings for keyboard/file input
+	 */
+	private void displayInputSettings() {
+		
+		logger.debug("Running displayInputSettings()");
+		
+		System.out.println("The program is currently set to read from " +
+							(Config.getInputMode() == 1 ? "the keyboard.": 
+								"the following file: " + Config.getInputFilePath()) );
+		
+		logger.debug("displayInputSettings() completed successfully");
+		
+	}
+	
+	/*
+	 * Display current settings for console/file output
+	 */
+	private void displayOutputSettings() {
+		
+		logger.debug("Running displayOutputSettings()");
+		
+		System.out.println("The program is currently set to output results to " +
+				(Config.getOutputMode() == 1 ? "the screen.": 
+					"the following file: " + Config.getOutputFilePath()) );
+		
+		logger.debug("displayOutputSettings() completed successfully");
+		
+	}
+	
+	/*
+	 * Confirm all settings and redirect user to Main menu
+	 */
+	private void runConfigOutro() {
+		
+		logger.debug("Running runConfigOutro()");
+		
+		System.out.println();
+		System.out.println("If you wish to change any of these settings, you may do so from the Main Menu.");
+
+		logger.debug("Calling exitToMainMenu() from runConfigOutro()");
+		exitToMainMenu();
+		
+		logger.debug("runConfigOutro() completed successfully");
 		
 	}
 	
@@ -870,6 +1112,7 @@ class Screens {
 		
 		logger.debug("Running displayExitScreen()");
 		
+		System.out.println();
 		System.out.println("Thanks for using the Enigma. Have a great day!");
 		System.out.println();
 		
@@ -922,9 +1165,14 @@ class Screens {
 		
 			
 		static void fileError() {
-			// TODO - build method to display File Error Screen
+			
 			logger.debug("running Errors.fileError()");
-			System.out.println("Sorry, unable to access that file. You will now be directed to the Main menu");
+			
+			System.out.println();
+			System.out.println("Sorry, unable to access your file. Please see the error message above for details.");
+			System.out.println("You will now be taken back to the Main menu");
+			System.out.println("If you continue to have trouble, please contact Customer Support at enigmasupport@gmail.com.");
+			System.out.println("Please include the error message printed above when you contact Customer Support.");
 			System.out.println();
 			
 			logger.debug("Errors.fileError() completed successfully");
@@ -941,9 +1189,13 @@ class Screens {
 		}
 		
 		static void inputError() {
-			// TODO - build method to display Input Error Screen
+			
 			logger.debug("running Errors.inputError()");
-			System.out.println("Sorry, you have entered an invalid input.");
+			
+			System.out.println();
+			System.out.println("Sorry, you have entered an invalid input. Please try again.");
+			System.out.println("If you continue to have trouble, please contact Customer Support at enigmasupport@gmail.com.");
+			System.out.println("Please include the error message printed above when you contact Customer Support.");
 			System.out.println();
 			
 			logger.debug("Errors.inputError() completed successfully");
