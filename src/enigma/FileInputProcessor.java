@@ -61,6 +61,7 @@ public class FileInputProcessor implements FileInput {
 		}
 		catch (IOException e) {
 			
+			System.out.println();
 			logger.error("Error accessing {}: {}", filePath, e.getClass());
 			
 			logger.debug("Calling Utilities.handleError(file)");
@@ -112,6 +113,7 @@ public class FileInputProcessor implements FileInput {
 		} 
 		catch (IOException e) {
 			
+			System.out.println();
 			logger.error("File error in readFileIn(): {}", e.getClass());
 			
 			logger.debug("Calling Utilities.handleError(file)");

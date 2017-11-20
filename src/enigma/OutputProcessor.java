@@ -133,8 +133,11 @@ public class OutputProcessor {
 			writer.write(output);
 		}
 		catch (IOException e) {
+			
+			System.out.println();
 			logger.error("File error in writeEncryptedMessageOutToFile(): " + e.getClass());
-			logger.error("Calling Errors.handleError(file)");
+			
+			logger.debug("Calling Errors.handleError(file)");
 			Utilities.handleError("file");
 		}
 
@@ -169,8 +172,11 @@ public class OutputProcessor {
 			writer.write(output);
 		}
 		catch (IOException e) {
+			
+			System.out.println();
 			logger.error("File error in writeDecryptedMessageOutToFile(): " + e.getClass());
-			logger.error("Calling Errors.handleError(file)");
+			
+			logger.debug("Calling Errors.handleError(file)");
 			Utilities.handleError("file");
 		}
 

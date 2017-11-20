@@ -203,6 +203,7 @@ class FileSelector {
         			}
         			catch (IOException e) {
         			
+        				System.out.println();
         				logger.error("File error in selectSaveFilePath(): {}", e.getClass());
         	    		
         	    		logger.debug("Calling handleError(file)");

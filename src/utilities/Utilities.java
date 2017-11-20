@@ -194,6 +194,7 @@ public class Utilities {
 	    	}
 	    	catch (IOException e) {
 	    		
+	    		System.out.println();
 	    		logger.error("File error in createFile(): {}", e.getClass());
 	    		
 	    		logger.debug("Calling handleError(file)");
@@ -212,6 +213,7 @@ public class Utilities {
     		}
     		catch (SecurityException e) {
     			
+    			System.out.println();
     			logger.error("File error in createFile(): {}", e.getClass());
 	    		
 	    		logger.debug("Calling handleError(file)");
@@ -228,6 +230,7 @@ public class Utilities {
 				}
     			catch (IOException e) {
     				
+    				System.out.println();
     				logger.error("File error in createFile(): {}", e.getClass());
     	    		
     	    		logger.debug("Calling handleError(file)");

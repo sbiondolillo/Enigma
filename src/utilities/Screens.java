@@ -169,6 +169,7 @@ class Screens {
 			}
 			catch (InputMismatchException e) {
 				
+				System.out.println();
 				logger.error("Input error in getProgramSelection(): {}", e.getClass());
 				
 				logger.debug("Calling displayErrorScreen(input)");
@@ -311,6 +312,7 @@ class Screens {
 			}
 			catch (InputMismatchException e) {
 				
+				System.out.println();
 				logger.error("Input error in selectProgramMode(): {}", e.getClass());
 				
 				logger.debug("Calling displayErrorScreen(input)");
@@ -419,6 +421,7 @@ class Screens {
 			}
 			catch (InputMismatchException e) {
 				
+				System.out.println();
 				logger.error("Input error in selectInputMode(): {}", e.getClass());
 				
 				logger.debug("Calling displayErrorScreen(input)");
@@ -586,6 +589,7 @@ class Screens {
 			}
 			catch (InputMismatchException e) {
 				
+				System.out.println();
 				logger.error("Input error in selectOutputMode(): {}", e.getClass());
 				
 				logger.debug("Calling displayErrorScreen(output)");
@@ -664,6 +668,7 @@ class Screens {
 			}
 			catch (InputMismatchException e) {
 				
+				System.out.println();
 				logger.error("Input error in getFilePathSelection(): {}", e.getClass());
 				
 				logger.debug("Calling displayErrorScreen(output)");
