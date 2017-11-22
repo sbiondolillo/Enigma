@@ -113,9 +113,9 @@ public class ScreenManager {
 	/*
 	 * Let the user set their own file path with a GUI dialog
 	 */
-	public static String getCustomInputFilePath() {
+	public static void selectInputFile() {
 		
-		logger.debug("Running getCustomInputFilePath()");
+		logger.debug("Running selectInputFile()");
 		
 		logger.debug("Building new FileSelector");
 		FileSelector fileSelector = new FileSelector("./resources/misc");
@@ -130,9 +130,10 @@ public class ScreenManager {
 			filePath = Config.getDefaultInputFile();
 		}
 		
-		logger.debug("getCustomInputFilePath() completed successfully, returning {}", filePath);
-		return filePath;
+		logger.debug("calling Config.setInputFilePath({})", filePath);
+		Config.setInputFilePath(filePath);
 		
+		logger.debug("selectInputFile() completed successfully");
 	}
 	
 	/*

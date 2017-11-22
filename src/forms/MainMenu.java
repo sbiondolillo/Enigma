@@ -300,12 +300,13 @@ public class MainMenu  {
 	}
 	
 	private void SettingsMenuItemInputFileActionPerformed(ActionEvent e) {
-		InputFileTextField.setText(ScreenManager.getCustomInputFilePath());
+		ScreenManager.selectInputFile();
+		InputFileTextField.setText(Config.getInputFilePath());
 	}
 	
 
 	private void SettingsMenuItemOutputFileActionPerformed(ActionEvent e) {
-		OutputFileTextField.setText(ScreenManager.getCustomOutputFilePath());
+		OutputFileTextField.setText(Config.getOutputFilePath());
 	}
 	
 	/*
