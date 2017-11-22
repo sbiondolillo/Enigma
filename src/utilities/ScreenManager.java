@@ -32,6 +32,7 @@
 package utilities;
 
 import java.awt.Component;
+import java.io.IOException;
 import java.nio.file.Paths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -176,7 +177,7 @@ public class ScreenManager {
 	/*
 	 * Write the contents of the encoded message to the specified file
 	 */
-	private static void writeFileOut() {
+	private static void writeFileOut() throws IOException {
 		
 		logger.debug("Running writeFileOut()");
 		
@@ -208,7 +209,7 @@ public class ScreenManager {
 	/*
 	 * Runs the encryption/decryption process and writes out to file
 	 */
-	public static void processResults() {
+	public static boolean processResults() {
 		
 		logger.debug("Running processResults()");
 		
@@ -219,11 +220,16 @@ public class ScreenManager {
 		setOutputText(inputText);
 		
 		logger.debug("Calling writeFileOut()");
-		writeFileOut();
+		try {
+			writeFileOut();
+		} catch (IOException e) {
+			return false;
+		}
 		
 		logger.debug("Message successfully written to file");
 		
 		logger.debug("processResults() completed successfully");
+		return true;
 		
 	}
 	

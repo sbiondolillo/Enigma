@@ -109,7 +109,7 @@ public class OutputProcessor {
 	/*
 	 * Create an HTML file with the encrypted message and write it to file
 	 */
-	public void writeEncryptedMessageOutToFile() {
+	public void writeEncryptedMessageOutToFile() throws IOException {
 
 		logger.debug("Running writeEncryptedMessageOutToFile()");
 
@@ -129,17 +129,8 @@ public class OutputProcessor {
 		}
 		
 		logger.debug("Writing to file");
-		try  (BufferedWriter writer = Files.newBufferedWriter(outputFilePath,Charset.forName("UTF-8"))){
-			writer.write(output);
-		}
-		catch (IOException e) {
-			
-			System.out.println();
-			logger.error("File error in writeEncryptedMessageOutToFile(): " + e.getClass());
-			
-			logger.debug("Calling Errors.handleError(file)");
-			Utilities.handleError("file");
-		}
+		BufferedWriter writer = Files.newBufferedWriter(outputFilePath,Charset.forName("UTF-8"));
+		writer.write(output);
 
 		logger.debug("writeEncryptedMessageOutToFile() completed successfully");
 
@@ -148,7 +139,7 @@ public class OutputProcessor {
 	/*
 	 * Create an HTML file with the decrypted message and write it to file
 	 */
-	public void writeDecryptedMessageOutToFile() {
+	public void writeDecryptedMessageOutToFile() throws IOException {
 
 		logger.debug("Running writeDecryptedMessageOutToFile()");
 
@@ -168,17 +159,8 @@ public class OutputProcessor {
 		}
 		
 		logger.debug("Writing to file");
-		try  (BufferedWriter writer = Files.newBufferedWriter(outputFilePath,Charset.forName("UTF-8"))){
-			writer.write(output);
-		}
-		catch (IOException e) {
-			
-			System.out.println();
-			logger.error("File error in writeDecryptedMessageOutToFile(): " + e.getClass());
-			
-			logger.debug("Calling Errors.handleError(file)");
-			Utilities.handleError("file");
-		}
+		BufferedWriter writer = Files.newBufferedWriter(outputFilePath,Charset.forName("UTF-8"));
+		writer.write(output);
 
 		logger.debug("writeDecryptedMessageOutToFile() completed successfully");
 

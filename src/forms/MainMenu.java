@@ -315,6 +315,17 @@ public class MainMenu  {
 	 */
 	
 	private void RunButtonActionPerformed(ActionEvent e) {
-		ScreenManager.processResults();
+		if (ScreenManager.processResults()) {
+			JOptionPane.showMessageDialog(MainMenu, 
+							"Your message was processed successfully", 
+							"Success", 
+							JOptionPane.INFORMATION_MESSAGE);
+		}
+		else
+			JOptionPane.showMessageDialog(MainMenu, 
+							"There was a problem processing your message. " + 
+							"Please check all of your settings and try again.", 
+							"Error", 
+							JOptionPane.ERROR_MESSAGE);
 	}
 }
