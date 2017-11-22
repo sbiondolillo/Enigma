@@ -107,7 +107,7 @@ public class FileSelector {
 
 		logger.debug("Running selectOpenFilePath()");
 		
-		String openFilePath = "";
+		String openFilePath = Config.getInputFilePath();
 		
 		logger.debug("Launching Open dialog box");
 		int openResult = fileChooser.showOpenDialog(parent);
@@ -154,7 +154,7 @@ public class FileSelector {
 
 		logger.debug("Running selectSaveFilePath()");
 		
-		String saveFilePath = "";
+		String saveFilePath = Config.getOutputFilePath();
 		
 		logger.debug("Launching Save dialog box");
 		int saveResult = fileChooser.showSaveDialog(parent);
