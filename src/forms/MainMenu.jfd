@@ -4,12 +4,13 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq t {space :::p, par l {comp SettingsMenuPromptLabel::l::438:x, seq l {comp InputFileLabel:::p::p, space :::p, comp InputFileTextField:::::x}, seq l {comp RunButtonPromptLabel:::p::p, space ::20:x, comp RunButton:::p:75:p}, seq {comp ProgramModeLabel:::p::p, space :::p, comp ProgramModeTextField:::p:173:p, space :0:0:x}, seq l {comp OutputFileLabel:::p::p, space :::p, comp OutputFileTextField::::377:x}}, space :::p}}"
+			"$horizontalGroup": "par l {seq t {space :::p, par l {comp SettingsMenuPromptLabel::l::438:x, seq l {comp RunButtonPromptLabel:::p::p, space ::20:x, comp RunButton:::p:75:p}, seq {comp ProgramModeLabel:::p::p, space :::p, comp ProgramModeTextField:::p:90:p, space :0:0:x}, seq l {par l {comp OutputFileLabel::l:p::p, comp InputFileLabel::l:p::p}, space :::p, par l {comp InputFileTextField::::377:x, comp OutputFileTextField::::377:x}}}, space :::p}}"
 			"$verticalGroup": "par l {seq l {space :::p, comp SettingsMenuPromptLabel:::p:22:p, space :::p, par b {comp ProgramModeLabel::b:p::p, comp ProgramModeTextField::b:p::p}, space :::p, par b {comp InputFileLabel::b:p::p, comp InputFileTextField::b:p::p}, space :::p, par b {comp OutputFileLabel::b:p::p, comp OutputFileTextField::b:p::p}, space :::p, par b {comp RunButton::b:p:47:p, comp RunButtonPromptLabel::b:p::p}, space ::8:x}}"
 		} ) {
 			name: "MainMenu"
 			"title": "Welcome to the Enigma!"
 			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowClosing", "MainMenuWindowClosing", true ) )
+			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowOpened", "MainMenuWindowOpened", true ) )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "SettingsMenuPromptLabel"
 				"text": "Use the Settings menu above to change these settings..."
@@ -24,9 +25,13 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "InputFileTextField"
+				"enabled": false
+				"disabledTextColor": new java.awt.Color( 153, 153, 153, 255 )
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "OutputFileTextField"
+				"enabled": false
+				"disabledTextColor": new java.awt.Color( 153, 153, 153, 255 )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "RunButton"
@@ -34,6 +39,8 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "ProgramModeTextField"
+				"enabled": false
+				"disabledTextColor": new java.awt.Color( 153, 153, 153, 255 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "OutputFileLabel"

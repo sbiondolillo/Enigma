@@ -13,6 +13,8 @@ import javax.swing.LayoutStyle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import utilities.Config;
+
 /**
  * @author Samuel Biondolillo
  */
@@ -97,6 +99,10 @@ public class MainMenu  {
 				public void windowClosing(WindowEvent e) {
 					MainMenuWindowClosing(e);
 				}
+				@Override
+				public void windowOpened(WindowEvent e) {
+					MainMenuWindowOpened(e);
+				}
 			});
 			Container MainMenuContentPane = MainMenu.getContentPane();
 
@@ -152,8 +158,20 @@ public class MainMenu  {
 			//---- InputFileLabel ----
 			InputFileLabel.setText("Input File:");
 
+			//---- InputFileTextField ----
+			InputFileTextField.setEnabled(false);
+			InputFileTextField.setDisabledTextColor(new Color(153, 153, 153));
+
+			//---- OutputFileTextField ----
+			OutputFileTextField.setEnabled(false);
+			OutputFileTextField.setDisabledTextColor(new Color(153, 153, 153));
+
 			//---- RunButton ----
 			RunButton.setText("Run");
+
+			//---- ProgramModeTextField ----
+			ProgramModeTextField.setEnabled(false);
+			ProgramModeTextField.setDisabledTextColor(new Color(153, 153, 153));
 
 			//---- OutputFileLabel ----
 			OutputFileLabel.setText("Output File:");
@@ -170,22 +188,22 @@ public class MainMenu  {
 						.addGroup(MainMenuContentPaneLayout.createParallelGroup()
 							.addComponent(SettingsMenuPromptLabel, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
 							.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
-								.addComponent(InputFileLabel)
-								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(InputFileTextField))
-							.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
 								.addComponent(RunButtonPromptLabel)
 								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
 								.addComponent(RunButton, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
 							.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
 								.addComponent(ProgramModeLabel)
 								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(ProgramModeTextField, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
+								.addComponent(ProgramModeTextField, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
 								.addGap(0, 0, Short.MAX_VALUE))
 							.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
-								.addComponent(OutputFileLabel)
+								.addGroup(MainMenuContentPaneLayout.createParallelGroup()
+									.addComponent(OutputFileLabel)
+									.addComponent(InputFileLabel))
 								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(OutputFileTextField, GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)))
+								.addGroup(MainMenuContentPaneLayout.createParallelGroup()
+									.addComponent(InputFileTextField, GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+									.addComponent(OutputFileTextField, GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))))
 						.addContainerGap())
 			);
 			MainMenuContentPaneLayout.setVerticalGroup(
@@ -222,6 +240,23 @@ public class MainMenu  {
 	 * General
 	 */
 	
+	private void MainMenuWindowOpened(WindowEvent e) {
+		initializeTextFields();
+	}
+	
+	private void initializeTextFields() {
+		
+		String mode;
+		if (Config.getProgramMode() == 1)
+			mode = "Encrypt";
+		else
+			mode = "Decrypt";
+		
+		ProgramModeTextField.setText(mode);
+		InputFileTextField.setText(Config.getInputFilePath());
+		OutputFileTextField.setText(Config.getOutputFilePath());
+		
+	}
 	private void MainMenuWindowClosing(WindowEvent e) {
 		
 		logger.debug("User clicked X button to close program");

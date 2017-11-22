@@ -23,7 +23,7 @@ import enigma.FileInputProcessor;
 import enigma.KeyboardInputProcessor;
 import enigma.OutputProcessor;
 
-class Config {
+public class Config {
 	
 	private final static String DEFAULT_INPUT_FILE = "./resources/misc/input.txt";
 	private final static String DEFAULT_OUTPUT_FILE = "./resources/misc/output.html";
@@ -42,7 +42,7 @@ class Config {
 	/*
 	 * Getters and setters for instance variables
 	 */
-	static String getInputFilePath() {
+	public static String getInputFilePath() {
 		
 		logger.debug("Running getInputFilePath()");
 		
@@ -58,7 +58,7 @@ class Config {
 		logger.debug("setInputFilePath({}) completed successfully", input);
 		
 	}
-	static String getOutputFilePath() {
+	public static String getOutputFilePath() {
 		
 		logger.debug("Running getOutputFilePath()");
 		
