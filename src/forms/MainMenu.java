@@ -5,6 +5,7 @@
 package forms;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle;
@@ -18,6 +19,12 @@ import org.apache.logging.log4j.Logger;
 public class MainMenu  {
 	
 	
+
+	private void FileMenuItemExitActionPerformed(ActionEvent e) {
+		
+		logger.debug("Exiting application from FileMenu>Exit");
+		System.exit(0);
+	}
 
 	private void initComponents() {
 		
@@ -67,6 +74,8 @@ public class MainMenu  {
 
 					//---- FileMenuItemExit ----
 					FileMenuItemExit.setText("Exit");
+					FileMenuItemExit.setToolTipText("Exit the Enigma");
+					FileMenuItemExit.addActionListener(e -> FileMenuItemExitActionPerformed(e));
 					FileMenu.add(FileMenuItemExit);
 				}
 				MainMenuBar.add(FileMenu);

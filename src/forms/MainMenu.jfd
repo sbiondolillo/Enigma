@@ -58,6 +58,8 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "FileMenuItemExit"
 						"text": "Exit"
+						"toolTipText": "Exit the Enigma"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "FileMenuItemExitActionPerformed", true ) )
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
