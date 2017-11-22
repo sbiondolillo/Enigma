@@ -18,14 +18,51 @@ import org.apache.logging.log4j.Logger;
  */
 public class MainMenu  {
 	
+	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+	// Generated using JFormDesigner Evaluation license - Samuel Biondolillo
+	private JFrame MainMenu;
+	private JMenuBar MainMenuBar;
+	private JMenu FileMenu;
+	private JMenuItem FileMenuItemHelp;
+	private JMenuItem FileMenuItemAbout;
+	private JMenuItem FileMenuItemExit;
+	private JMenu SettingsMenu;
+	private JMenuItem SettingsMenuItemProgramMode;
+	private JMenuItem SettingsMenuItemInputFile;
+	private JMenuItem SettingsMenuItemOutputFile;
+	private JLabel SettingsMenuPromptLabel;
+	private JLabel ProgramModeLabel;
+	private JLabel InputFileLabel;
+	private JTextField InputFileTextField;
+	private JTextField OutputFileTextField;
+	private JButton RunButton;
+	private JTextField ProgramModeTextField;
+	private JLabel OutputFileLabel;
+	private JLabel RunButtonPromptLabel;
+	// JFormDesigner - End of variables declaration  //GEN-END:variables
+	private final static Logger logger = LogManager.getLogger(MainMenu.class.getName());
+
+	/*
+	 * Public
+	 */
 	
-
-	private void FileMenuItemExitActionPerformed(ActionEvent e) {
+	public void show() {
 		
-		logger.debug("Exiting application from FileMenu>Exit");
-		System.exit(0);
+		logger.debug("Running show()");
+		
+		logger.debug("Calling initComponents()");
+		initComponents();
+		
+		logger.debug("Setting MainMenu to visible");
+		MainMenu.setVisible(true);
+		
+		logger.debug("show() completed successfully");
 	}
-
+	
+	/*
+	 * Private
+	 */
+	
 	private void initComponents() {
 		
 		logger.debug("Running initComponents()");
@@ -55,6 +92,12 @@ public class MainMenu  {
 		//======== MainMenu ========
 		{
 			MainMenu.setTitle("Welcome to the Enigma!");
+			MainMenu.addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowClosing(WindowEvent e) {
+					MainMenuWindowClosing(e);
+				}
+			});
 			Container MainMenuContentPane = MainMenu.getContentPane();
 
 			//======== MainMenuBar ========
@@ -174,41 +217,45 @@ public class MainMenu  {
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 		logger.debug("initComponents() completed successfully");
 	}
-
-	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - Samuel Biondolillo
-	private JFrame MainMenu;
-	private JMenuBar MainMenuBar;
-	private JMenu FileMenu;
-	private JMenuItem FileMenuItemHelp;
-	private JMenuItem FileMenuItemAbout;
-	private JMenuItem FileMenuItemExit;
-	private JMenu SettingsMenu;
-	private JMenuItem SettingsMenuItemProgramMode;
-	private JMenuItem SettingsMenuItemInputFile;
-	private JMenuItem SettingsMenuItemOutputFile;
-	private JLabel SettingsMenuPromptLabel;
-	private JLabel ProgramModeLabel;
-	private JLabel InputFileLabel;
-	private JTextField InputFileTextField;
-	private JTextField OutputFileTextField;
-	private JButton RunButton;
-	private JTextField ProgramModeTextField;
-	private JLabel OutputFileLabel;
-	private JLabel RunButtonPromptLabel;
-	// JFormDesigner - End of variables declaration  //GEN-END:variables
-	private final static Logger logger = LogManager.getLogger(MainMenu.class.getName());
-
-	public void show() {
+	
+	/*
+	 * General
+	 */
+	
+	private void MainMenuWindowClosing(WindowEvent e) {
 		
-		logger.debug("Running show()");
+		logger.debug("User clicked X button to close program");
 		
-		logger.debug("Calling initComponents()");
-		initComponents();
+		logger.debug("Confirming program exit");
+		ConfirmProgramExit();
 		
-		logger.debug("Setting MainMenu to visible");
-		MainMenu.setVisible(true);
+		logger.debug("Returning to MainMenu");
 		
-		logger.debug("show() completed successfully");
+	}
+	
+	private void ConfirmProgramExit() {
+		
+		if (JOptionPane.showConfirmDialog(MainMenu, 
+	            "Are you sure to exit the Enigma?", "Please Confirm", 
+	            JOptionPane.YES_NO_OPTION,
+	            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+				logger.debug("User confirmed, exiting application");
+	            System.exit(0);
+	        }
+		logger.debug("User canceled");
+	}
+	
+	/*
+	 * MenuItem Event Handlers
+	 */
+	
+	private void FileMenuItemExitActionPerformed(ActionEvent e) {
+		
+		logger.debug("User selected FileMenu>Exit");
+		
+		logger.debug("Confirming program exit");
+		ConfirmProgramExit();
+		
+		logger.debug("Returning to MainMenu");
 	}
 }
