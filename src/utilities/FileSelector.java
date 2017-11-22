@@ -24,7 +24,7 @@ import javax.swing.filechooser.FileFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-class FileSelector {
+public class FileSelector {
 	
 	private String filePath = "";	
 	private JFileChooser fileChooser = null;

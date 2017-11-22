@@ -14,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import utilities.Config;
+import utilities.Screens;
 
 /**
  * @author Samuel Biondolillo
@@ -139,10 +140,12 @@ public class MainMenu  {
 
 					//---- SettingsMenuItemInputFile ----
 					SettingsMenuItemInputFile.setText("Select Input File...");
+					SettingsMenuItemInputFile.addActionListener(e -> SettingsMenuItemInputFileActionPerformed(e));
 					SettingsMenu.add(SettingsMenuItemInputFile);
 
 					//---- SettingsMenuItemOutputFile ----
 					SettingsMenuItemOutputFile.setText("Select Output File...");
+					SettingsMenuItemOutputFile.addActionListener(e -> SettingsMenuItemOutputFileActionPerformed(e));
 					SettingsMenu.add(SettingsMenuItemOutputFile);
 				}
 				MainMenuBar.add(SettingsMenu);
@@ -292,5 +295,14 @@ public class MainMenu  {
 		ConfirmProgramExit();
 		
 		logger.debug("Returning to MainMenu");
+	}
+	
+	private void SettingsMenuItemInputFileActionPerformed(ActionEvent e) {
+		InputFileTextField.setText(Screens.getCustomInputFilePath());
+	}
+	
+
+	private void SettingsMenuItemOutputFileActionPerformed(ActionEvent e) {
+		OutputFileTextField.setText(Screens.getCustomOutputFilePath());
 	}
 }

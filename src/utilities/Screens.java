@@ -42,7 +42,7 @@ import enigma.KeyboardInputProcessor;
 import enigma.OutputProcessor;
 import rotors.RotorController;
 
-class Screens {
+public class Screens {
 	
 	private Scanner input;
 	private RotorController rc;
@@ -473,7 +473,7 @@ class Screens {
 	/*
 	 * Let the user set their own file path with a GUI dialog
 	 */
-	private String getCustomInputFilePath() {
+	public static String getCustomInputFilePath() {
 		
 		logger.debug("Running getCustomInputFilePath()");
 		
@@ -686,7 +686,7 @@ class Screens {
 	/*
 	 * Allow the user to specify their own custom file path for output
 	 */
-	private String getCustomOutputFilePath() {
+	public static String getCustomOutputFilePath() {
 		
 		logger.debug("Running getCustomOutputFilePath()");
 		

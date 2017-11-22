@@ -80,10 +80,12 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "SettingsMenuItemInputFile"
 						"text": "Select Input File..."
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemInputFileActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "SettingsMenuItemOutputFile"
 						"text": "Select Output File..."
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemOutputFileActionPerformed", true ) )
 					} )
 				} )
 			}
