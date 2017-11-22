@@ -115,7 +115,7 @@ public class OutputProcessor {
 
 		String output;
 		
-		if (Utilities.getExtension(new File(outputFilePath.toString())).equals("html")) {
+		if (Utilities.getExtension(outputFilePath.toString()).equals("html")) {
 			
 			logger.debug("Calling buildEncryptedHTMLFile()");
 			output = buildEncryptedHTMLFile();
@@ -154,7 +154,7 @@ public class OutputProcessor {
 
 		String output;
 		
-		if (Utilities.getExtension(new File(outputFilePath.toString())).equals("html")) {
+		if (Utilities.getExtension(outputFilePath.toString()).equals("html")) {
 			
 			logger.debug("Calling buildDecryptedHTMLFile()");
 			output = buildDecryptedHTMLFile();
