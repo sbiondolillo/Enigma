@@ -306,6 +306,7 @@ public class MainMenu  {
 	
 
 	private void SettingsMenuItemOutputFileActionPerformed(ActionEvent e) {
+		ScreenManager.selectOutputFile();
 		OutputFileTextField.setText(Config.getOutputFilePath());
 	}
 	

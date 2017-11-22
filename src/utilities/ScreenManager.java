@@ -139,9 +139,9 @@ public class ScreenManager {
 	/*
 	 * Allow the user to specify their own custom file path for output
 	 */
-	public static String getCustomOutputFilePath() {
+	public static void selectOutputFile() {
 		
-		logger.debug("Running getCustomOutputFilePath()");
+		logger.debug("Running selectOutputFile()");
 		
 		logger.debug("Building new FileSelector");
 		FileSelector fileSelector = new FileSelector("./resources/misc");
@@ -156,8 +156,8 @@ public class ScreenManager {
 			filePath = Config.getDefaultOutputFile();
 		}
 		
-		logger.debug("getCustomOutputFilePath() completed successfully, returning {}", filePath);
-		return filePath;
+		logger.debug("selectOutputFile() completed successfully");
+		Config.setOutputFilePath(filePath);
 		
 	}
 	
