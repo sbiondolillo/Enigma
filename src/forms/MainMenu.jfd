@@ -1,0 +1,85 @@
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_144" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq t {space :::p, par l {comp SettingsMenuPromptLabel::l::438:x, seq l {comp InputFileLabel:::p::p, space :::p, comp InputFileTextField:::::x}, seq l {comp RunButtonPromptLabel:::p::p, space ::20:x, comp RunButton:::p:75:p}, seq {comp ProgramModeLabel:::p::p, space :::p, comp ProgramModeTextField:::p:173:p, space :0:0:x}, seq l {comp OutputFileLabel:::p::p, space :::p, comp OutputFileTextField::::377:x}}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp SettingsMenuPromptLabel:::p:22:p, space :::p, par b {comp ProgramModeLabel::b:p::p, comp ProgramModeTextField::b:p::p}, space :::p, par b {comp InputFileLabel::b:p::p, comp InputFileTextField::b:p::p}, space :::p, par b {comp OutputFileLabel::b:p::p, comp OutputFileTextField::b:p::p}, space :::p, par b {comp RunButton::b:p:47:p, comp RunButtonPromptLabel::b:p::p}, space ::8:x}}"
+		} ) {
+			name: "MainMenu"
+			"title": "Welcome to the Enigma!"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "SettingsMenuPromptLabel"
+				"text": "Use the Settings menu above to change these settings..."
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "ProgramModeLabel"
+				"text": "Program Mode:"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "InputFileLabel"
+				"text": "Input File:"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "InputFileTextField"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "OutputFileTextField"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "RunButton"
+				"text": "Run"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "ProgramModeTextField"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "OutputFileLabel"
+				"text": "Output File:"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "RunButtonPromptLabel"
+				"text": "Click the Run! button when you are ready to process your message -->"
+			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "MainMenuBar"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "FileMenu"
+					"text": "File"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "FileMenuItemHelp"
+						"text": "Help"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "FileMenuItemAbout"
+						"text": "About"
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "FileMenuItemExit"
+						"text": "Exit"
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "SettingsMenu"
+					"text": "Settings"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "SettingsMenuItemProgramMode"
+						"text": "Select Program Mode..."
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "SettingsMenuItemInputFile"
+						"text": "Select Input File..."
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "SettingsMenuItemOutputFile"
+						"text": "Select Output File..."
+					} )
+				} )
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 460, 225 )
+		} )
+	}
+}

@@ -7,5 +7,10 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/log4j"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/log4j2"/>
 	<classpathentry kind="lib" path="resources"/>
+	<classpathentry kind="lib" path="lib/swing-layout.jar" sourcepath="lib/swing-layout-src.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Enigma/lib/swing-layout-javadoc.zip!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

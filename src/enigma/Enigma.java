@@ -21,6 +21,9 @@ package enigma;
 
 import utilities.Utilities;
 import org.apache.logging.log4j.Logger;
+
+import forms.MainMenu;
+
 import org.apache.logging.log4j.LogManager;
 
 public class Enigma {
@@ -77,6 +80,12 @@ public class Enigma {
 		
 		logger.debug("Building new Enigma()");
 		Enigma enigmaMachine = new Enigma();
+		
+		logger.debug("Building new MainMenu()");
+		MainMenu mainMenu = new MainMenu();
+		
+		logger.debug("Calling MainMenu.show()");
+		mainMenu.show();
 		
 		logger.debug("Calling introduceProgram()");
 		enigmaMachine.introduceProgram();
