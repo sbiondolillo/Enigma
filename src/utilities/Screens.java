@@ -44,8 +44,8 @@ import rotors.RotorController;
 
 public class Screens {
 	
-	private Scanner input;
-	private RotorController rc;
+	private static Scanner input;
+	private static RotorController rc;
 	private final static Logger logger = LogManager.getLogger(Screens.class.getName());
 	
 	
@@ -72,7 +72,7 @@ public class Screens {
 	 * Display the initial prompt to the user when the program launches
 	 * Forward the user to the help menu to make an initial selection
 	 */
-	void displayWelcomeScreen() {
+	public static void displayWelcomeScreen() {
 		
 		logger.debug("Running displayWelcomeScreen()");
 		
@@ -86,7 +86,7 @@ public class Screens {
 	/*
 	 * Display the program introduction screen
 	 */
-	private void runWelcomeIntro() {
+	private static void runWelcomeIntro() {
 		
 		logger.debug("Running runWelcomeIntro()");
 		
@@ -242,7 +242,7 @@ public class Screens {
 	/*
 	 * Take the user back to the Main Menu
 	 */
-	private void exitToMainMenu() {
+	private static void exitToMainMenu() {
 		
 		logger.debug("Running exitToMainMenu()");
 		
@@ -712,7 +712,7 @@ public class Screens {
 	/*
 	 * Write the contents of the encoded message to the specified file
 	 */
-	private void writeFileOut() {
+	private static void writeFileOut() {
 		
 		logger.debug("Running writeFileOut()");
 		
@@ -744,7 +744,7 @@ public class Screens {
 	/*
 	 * Write the contents of the encoded message to the console
 	 */
-	private void writeConsoleOut() {
+	private static void writeConsoleOut() {
 		
 		logger.debug("Running writeConsoleOut()");
 		
@@ -791,7 +791,7 @@ public class Screens {
 	/*
 	 * Display the results of the encryption/decryption
 	 */
-	void displayResultsScreen() {
+	public static void displayResultsScreen() {
 		
 		logger.debug("Running displayResultsScreen()");
 		
@@ -824,10 +824,6 @@ public class Screens {
 					" message has been successfully written to " + Config.getOutputFilePath());
 			
 		}
-			
-		
-		logger.debug("Calling exitToMainMenu() from displayResultsScreen()");
-		exitToMainMenu();
 		
 		logger.debug("displayResultsScreen() completed successfully");
 		
@@ -837,7 +833,7 @@ public class Screens {
 	 * Either gets keyboard input from the user or reads from file
 	 * @returns the String stored in Config.plainText
 	 */
-	private String setInputText() {
+	private static String setInputText() {
 		
 		logger.debug("Running setInputText()");
 		
@@ -860,7 +856,7 @@ public class Screens {
 	/*
 	 * Read the contents of the user-specified file into the plainText Config variable
 	 */
-	private void readFileIn() {
+	private static void readFileIn() {
 		
 		logger.debug("Running readFileIn()");
 		
@@ -881,7 +877,7 @@ public class Screens {
 	 * Allow user to enter their message directly through the keyboard
 	 * saves the user entry into Config.plainText
 	 */
-	private void getKeyboardInput() {
+	private static void getKeyboardInput() {
 		
 		logger.debug("Running getKeyboardInput()");
 		
@@ -905,7 +901,7 @@ public class Screens {
 	/*
 	 * Either encrypts or decrypts the user-supplied message base on the programMode
 	 */
-	private void setOutputText(String inputText) {
+	private static void setOutputText(String inputText) {
 		
 		logger.debug("Running setOutputText()");
 		
@@ -955,7 +951,7 @@ public class Screens {
 	 * Display the screen where users can get general info about the program
 	 * and instructions on how to use the various parts of the program
 	 */
-	void displayAboutScreen() {
+	public static void displayAboutScreen() {
 		
 		logger.debug("Running displayAboutScreen()");
 		

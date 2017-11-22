@@ -29,9 +29,9 @@ public class Config {
 	private final static String DEFAULT_OUTPUT_FILE = "./resources/misc/output.html";
 	private static String inputFilePath;
 	private static String outputFilePath;
-	private static int inputMode = 1;
+	private static int inputMode = 2;
 	private static int programMode = 1;
-	private static int outputMode = 1;
+	private static int outputMode = 2;
 	private static KeyboardInputProcessor keyboardIn;
 	private static FileInputProcessor fileIn;
 	private static OutputProcessor output;

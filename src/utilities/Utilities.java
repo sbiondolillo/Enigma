@@ -63,7 +63,7 @@ public class Utilities {
             switch (code) {
             	
                 case 0:		logger.debug("Calling displayWelcomeScreen()");
-                			screenManager.displayWelcomeScreen();
+                			Screens.displayWelcomeScreen();
                 			break;
                 
                 case 1:     logger.debug("Calling displayModeScreen()");
@@ -87,7 +87,7 @@ public class Utilities {
                 			break;
                               
                 case 6:		logger.debug("Calling displayAboutScreen()");
-                			screenManager.displayAboutScreen();
+                			Screens.displayAboutScreen();
                 			break;
                           
                 case 7:		logger.debug("Calling displayExitScreen()");

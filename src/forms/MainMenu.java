@@ -61,6 +61,7 @@ public class MainMenu  {
 		
 		logger.debug("show() completed successfully");
 	}
+
 	
 	/*
 	 * Private
@@ -171,6 +172,7 @@ public class MainMenu  {
 
 			//---- RunButton ----
 			RunButton.setText("Run");
+			RunButton.addActionListener(e -> RunButtonActionPerformed(e));
 
 			//---- ProgramModeTextField ----
 			ProgramModeTextField.setEnabled(false);
@@ -304,5 +306,13 @@ public class MainMenu  {
 
 	private void SettingsMenuItemOutputFileActionPerformed(ActionEvent e) {
 		OutputFileTextField.setText(Screens.getCustomOutputFilePath());
+	}
+	
+	/*
+	 * Run Button Event Handler
+	 */
+	
+	private void RunButtonActionPerformed(ActionEvent e) {
+		Screens.displayResultsScreen();
 	}
 }

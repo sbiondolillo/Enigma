@@ -36,6 +36,7 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "RunButton"
 				"text": "Run"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "RunButtonActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "ProgramModeTextField"
