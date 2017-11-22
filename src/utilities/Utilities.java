@@ -63,8 +63,8 @@ public class Utilities {
     }
     
     /*
-     * Adds .html file extension to file names without an extension
-     * Changes existing file extensions to .html
+     * Adds extension to file names without an extension
+     * Changes existing file extensions to extension
      */
     public static String formatFilePath(String filePath, String extension) {
     		
@@ -193,12 +193,29 @@ public class Utilities {
      * Returns the file extension of a given file, omitting the dot (.) character
      */
     public static String getExtension(File f) {
-        String ext = null;
+        String ext = "";
         String s = f.getName();
-        int i = s.lastIndexOf('.');
-
-        if (i > 0 &&  i < s.length() - 1) {
-            ext = s.substring(i+1).toLowerCase();
+        if (s.contains(".")) {
+	        int i = s.lastIndexOf('.');
+	
+	        if (i > 0 &&  i < s.length() - 1) {
+	            ext = s.substring(i+1).toLowerCase();
+	        }
+        }
+        return ext;
+    }
+    
+    /*
+     * Returns the file extension of a given String, omitting the dot (.) character
+     */
+    public static String getExtension(String f) {
+        String ext = "";
+        if (f.contains(".")) {
+	        int i = f.lastIndexOf('.');
+	
+	        if (i > 0 &&  i < f.length() - 1) {
+	            ext = f.substring(i+1).toLowerCase();
+	        }
         }
         return ext;
     }

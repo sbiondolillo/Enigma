@@ -155,9 +155,20 @@ public class ScreenManager {
 			// TODO - create alert dialog to let user know the default will be used
 			filePath = Config.getDefaultOutputFile();
 		}
+		else {
+			
+			logger.debug("Checking user-supplied file path");
+			if (!Utilities.getExtension(filePath).equalsIgnoreCase("html")) {
+				
+				logger.debug("Reformatting file to .txt");
+				filePath = Utilities.formatFilePath(filePath, "txt");
+				
+			}
+			
+		}
 		
-		logger.debug("selectOutputFile() completed successfully");
 		Config.setOutputFilePath(filePath);
+		logger.debug("selectOutputFile() completed successfully");
 		
 	}
 	
@@ -205,14 +216,11 @@ public class ScreenManager {
 		
 		logger.debug("Calling setOutputText()");
 		setOutputText(inputText);
-				
-		logger.debug("Writing message to file");
 		
 		logger.debug("Calling writeFileOut()");
 		writeFileOut();
 		
 		logger.debug("Message successfully written to file");
-			
 		
 		logger.debug("processResults() completed successfully");
 		
