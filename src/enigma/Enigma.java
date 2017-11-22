@@ -15,87 +15,38 @@
  *                          Add debugging statements for Logger
  *         0.0.6 - 11/1/17  Removed unnecessary methods and interface implementation
  *         0.0.7 - 11/6/17  Added default constructor with logging
+ *         0.1.0 - 11/22/17 Refactor to minimize responsibilies. Now responsible for setting up
+ *                          the Config file and launching the Main Menu only
  */
 
 package enigma;
 
+import utilities.ScreenManager;
 import utilities.Utilities;
 import org.apache.logging.log4j.Logger;
-
-import forms.MainMenu;
-
 import org.apache.logging.log4j.LogManager;
 
 public class Enigma {
 	
-	private Utilities utility;
+	private static ScreenManager screenManager;
 	private final static Logger logger = LogManager.getLogger(Enigma.class.getName());
 	
 	/*
-	 * Constructor - Default
-	 * Builds a Utilities object to handle program execution and coordination
-	 */
-	public Enigma() {
-		
-		logger.debug("Running new Enigma()");
-		
-		logger.debug("Building new Utilities()");
-		utility = new Utilities();
-		
-		logger.debug("new Enigma() completed successfully");
-		
-	}
-	
-	/*
-	 * Introduce the program
-	 */
-	private void introduceProgram() {
-		
-		logger.debug("Running introduceProgram()");
-		utility.load(0);
-		
-		logger.debug("introduceProgram() completed successfully");
-	}
-	
-	/*
-	 * Display the Main Menu which directs the flow of the program
-	 */
-	private void runMainMenu() {
-		
-		logger.debug("Running runMainMenu()");
-		utility.load(2);
-		
-		logger.debug("runMainMenu() completed successfully");
-	}
-	
-	/*
 	 *  Main
-	 *  Create an Enigma()
-	 *  Put the user into the Menus screens
-	 *  Allow the user to view the various Menus until they choose to exit
 	 */
 	public static void main(String[] args) {
 		
 		logger.debug("Starting program");
 		
-		logger.debug("Building new Enigma()");
-		Enigma enigmaMachine = new Enigma();
+		logger.debug("Calling initializeConfig()");
+		Utilities.initializeConfig();
 		
-		logger.debug("Building new MainMenu()");
-		MainMenu mainMenu = new MainMenu();
+		logger.debug("Building new ScreenManager()");
+		screenManager = new ScreenManager();
 		
-		logger.debug("Calling MainMenu.show()");
-		mainMenu.show();
+		logger.debug("Calling showMainMenu()");
+		screenManager.showMainMenu();
 		
-		logger.debug("Calling introduceProgram()");
-		enigmaMachine.introduceProgram();
-		
-		while (true) {
-			
-			logger.debug("Calling runMainMenu()");
-			enigmaMachine.runMainMenu();
-			
-		}
 	}
 
 }

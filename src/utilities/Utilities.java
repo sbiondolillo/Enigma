@@ -15,6 +15,7 @@
  *                              Add method to create files in the file system
  *          0.0.7   11/9/17     Add method for extracting file extensions
  *          0.0.8   11/10/17    Convert formatHTMLFilePath into more generic foramtFilePath for more utility
+ *          0.0.9   11/22/17    Remove unused load() method and Screens instance variable
  */
 
 package utilities;
@@ -28,7 +29,6 @@ import org.apache.logging.log4j.LogManager;
 
 public class Utilities {        
 	
-	private Screens screenManager;
 	private final static Logger logger = LogManager.getLogger(Utilities.class.getName());
 	
 	
@@ -41,68 +41,12 @@ public class Utilities {
 		
 		logger.debug("Running new Utilities()");
 		
-		logger.debug("Building new Screens()");
-		screenManager = new Screens();
-		
 		logger.debug("Calling initializeConfig()");
 		initializeConfig();
 		
 		logger.debug("new Utilities() completed successfully");
 		
 	}
-	
-	/*
-	 * Makes a call to a method in a class within the utilities package
-	 * @param code - an int provided by the user from an input prompt
-	 */
-    public void load(int code){
-    	
-    	logger.debug("Running Utilities.load({})", code);
-    	
-        try{
-            switch (code) {
-            	
-                case 0:		logger.debug("Calling displayWelcomeScreen()");
-                			Screens.displayWelcomeScreen();
-                			break;
-                
-                case 1:     logger.debug("Calling displayModeScreen()");
-                			screenManager.displayModeScreen();
-                			break;
-                    
-                case 2:		logger.debug("Calling displayMainMenuScreen()");
-                			screenManager.displayMainMenuScreen();
-                			break;
-                    
-                case 3:		logger.debug("Calling displayInputScreen()");
-                			screenManager.displayInputScreen();
-                			break;
-                          
-                case 4:		logger.debug("Calling displayOutputScreen()");
-                			screenManager.displayOutputScreen();
-                			break;
-                    
-                case 5:		logger.debug("Calling displayConfigScreen()");
-                			screenManager.displayConfigScreen();
-                			break;
-                              
-                case 6:		logger.debug("Calling displayAboutScreen()");
-                			Screens.displayAboutScreen();
-                			break;
-                          
-                case 7:		logger.debug("Calling displayExitScreen()");
-                			screenManager.displayExitScreen();
-                			break;
-                                    
-                default:	logger.debug("Running Utilities.load() default case");
-                			System.out.println("Sorry, that is not a valid code");
-                			break;
-            }
-        }
-        catch(Exception NA){}
-        
-        logger.debug("Utilities.load({}) completed successfully", code);
-    }
     
     /*
      * Display the correct error screen
@@ -112,7 +56,7 @@ public class Utilities {
     public static void handleError(String type) {
     	
     	logger.debug("Running handleError({})", type);
-    	Screens.displayErrorScreen(type);
+    	ScreenManager.displayErrorScreen(type);
     	
     	logger.debug("handleError({}) completed successfully", type);
     	
@@ -263,7 +207,7 @@ public class Utilities {
      * Sets the input and output file paths in Config to the default values
      * Creates any missing files among the defaults
      */
-    private void initializeConfig() {
+    public static void initializeConfig() {
     	
     	logger.debug("Running initializeConfig()");
     	

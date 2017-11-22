@@ -14,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import utilities.Config;
-import utilities.Screens;
+import utilities.ScreenManager;
 
 /**
  * @author Samuel Biondolillo
@@ -300,12 +300,12 @@ public class MainMenu  {
 	}
 	
 	private void SettingsMenuItemInputFileActionPerformed(ActionEvent e) {
-		InputFileTextField.setText(Screens.getCustomInputFilePath());
+		InputFileTextField.setText(ScreenManager.getCustomInputFilePath());
 	}
 	
 
 	private void SettingsMenuItemOutputFileActionPerformed(ActionEvent e) {
-		OutputFileTextField.setText(Screens.getCustomOutputFilePath());
+		OutputFileTextField.setText(ScreenManager.getCustomOutputFilePath());
 	}
 	
 	/*
@@ -313,6 +313,6 @@ public class MainMenu  {
 	 */
 	
 	private void RunButtonActionPerformed(ActionEvent e) {
-		Screens.displayResultsScreen();
+		ScreenManager.processResults();
 	}
 }
