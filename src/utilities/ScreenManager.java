@@ -31,6 +31,7 @@
 
 package utilities;
 
+import java.awt.Component;
 import java.nio.file.Paths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -113,7 +114,7 @@ public class ScreenManager {
 	/*
 	 * Let the user set their own file path with a GUI dialog
 	 */
-	public static void selectInputFile() {
+	public static void selectInputFile(Component parent) {
 		
 		logger.debug("Running selectInputFile()");
 		
@@ -121,7 +122,7 @@ public class ScreenManager {
 		FileSelector fileSelector = new FileSelector("./resources/misc");
 		
 		logger.debug("Displaying Open File Dialog");
-		String filePath = fileSelector.selectOpenFilePath();
+		String filePath = fileSelector.selectOpenFilePath(parent);
 		
 		if (filePath.equals("")) {
 			
@@ -139,7 +140,7 @@ public class ScreenManager {
 	/*
 	 * Allow the user to specify their own custom file path for output
 	 */
-	public static void selectOutputFile() {
+	public static void selectOutputFile(Component parent) {
 		
 		logger.debug("Running selectOutputFile()");
 		
@@ -147,7 +148,7 @@ public class ScreenManager {
 		FileSelector fileSelector = new FileSelector("./resources/misc");
 		
 		logger.debug("Displaying Save File Dialog");
-		String filePath = fileSelector.selectSaveFilePath();
+		String filePath = fileSelector.selectSaveFilePath(parent);
 		
 		if (filePath.equals("")) {
 			

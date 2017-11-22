@@ -15,6 +15,7 @@
 
 package utilities;
 
+import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
 
@@ -102,14 +103,14 @@ public class FileSelector {
 	/*
 	 * Shows a dialog box which allows the user to select a file to be read into the program
 	 */
-	public String selectOpenFilePath() {
+	public String selectOpenFilePath(Component parent) {
 
 		logger.debug("Running selectOpenFilePath()");
 		
 		String openFilePath = "";
 		
 		logger.debug("Launching Open dialog box");
-		int openResult = fileChooser.showOpenDialog(null);
+		int openResult = fileChooser.showOpenDialog(parent);
 		
     	if (openResult == JFileChooser.APPROVE_OPTION){
     	
@@ -149,14 +150,14 @@ public class FileSelector {
 	/*
 	 * Shows a dialog box which allows the user to select a file for saving program output
 	 */
-	public String selectSaveFilePath() {
+	public String selectSaveFilePath(Component parent) {
 
 		logger.debug("Running selectSaveFilePath()");
 		
 		String saveFilePath = "";
 		
 		logger.debug("Launching Save dialog box");
-		int saveResult = fileChooser.showSaveDialog(null);
+		int saveResult = fileChooser.showSaveDialog(parent);
         
     	if (saveResult == JFileChooser.APPROVE_OPTION){
     	

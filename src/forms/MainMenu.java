@@ -171,7 +171,7 @@ public class MainMenu  {
 			OutputFileTextField.setDisabledTextColor(new Color(153, 153, 153));
 
 			//---- RunButton ----
-			RunButton.setText("Run");
+			RunButton.setText("Run!");
 			RunButton.addActionListener(e -> RunButtonActionPerformed(e));
 
 			//---- ProgramModeTextField ----
@@ -191,10 +191,10 @@ public class MainMenu  {
 					.addGroup(GroupLayout.Alignment.TRAILING, MainMenuContentPaneLayout.createSequentialGroup()
 						.addContainerGap()
 						.addGroup(MainMenuContentPaneLayout.createParallelGroup()
-							.addComponent(SettingsMenuPromptLabel, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+							.addComponent(SettingsMenuPromptLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
 								.addComponent(RunButtonPromptLabel)
-								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(RunButton, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
 							.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
 								.addComponent(ProgramModeLabel)
@@ -207,8 +207,8 @@ public class MainMenu  {
 									.addComponent(InputFileLabel))
 								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 								.addGroup(MainMenuContentPaneLayout.createParallelGroup()
-									.addComponent(InputFileTextField, GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
-									.addComponent(OutputFileTextField, GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))))
+									.addComponent(InputFileTextField)
+									.addComponent(OutputFileTextField))))
 						.addContainerGap())
 			);
 			MainMenuContentPaneLayout.setVerticalGroup(
@@ -232,7 +232,7 @@ public class MainMenu  {
 						.addGroup(MainMenuContentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 							.addComponent(RunButton, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
 							.addComponent(RunButtonPromptLabel))
-						.addContainerGap(8, Short.MAX_VALUE))
+						.addContainerGap(15, Short.MAX_VALUE))
 			);
 			MainMenu.pack();
 			MainMenu.setLocationRelativeTo(MainMenu.getOwner());
@@ -300,13 +300,13 @@ public class MainMenu  {
 	}
 	
 	private void SettingsMenuItemInputFileActionPerformed(ActionEvent e) {
-		ScreenManager.selectInputFile();
+		ScreenManager.selectInputFile(MainMenu);
 		InputFileTextField.setText(Config.getInputFilePath());
 	}
 	
 
 	private void SettingsMenuItemOutputFileActionPerformed(ActionEvent e) {
-		ScreenManager.selectOutputFile();
+		ScreenManager.selectOutputFile(MainMenu);
 		OutputFileTextField.setText(Config.getOutputFilePath());
 	}
 	
