@@ -97,6 +97,7 @@ public class MainMenu  {
 		//======== MainMenu ========
 		{
 			MainMenu.setTitle("Welcome to the Enigma!");
+			MainMenu.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			MainMenu.addWindowListener(new WindowAdapter() {
 				@Override
 				public void windowClosing(WindowEvent e) {

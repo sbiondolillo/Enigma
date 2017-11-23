@@ -367,12 +367,12 @@ public class ScreenManager {
 		
 		StringBuilder output = new StringBuilder();
 		
-		output.append("This program was developed by Samuel Biondolillo for the Object Oriented Programming course\n");
-		output.append("at Manchester Community College in the Fall of 2017. The source code for this project can be\n");
-		output.append("found at: https://github.com/sbiondolillo/Enigma\n\n");
-		output.append("Feel free to fork the repo and build your own version, complete with your own Rotor keys.\n");
-		output.append("Please note that if you change any settings in your own build, you will not be able to use\n");
-		output.append("my version to encrypt/decrypt the messages produced by your Enigma and vice versa.\n\n");
+		output.append("This program was developed by Samuel Biondolillo for the Object Oriented Programming\n");
+		output.append("course at Manchester Community College in the Fall of 2017.\n\n");
+		output.append("The source code for this project lives at: https://github.com/sbiondolillo/Enigma\n\n");
+		output.append("Feel free to build your own version, complete with your own Rotor keys. Please note\n");
+		output.append("that if you change any settings in your own build, you will not be able to use my\n");
+		output.append("version to encrypt/decrypt the messages produced by your Enigma and vice versa.\n\n");
 		
 		logger.debug("getAboutText() completed successfully");
 		return output.toString();
