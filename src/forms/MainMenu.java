@@ -33,6 +33,7 @@ public class MainMenu  {
 	private JMenuItem SettingsMenuItemProgramMode;
 	private JMenuItem SettingsMenuItemInputFile;
 	private JMenuItem SettingsMenuItemOutputFile;
+	private JMenuItem SettingsMenuItemValidChars;
 	private JLabel SettingsMenuPromptLabel;
 	private JLabel ProgramModeLabel;
 	private JLabel InputFileLabel;
@@ -62,7 +63,6 @@ public class MainMenu  {
 		logger.debug("show() completed successfully");
 	}
 
-	
 	/*
 	 * Private
 	 */
@@ -83,6 +83,7 @@ public class MainMenu  {
 		SettingsMenuItemProgramMode = new JMenuItem();
 		SettingsMenuItemInputFile = new JMenuItem();
 		SettingsMenuItemOutputFile = new JMenuItem();
+		SettingsMenuItemValidChars = new JMenuItem();
 		SettingsMenuPromptLabel = new JLabel();
 		ProgramModeLabel = new JLabel();
 		InputFileLabel = new JLabel();
@@ -117,6 +118,7 @@ public class MainMenu  {
 
 					//---- FileMenuItemHelp ----
 					FileMenuItemHelp.setText("Help");
+					FileMenuItemHelp.addActionListener(e -> FileMenuItemHelpActionPerformed(e));
 					FileMenu.add(FileMenuItemHelp);
 
 					//---- FileMenuItemAbout ----
@@ -149,6 +151,11 @@ public class MainMenu  {
 					SettingsMenuItemOutputFile.setText("Select Output File...");
 					SettingsMenuItemOutputFile.addActionListener(e -> SettingsMenuItemOutputFileActionPerformed(e));
 					SettingsMenu.add(SettingsMenuItemOutputFile);
+
+					//---- SettingsMenuItemValidChars ----
+					SettingsMenuItemValidChars.setText("Valid Characters...");
+					SettingsMenuItemValidChars.addActionListener(e -> SettingsMenuItemValidCharsActionPerformed(e));
+					SettingsMenu.add(SettingsMenuItemValidChars);
 				}
 				MainMenuBar.add(SettingsMenu);
 			}
@@ -246,6 +253,9 @@ public class MainMenu  {
 	 * General
 	 */
 	
+	/*
+	 * MainMenu show events
+	 */
 	private void MainMenuWindowOpened(WindowEvent e) {
 		initializeTextFields();
 	}
@@ -268,6 +278,9 @@ public class MainMenu  {
 		return mode;
 	}
 	
+	/*
+	 * MainMenu close
+	 */
 	private void MainMenuWindowClosing(WindowEvent e) {
 		
 		logger.debug("User clicked X button to close program");
@@ -295,6 +308,17 @@ public class MainMenu  {
 	 * MenuItem Event Handlers
 	 */
 	
+	/*
+	 * File -> Help
+	 */
+	private void FileMenuItemHelpActionPerformed(ActionEvent e) {
+		JOptionPane.showMessageDialog(MainMenu, ScreenManager.getAboutText(),
+										"Help", JOptionPane.PLAIN_MESSAGE);
+	}
+	
+	/*
+	 * File -> Exit
+	 */
 	private void FileMenuItemExitActionPerformed(ActionEvent e) {
 		
 		logger.debug("User selected FileMenu>Exit");
@@ -305,33 +329,47 @@ public class MainMenu  {
 		logger.debug("Returning to MainMenu");
 	}
 	
+	/*
+	 * Settings -> Select Program Mode...
+	 */
 	private void SettingsMenuItemProgramModeActionPerformed(ActionEvent e) {
 		ScreenManager.showProgramModeSelectForm(MainMenu);
 		ProgramModeTextField.setText(determineProgramMode());
 	}
 	
+	/*
+	 * Settings -> Select Input File...
+	 */
 	private void SettingsMenuItemInputFileActionPerformed(ActionEvent e) {
 		ScreenManager.selectInputFile(MainMenu);
 		InputFileTextField.setText(Config.getInputFilePath());
 	}
 	
-
+	/*
+	 * Settings -> Select Output File...
+	 */
 	private void SettingsMenuItemOutputFileActionPerformed(ActionEvent e) {
 		ScreenManager.selectOutputFile(MainMenu);
 		OutputFileTextField.setText(Config.getOutputFilePath());
 	}
 	
 	/*
-	 * Run Button Event Handler
+	 * Settings -> Valid Characters...
 	 */
+	private void SettingsMenuItemValidCharsActionPerformed(ActionEvent e) {
+		JOptionPane.showMessageDialog(MainMenu, ScreenManager.getValidChars(),
+				"Valid Characters", JOptionPane.PLAIN_MESSAGE);
+	}
 	
+	/*
+	 * Run! Button
+	 */
 	private void RunButtonActionPerformed(ActionEvent e) {
-		if (ScreenManager.processResults()) {
+		if (ScreenManager.processResults())
 			JOptionPane.showMessageDialog(MainMenu, 
 							"Your message was processed successfully", 
 							"Success", 
 							JOptionPane.INFORMATION_MESSAGE);
-		}
 		else
 			JOptionPane.showMessageDialog(MainMenu, 
 							"There was a problem processing your message. " + 

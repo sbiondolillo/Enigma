@@ -59,6 +59,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "FileMenuItemHelp"
 						"text": "Help"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "FileMenuItemHelpActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "FileMenuItemAbout"
@@ -88,6 +89,11 @@ new FormModel {
 						name: "SettingsMenuItemOutputFile"
 						"text": "Select Output File..."
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemOutputFileActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "SettingsMenuItemValidChars"
+						"text": "Valid Characters..."
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemValidCharsActionPerformed", true ) )
 					} )
 				} )
 			}

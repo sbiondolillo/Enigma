@@ -312,18 +312,18 @@ public class ScreenManager {
 	/*
 	 * Display the list of valid input characters
 	 */
-	void displayValidCharScreen() {
+	public static String getValidChars() {
 		
-		logger.debug("Running displayValidCharScreen()");
+		logger.debug("Running getValidChars()");
 		
-		logger.debug("Displaying valid characters to user");
-		System.out.println();
-		System.out.println("Here is a list of the valid characters for your input:");
-		System.out.println(rc.getActiveRotors()[0].getValidCharacters());
-		System.out.println();
-		System.out.println("If you enter any invalid characters, they will be encoded as a hash mark '#'");
+		StringBuilder output = new StringBuilder();
 		
-		logger.debug("displayValidCharScreen() completed successfully");
+		output.append("Here is a list of the valid characters for your input:\n\n");
+		output.append(rc.getActiveRotors()[0].getValidCharacters());
+		output.append("\n\nIf you enter any invalid characters, they will be encoded as a hash mark '#'\n\n");
+		
+		logger.debug("getValidChars() completed successfully");
+		return output.toString();
 		
 	}
 	
@@ -331,52 +331,35 @@ public class ScreenManager {
 	 * Display the screen where users can get general info about the program
 	 * and instructions on how to use the various parts of the program
 	 */
-	public static void displayAboutScreen() {
+	public static String getAboutText() {
 		
-		logger.debug("Running displayAboutScreen()");
+		logger.debug("Running getAboutText()");
 		
-		System.out.println();
-		System.out.println("Welcome to the General Info / Instruction menu!");
-		System.out.println();
-		System.out.println("This program was designed to mimic the Enigma encryption machine made famous by");
-		System.out.println("the Nazi command structure during the Second World War. In that machine, a series");
-		System.out.println("of moving rotors were used to scramble a message into an encrypted message and then");
-		System.out.println("another machine used those same rotors to decrypt the message at another time and place.");
-		System.out.println();
-		System.out.println("While some of the features of the German Enigma have been set aside, some of the main");
-		System.out.println("components have been replicated here. As such, there are three primary settings which");
-		System.out.println("need to be established in order for the machine to function as intended:");
-		System.out.println();
-		System.out.println("1) The user must decide to either encrypt or decrypt a given message. This is done by ");
-		System.out.println("   choosing screen #1 from the Main menu.");
-		System.out.println("2) The user must specify where the message will originate. Much like the original, there");
-		System.out.println("   is an option to type the message in via the keyboard. Keyboard entry only allows a single");
-		System.out.println("   line of text to be entered at a time. For multi-line messages, the machine is configured");
-		System.out.println("   to read messages from either .txt or .html files. This is all done by choosing screen #2");
-		System.out.println("   from the Main menu.");
-		System.out.println("3) The user must specify where the final message will be displayed. Much like the original,");
-		System.out.println("   the message may be displayed immediately from within the machine itself. If you prefer,");
-		System.out.println("   you may choose to have the message written out to a .txt or .html file. This is all done ");
-		System.out.println("   by choosing screen #3 from the Main menu.");
-		System.out.println();
-		System.out.println("Once these settings have been configured, you may proceed to process your message and output");
-		System.out.println("your results. The program will read from your specified input source and write to your specified");
-		System.out.println("output source. This process is initiated by selecting screen #4 from the Main menu.");
-		System.out.println();
-		System.out.println("It is important to keep in mind that there are a limited set of characters which this program");
-		System.out.println("can encrypt or decrypt properly. The original, unencrypted message must only contain characters");
-		System.out.println("from this set in order to produce a proper output after encrypting and finally decrypting the");
-		System.out.println("original message. To view a list of valid characters for your original message, select screen #5");
-		System.out.println("from the Main menu.");
-		System.out.println();
-		System.out.println("If, at any time, you need to verify the settings of this program, simply select screen #6 from ");
-		System.out.println("the Main menu and you will be shown the three key settings described above. You will almost ");
-		System.out.println("certainly want to verify these before processing and outputting your final message.");
-		System.out.println();
-		System.out.println("If you are feeling lost at any point, simply select screen #7 from the Main menu to view these");
-		System.out.println("instructions again. Thank you for using the Enigma!");
+		StringBuilder output = new StringBuilder();
 		
-		logger.debug("displayAboutScreen() completed successfully");
+		output.append("This program was designed to mimic the Enigma encryption machine made famous by\n");
+		output.append("the Nazi command structure during the Second World War. In that machine, a series\n");
+		output.append("of moving rotors were used to scramble a message into an encrypted message and then\n");
+		output.append("another machine used those same rotors to decrypt the message at another time and place.\n\n");
+		output.append("While some of the features of the German Enigma have been set aside, some of the main\n");
+		output.append("components have been replicated here. As such, there are three primary settings which\n");
+		output.append("need to be established in order for the machine to function as intended:\n\n");
+		output.append("1. You must decide to either encrypt or decrypt a given message. From the Settings menu,\n");
+		output.append("choose 'Select Program Mode...'\n");
+		output.append("2. You must specify where the message will originate. The program is configured to read\n");
+		output.append("messages from either .txt or .html files. From the Settings menu, choose 'Select Input File...'\n");
+		output.append("3. You must specify where the final message will be displayed. You may choose to have the \n");
+		output.append("message written out to a .txt or .html file. From the Settings menu, choose 'Select Output File...'\n\n");
+		output.append("Once these settings have been configured, you may proceed to process your message and output\n");
+		output.append("your results. The program will read from your specified input source and write to your specified\n");
+		output.append("output source. Simply press 'Run!' on the Main menu to start this process.\n\n");
+		output.append("It is important to keep in mind that there are a limited set of characters which this program\n");
+		output.append("can encrypt or decrypt properly. The original, unencrypted message must only contain characters\n");
+		output.append("from this set in order to produce a proper output after encrypting and finally decrypting the\n");
+		output.append("original message. From the Settings menu, select 'Valid Characters...' to review this set.\n\n");
+		
+		logger.debug("getAboutText() completed successfully");
+		return output.toString();
 		
 	}
 	
