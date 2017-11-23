@@ -137,6 +137,7 @@ public class MainMenu  {
 
 					//---- SettingsMenuItemProgramMode ----
 					SettingsMenuItemProgramMode.setText("Select Program Mode...");
+					SettingsMenuItemProgramMode.addActionListener(e -> SettingsMenuItemProgramModeActionPerformed(e));
 					SettingsMenu.add(SettingsMenuItemProgramMode);
 
 					//---- SettingsMenuItemInputFile ----
@@ -251,17 +252,22 @@ public class MainMenu  {
 	
 	private void initializeTextFields() {
 		
-		String mode;
-		if (Config.getProgramMode() == 1)
-			mode = "Encrypt";
-		else
-			mode = "Decrypt";
-		
+		String mode = determineProgramMode();
 		ProgramModeTextField.setText(mode);
 		InputFileTextField.setText(Config.getInputFilePath());
 		OutputFileTextField.setText(Config.getOutputFilePath());
 		
 	}
+	
+	private String determineProgramMode() {
+		String mode;
+		if (Config.getProgramMode() == 1)
+			mode = "Encrypt";
+		else
+			mode = "Decrypt";
+		return mode;
+	}
+	
 	private void MainMenuWindowClosing(WindowEvent e) {
 		
 		logger.debug("User clicked X button to close program");
@@ -297,6 +303,11 @@ public class MainMenu  {
 		ConfirmProgramExit();
 		
 		logger.debug("Returning to MainMenu");
+	}
+	
+	private void SettingsMenuItemProgramModeActionPerformed(ActionEvent e) {
+		ScreenManager.showProgramModeSelectForm(MainMenu);
+		ProgramModeTextField.setText(determineProgramMode());
 	}
 	
 	private void SettingsMenuItemInputFileActionPerformed(ActionEvent e) {

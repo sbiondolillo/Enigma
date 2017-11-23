@@ -34,6 +34,9 @@ package utilities;
 import java.awt.Component;
 import java.io.IOException;
 import java.nio.file.Paths;
+
+import javax.swing.JOptionPane;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import enigma.FileInputProcessor;
@@ -83,11 +86,21 @@ public class ScreenManager {
 	/*
 	 * Launch the Select Program Mode... dialog
 	 */
-	public void showProgramModeSelectForm() {
+	public static void showProgramModeSelectForm(Component parent) {
 		
 		logger.debug("Running showProgramModeSelect()");
 		
-		// TODO - add code to show the Select Program Mode... dialog
+		Object[] options = {"Encrypt", "Decrypt"};
+		int result = JOptionPane.showOptionDialog(parent,
+			    "Please select a mode for the Enigma",
+			    "Program Mode",
+			    JOptionPane.YES_NO_OPTION,
+			    JOptionPane.PLAIN_MESSAGE,
+			    null,
+			    options,
+			    options[0]);
+		if (result == 0 || result == 1)
+			updateProgramMode(result+1);
 		
 		logger.debug("showProgramModeSelect() completed successfully");
 		
@@ -97,16 +110,13 @@ public class ScreenManager {
 	 * Configure the Enigma to either encrypt or decrypt
 	 * based on user input in the Select Program Mode... dialog
 	 */
-	private void updateProgramMode() {
+	private static void updateProgramMode(int selection) {
 		
 		logger.debug("Running updateProgramMode()");
-		
-		int mode = 0;
-		
 		// TODO - add in logic to set mode based on form data
 		
-		logger.debug("Calling Config.setProgramMode({})", mode);
-		Config.setProgramMode(mode);
+		logger.debug("Calling Config.setProgramMode({})", selection);
+		Config.setProgramMode(selection);
 		
 		logger.debug("updateProgramMode() completed successfully");
 		
