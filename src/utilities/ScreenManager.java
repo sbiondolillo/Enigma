@@ -57,12 +57,12 @@ public class ScreenManager {
 	 */
 	public ScreenManager() {
 	
-		logger.debug("Running new Screens()");
+		logger.debug("Running new ScreenManager()");
 		
 		logger.debug("Building new RotorController()");
 		rc = new RotorController();
 		
-		logger.debug("new Screens() completed successfully");
+		logger.debug("new ScreenManager() completed successfully");
 		
 	}
 	
@@ -265,6 +265,8 @@ public class ScreenManager {
 	private static void readFileIn() {
 		
 		logger.debug("Running readFileIn()");
+		
+		System.out.println("Reading from file: " + Config.getInputFilePath());
 		
 		logger.debug("Calling Config.setFileIn()");
 		Config.setFileIn(new FileInputProcessor(Config.getInputFilePath()));

@@ -10,12 +10,12 @@
  *          0.0.5 - 11/9/17     Remove unnecessary newline characters from encrypted html file
  *                              to allow for proper parsing when encrypted html files are used as input
  *          0.0.6 - 11/10/17    Create methods for writing to .txt files
+ *          0.0.7 - 11/23/17    Add flush() and close() buffer after writing to file
  */
 
 package enigma;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -131,6 +131,8 @@ public class OutputProcessor {
 		logger.debug("Writing to file");
 		BufferedWriter writer = Files.newBufferedWriter(outputFilePath,Charset.forName("UTF-8"));
 		writer.write(output);
+		writer.flush();
+		writer.close();
 
 		logger.debug("writeEncryptedMessageOutToFile() completed successfully");
 
@@ -161,6 +163,8 @@ public class OutputProcessor {
 		logger.debug("Writing to file");
 		BufferedWriter writer = Files.newBufferedWriter(outputFilePath,Charset.forName("UTF-8"));
 		writer.write(output);
+		writer.flush();
+		writer.close();
 
 		logger.debug("writeDecryptedMessageOutToFile() completed successfully");
 
