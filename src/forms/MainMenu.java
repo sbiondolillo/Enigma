@@ -123,6 +123,7 @@ public class MainMenu  {
 
 					//---- FileMenuItemAbout ----
 					FileMenuItemAbout.setText("About");
+					FileMenuItemAbout.addActionListener(e -> FileMenuItemAboutActionPerformed(e));
 					FileMenu.add(FileMenuItemAbout);
 
 					//---- FileMenuItemExit ----
@@ -312,8 +313,17 @@ public class MainMenu  {
 	 * File -> Help
 	 */
 	private void FileMenuItemHelpActionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(MainMenu, ScreenManager.getAboutText(),
+		JOptionPane.showMessageDialog(MainMenu, ScreenManager.getHelpText(),
 										"Help", JOptionPane.PLAIN_MESSAGE);
+	}
+	
+	/*
+	 * File -> About
+	 */
+	
+	private void FileMenuItemAboutActionPerformed(ActionEvent e) {
+		JOptionPane.showMessageDialog(MainMenu, ScreenManager.getAboutText(),
+				"About", JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	/*

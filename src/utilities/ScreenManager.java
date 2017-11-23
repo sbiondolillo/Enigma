@@ -266,8 +266,6 @@ public class ScreenManager {
 		
 		logger.debug("Running readFileIn()");
 		
-		System.out.println("Reading from file: " + Config.getInputFilePath());
-		
 		logger.debug("Calling Config.setFileIn()");
 		Config.setFileIn(new FileInputProcessor(Config.getInputFilePath()));
 		
@@ -331,9 +329,9 @@ public class ScreenManager {
 	 * Display the screen where users can get general info about the program
 	 * and instructions on how to use the various parts of the program
 	 */
-	public static String getAboutText() {
+	public static String getHelpText() {
 		
-		logger.debug("Running getAboutText()");
+		logger.debug("Running getHelpText()");
 		
 		StringBuilder output = new StringBuilder();
 		
@@ -357,6 +355,24 @@ public class ScreenManager {
 		output.append("can encrypt or decrypt properly. The original, unencrypted message must only contain characters\n");
 		output.append("from this set in order to produce a proper output after encrypting and finally decrypting the\n");
 		output.append("original message. From the Settings menu, select 'Valid Characters...' to review this set.\n\n");
+		
+		logger.debug("getHelpText() completed successfully");
+		return output.toString();
+		
+	}
+	
+	public static String getAboutText() {
+		
+		logger.debug("Running getAboutText()");
+		
+		StringBuilder output = new StringBuilder();
+		
+		output.append("This program was developed by Samuel Biondolillo for the Object Oriented Programming course\n");
+		output.append("at Manchester Community College in the Fall of 2017. The source code for this project can be\n");
+		output.append("found at: https://github.com/sbiondolillo/Enigma\n\n");
+		output.append("Feel free to fork the repo and build your own version, complete with your own Rotor keys.\n");
+		output.append("Please note that if you change any settings in your own build, you will not be able to use\n");
+		output.append("my version to encrypt/decrypt the messages produced by your Enigma and vice versa.\n\n");
 		
 		logger.debug("getAboutText() completed successfully");
 		return output.toString();
