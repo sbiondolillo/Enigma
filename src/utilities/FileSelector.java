@@ -10,10 +10,12 @@
  *          0.0.3   11/9/17     Add FileFilter to select only .txt or .html files
  *          0.0.4   11/15/17    Minor text formatting adjustment for style reasons   
  *          0.0.5   11/20/17    Modify Open/Save file selection to reject invalid/inaccessible paths
+ *          0.0.6   11/22/17    Remove console print statements
  */
 
 package utilities;
 
+import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
 
@@ -24,7 +26,7 @@ import javax.swing.filechooser.FileFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-class FileSelector {
+public class FileSelector {
 	
 	private String filePath = "";	
 	private JFileChooser fileChooser = null;
@@ -101,14 +103,14 @@ class FileSelector {
 	/*
 	 * Shows a dialog box which allows the user to select a file to be read into the program
 	 */
-	public String selectOpenFilePath() {
+	public String selectOpenFilePath(Component parent) {
 
 		logger.debug("Running selectOpenFilePath()");
 		
-		String openFilePath = "";
+		String openFilePath = Config.getInputFilePath();
 		
 		logger.debug("Launching Open dialog box");
-		int openResult = fileChooser.showOpenDialog(null);
+		int openResult = fileChooser.showOpenDialog(parent);
 		
     	if (openResult == JFileChooser.APPROVE_OPTION){
     	
@@ -116,20 +118,18 @@ class FileSelector {
     		
        		File openFile = fileChooser.getSelectedFile();
        		openFilePath = openFile.getPath();
-       		System.out.println();
-        	System.out.println("You selected: " + openFilePath);
         	
         	logger.debug("Testing if user selected file is readable");
         	if (openFile.canRead()) {
         	
         		logger.debug("User selected file is readable");
-       			System.out.println("Great, you can read from this file!");
        			
        		}
        		else {
         	
        			logger.debug("User selected file is not readable. Using default path.");
-       			System.out.println("Sorry, you can't read from this file! Setting program to read from the default input file.");
+       			
+       			// TODO - Show alert dialog to user with file path message
        			
        			logger.debug("selectOpenFilePath() completed successfully, returning {}", Config.getDefaultInputFile());
        			return Config.getDefaultInputFile();
@@ -139,7 +139,6 @@ class FileSelector {
     	} else if (openResult == JFileChooser.CANCEL_OPTION) {
     	
     		logger.debug("User canceled file selection");
-    		System.out.println("You didn't select a file to open.");
     	
     	}
 
@@ -151,14 +150,14 @@ class FileSelector {
 	/*
 	 * Shows a dialog box which allows the user to select a file for saving program output
 	 */
-	public String selectSaveFilePath() {
+	public String selectSaveFilePath(Component parent) {
 
 		logger.debug("Running selectSaveFilePath()");
 		
-		String saveFilePath = "";
+		String saveFilePath = Config.getOutputFilePath();
 		
 		logger.debug("Launching Save dialog box");
-		int saveResult = fileChooser.showSaveDialog(null);
+		int saveResult = fileChooser.showSaveDialog(parent);
         
     	if (saveResult == JFileChooser.APPROVE_OPTION){
     	
@@ -166,14 +165,11 @@ class FileSelector {
     		
         	File saveFile = fileChooser.getSelectedFile();
         	saveFilePath = saveFile.getPath();
-        	System.out.println();
-        	System.out.println("You selected: " + saveFilePath);
         	
         	logger.debug("Testing if user selected file is writeable");
         	if (saveFile.canWrite()) {
         	
         		logger.debug("User selected file is writeable");
-        		System.out.println("Great, you can write to this file!");
         		
         	}
        	 	else {
@@ -183,7 +179,8 @@ class FileSelector {
         		if (saveFile.exists()) {
         	
         			logger.debug("User selected file exists, user lacks write permission");
-        			System.out.println("Sorry, you don't have permission to write to this file! Using default path.");
+        			
+        			// TODO - Show alert dialog to user with file path message
         			
         			logger.debug("selectSaveFilePath() completed successfully, returning {}", Config.getDefaultOutputFile());
            			return Config.getDefaultOutputFile();
@@ -200,7 +197,6 @@ class FileSelector {
         					
         					logger.debug("Calling Utilities.formatFilePath({},txt)", filePath);
         					saveFilePath = Utilities.formatFilePath(saveFilePath, "txt");
-        					System.out.println("In order to proceed, your file will be saved as: " + saveFilePath);
         					saveFile = new File(saveFilePath);
         					
         				}
@@ -209,12 +205,10 @@ class FileSelector {
         				saveFile.createNewFile();
         				
         				logger.debug("User selected file created successfully");
-        				System.out.println("Great, you can write to this file!");
         			
         			}
         			catch (IOException e) {
         			
-        				System.out.println();
         				logger.error("File error in selectSaveFilePath(): {}", e.getClass());
         	    		
         	    		logger.debug("Calling handleError(file)");
@@ -229,7 +223,6 @@ class FileSelector {
     	} else if (saveResult == JFileChooser.CANCEL_OPTION) {
     	
     		logger.debug("User canceled file selection");
-    		System.out.println("You didn't select a file to save.");
     	
     	} 
         	

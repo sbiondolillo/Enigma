@@ -171,12 +171,12 @@ public class Rotor implements RotaryEncryptor {
 			
 		} else if (plaintext.equals(' ')) {
 			
-			logger.debug("encode({}) completed successfully, returning '\n'", plaintext);
+			logger.debug("encode({}) completed successfully, returning '~", plaintext);
 			return '~';
 			
 		} else if (plaintext.equals('~')) {
 			
-			logger.debug("encode({}) completed successfully, returning '\n'", plaintext);
+			logger.debug("encode({}) completed successfully, returning ' '", plaintext);
 			return ' ';
 			
 		} else if (validCharacters.contains(plaintext)) {

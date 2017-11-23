@@ -10,12 +10,13 @@
  *          0.0.5 - 11/9/17     Remove unnecessary newline characters from encrypted html file
  *                              to allow for proper parsing when encrypted html files are used as input
  *          0.0.6 - 11/10/17    Create methods for writing to .txt files
+ *          0.0.7 - 11/23/17    Add flush() and close() buffer after writing to file
+ *                              Remove console writing methods
  */
 
 package enigma;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -70,52 +71,17 @@ public class OutputProcessor {
 		logger.debug("setOutputFilePath({}) completed successfully", outputFilePath);
 
 	}
-
-	/*
-	 * Show the encrypted message on the console, properly formatted
-	 */
-	public void displayEncryptedMessageOutToConsole() {
-		
-		logger.debug("Running displayEncryptedMessageOutToConsole()");
-		
-		System.out.println("Here is your encrypted message:");
-		String[] output = getEncryptedMessageOut();
-		for (String line: output) {
-			System.out.println(line);
-		}
-		
-		logger.debug("displayEncryptedMessageOutToConsole() completed successfully");
-		
-	}
-	
-	/*
-	 * Show the decrypted message on the console, properly formatted
-	 */
-	public void displayDecryptedMessageOutToConsole() {
-		
-		logger.debug("Running displayDecryptedMessageOutToConsole()");
-		
-		System.out.println("Here is your decrypted message:");
-		String[] output = getDecryptedMessageOut();
-		for (String line: output) {
-			line = line.replaceAll("\\^", "");
-			System.out.println(line);
-		}
-		
-		logger.debug("displayDecryptedMessageOutToConsole() completed successfully");
-		
-	}
 	
 	/*
 	 * Create an HTML file with the encrypted message and write it to file
 	 */
-	public void writeEncryptedMessageOutToFile() {
+	public void writeEncryptedMessageOutToFile() throws IOException {
 
 		logger.debug("Running writeEncryptedMessageOutToFile()");
 
 		String output;
 		
-		if (Utilities.getExtension(new File(outputFilePath.toString())).equals("html")) {
+		if (Utilities.getExtension(outputFilePath.toString()).equals("html")) {
 			
 			logger.debug("Calling buildEncryptedHTMLFile()");
 			output = buildEncryptedHTMLFile();
@@ -129,17 +95,10 @@ public class OutputProcessor {
 		}
 		
 		logger.debug("Writing to file");
-		try  (BufferedWriter writer = Files.newBufferedWriter(outputFilePath,Charset.forName("UTF-8"))){
-			writer.write(output);
-		}
-		catch (IOException e) {
-			
-			System.out.println();
-			logger.error("File error in writeEncryptedMessageOutToFile(): " + e.getClass());
-			
-			logger.debug("Calling Errors.handleError(file)");
-			Utilities.handleError("file");
-		}
+		BufferedWriter writer = Files.newBufferedWriter(outputFilePath,Charset.forName("UTF-8"));
+		writer.write(output);
+		writer.flush();
+		writer.close();
 
 		logger.debug("writeEncryptedMessageOutToFile() completed successfully");
 
@@ -148,13 +107,13 @@ public class OutputProcessor {
 	/*
 	 * Create an HTML file with the decrypted message and write it to file
 	 */
-	public void writeDecryptedMessageOutToFile() {
+	public void writeDecryptedMessageOutToFile() throws IOException {
 
 		logger.debug("Running writeDecryptedMessageOutToFile()");
 
 		String output;
 		
-		if (Utilities.getExtension(new File(outputFilePath.toString())).equals("html")) {
+		if (Utilities.getExtension(outputFilePath.toString()).equals("html")) {
 			
 			logger.debug("Calling buildDecryptedHTMLFile()");
 			output = buildDecryptedHTMLFile();
@@ -168,17 +127,10 @@ public class OutputProcessor {
 		}
 		
 		logger.debug("Writing to file");
-		try  (BufferedWriter writer = Files.newBufferedWriter(outputFilePath,Charset.forName("UTF-8"))){
-			writer.write(output);
-		}
-		catch (IOException e) {
-			
-			System.out.println();
-			logger.error("File error in writeDecryptedMessageOutToFile(): " + e.getClass());
-			
-			logger.debug("Calling Errors.handleError(file)");
-			Utilities.handleError("file");
-		}
+		BufferedWriter writer = Files.newBufferedWriter(outputFilePath,Charset.forName("UTF-8"));
+		writer.write(output);
+		writer.flush();
+		writer.close();
 
 		logger.debug("writeDecryptedMessageOutToFile() completed successfully");
 

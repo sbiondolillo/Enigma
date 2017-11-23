@@ -1,0 +1,106 @@
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_151" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq t {space :::p, par l {comp SettingsMenuPromptLabel::l:::x, seq l {comp RunButtonPromptLabel:::p::p, space :::x, comp RunButton:::p:75:p}, seq {comp ProgramModeLabel:::p::p, space :::p, comp ProgramModeTextField:::p:90:p, space :0:0:x}, seq l {par l {comp OutputFileLabel::l:p::p, comp InputFileLabel::l:p::p}, space :::p, par l {comp InputFileTextField:::::x, comp OutputFileTextField:::::x}}}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp SettingsMenuPromptLabel:::p:22:p, space :::p, par b {comp ProgramModeLabel::b:p::p, comp ProgramModeTextField::b:p::p}, space :::p, par b {comp InputFileLabel::b:p::p, comp InputFileTextField::b:p::p}, space :::p, par b {comp OutputFileLabel::b:p::p, comp OutputFileTextField::b:p::p}, space :::p, par b {comp RunButton::b:p:47:p, comp RunButtonPromptLabel::b:p::p}, space ::15:x}}"
+		} ) {
+			name: "MainMenu"
+			"title": "Welcome to the Enigma!"
+			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowClosing", "MainMenuWindowClosing", true ) )
+			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowOpened", "MainMenuWindowOpened", true ) )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "SettingsMenuPromptLabel"
+				"text": "Use the Settings menu above to change these settings..."
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "ProgramModeLabel"
+				"text": "Program Mode:"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "InputFileLabel"
+				"text": "Input File:"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "InputFileTextField"
+				"enabled": false
+				"disabledTextColor": new java.awt.Color( 153, 153, 153, 255 )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "OutputFileTextField"
+				"enabled": false
+				"disabledTextColor": new java.awt.Color( 153, 153, 153, 255 )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "RunButton"
+				"text": "Run!"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "RunButtonActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "ProgramModeTextField"
+				"enabled": false
+				"disabledTextColor": new java.awt.Color( 153, 153, 153, 255 )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "OutputFileLabel"
+				"text": "Output File:"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "RunButtonPromptLabel"
+				"text": "Click the Run! button when you are ready to process your message -->"
+			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "MainMenuBar"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "FileMenu"
+					"text": "File"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "FileMenuItemHelp"
+						"text": "Help"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "FileMenuItemHelpActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "FileMenuItemAbout"
+						"text": "About"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "FileMenuItemAboutActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "FileMenuItemExit"
+						"text": "Exit"
+						"toolTipText": "Exit the Enigma"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "FileMenuItemExitActionPerformed", true ) )
+					} )
+				} )
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "SettingsMenu"
+					"text": "Settings"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "SettingsMenuItemProgramMode"
+						"text": "Select Program Mode..."
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemProgramModeActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "SettingsMenuItemInputFile"
+						"text": "Select Input File..."
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemInputFileActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "SettingsMenuItemOutputFile"
+						"text": "Select Output File..."
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemOutputFileActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "SettingsMenuItemValidChars"
+						"text": "Valid Characters..."
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemValidCharsActionPerformed", true ) )
+					} )
+				} )
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 401, 195 )
+		} )
+	}
+}
