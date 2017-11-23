@@ -11,6 +11,7 @@
  *                              to allow for proper parsing when encrypted html files are used as input
  *          0.0.6 - 11/10/17    Create methods for writing to .txt files
  *          0.0.7 - 11/23/17    Add flush() and close() buffer after writing to file
+ *                              Remove console writing methods
  */
 
 package enigma;
@@ -69,41 +70,6 @@ public class OutputProcessor {
 
 		logger.debug("setOutputFilePath({}) completed successfully", outputFilePath);
 
-	}
-
-	/*
-	 * Show the encrypted message on the console, properly formatted
-	 */
-	public void displayEncryptedMessageOutToConsole() {
-		
-		logger.debug("Running displayEncryptedMessageOutToConsole()");
-		
-		System.out.println("Here is your encrypted message:");
-		String[] output = getEncryptedMessageOut();
-		for (String line: output) {
-			System.out.println(line);
-		}
-		
-		logger.debug("displayEncryptedMessageOutToConsole() completed successfully");
-		
-	}
-	
-	/*
-	 * Show the decrypted message on the console, properly formatted
-	 */
-	public void displayDecryptedMessageOutToConsole() {
-		
-		logger.debug("Running displayDecryptedMessageOutToConsole()");
-		
-		System.out.println("Here is your decrypted message:");
-		String[] output = getDecryptedMessageOut();
-		for (String line: output) {
-			line = line.replaceAll("\\^", "");
-			System.out.println(line);
-		}
-		
-		logger.debug("displayDecryptedMessageOutToConsole() completed successfully");
-		
 	}
 	
 	/*
