@@ -32,9 +32,10 @@ public class Rotor implements RotaryEncryptor {
 	private int index = 0;
 	private final static Logger logger = LogManager.getLogger(Rotor.class.getName());
 	
-	/*
-	 * Constructor
-	 * Default constructor gets the default character set
+	/**
+	 * Constructor<br />
+	 * <br />
+	 * Sets up the default {@link Dictionary} and sets dictionaryLength accordingly
 	 */
 	public Rotor() {
 		
@@ -49,9 +50,11 @@ public class Rotor implements RotaryEncryptor {
 		
 	}
 	
-	/*
-	 * Constructor
-	 * @param completeCodex - Users can enter their own array of characters for a custom rotor
+	/**
+	 * Constructor<br />
+	 * <br />
+	 * Builds a custom {@link Dictionary} and sets dictionaryLength accordingly
+	 * @param completeCodex a Character[] containing all of the characters to be supported
 	 */
 	public Rotor(Character[] completeCodex) {
 		
@@ -67,7 +70,7 @@ public class Rotor implements RotaryEncryptor {
 	}
 	
 	/*
-	 * Getters and Setters
+	 * Interface Implementations
 	 */
 	@Override
 	public int getIndex() {
@@ -105,23 +108,6 @@ public class Rotor implements RotaryEncryptor {
 		logger.debug("getDictionaryLength() completed successfully");
 		return dictionaryLength;
 	}
-	
-	/*
-	 * Advances the index by 1 and wraps around the end, emulating a mechanical rotor
-	 */
-	void rotate() {
-		
-		logger.debug("Running rotate()");
-		
-		index = (index + 1) % dictionaryLength;
-		
-		logger.debug("rotate() completed successfully, index at {}", index);
-	}
-	
-	/* 
-	 * Uses the current index to encode a single character.
-	 * @return the encoded character or '#' if the encoding cannot be completed
-	 */
 	@Override
 	public Character encode(Character plaintext) {
 		
@@ -173,4 +159,17 @@ public class Rotor implements RotaryEncryptor {
 			
 		}
 	}	
+
+	/*
+	 * Advances the index by 1 and wraps around the end, emulating a mechanical rotor
+	 */
+	void rotate() {
+		
+		logger.debug("Running rotate()");
+		
+		index = (index + 1) % dictionaryLength;
+		
+		logger.debug("rotate() completed successfully, index at {}", index);
+	}
+	
 }

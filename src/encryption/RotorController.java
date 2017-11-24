@@ -70,7 +70,10 @@ public class RotorController implements RotationManager{
 		
 		logger.debug("RotorController(Rotor[] activeRotors) completed successfully");
 	}
-	
+
+	/*
+	 * Interface Implementations
+	 */
 	@Override
 	public Rotor[] getActiveRotors() {
 		
@@ -80,7 +83,6 @@ public class RotorController implements RotationManager{
 		return activeRotors;
 		
 	}
-
 	@Override
 	public String encode(String plaintext) {
 		
@@ -116,7 +118,6 @@ public class RotorController implements RotationManager{
 		return output;
 		
 	}
-	
 	@Override
 	public String decode(String cyphertext) {
 		

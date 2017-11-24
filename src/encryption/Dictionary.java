@@ -22,16 +22,20 @@ import org.apache.logging.log4j.Logger;
 
 import interfaces.CharacterSet;
 
-public class Dictionary implements CharacterSet{
+public class Dictionary implements CharacterSet {
 
 	private Character[] dictionary;
 	private int length;
 	private final static Logger logger = LogManager.getLogger(Dictionary.class.getName());
 	
-	/* Constructor
-	 * Builds a Dictionary with a default set of characters including all alphabetical letters 
-	 * in lower and upper case, all ten numerical digits, and a small selection of common
-	 * punctuation marks
+	/**
+	 * Constructor<br />
+	 * <br />
+	 * Builds a Dictionary with a default set of characters including:<br />
+	 * 1) all alphabetical letters in lower and upper case<br />
+	 * 2) all ten numerical digits<br />
+	 * 3) a small selection of common punctuation marks<br />
+	 * Finally, sets length accordingly
 	 */
 	public Dictionary() {
 		
@@ -44,11 +48,13 @@ public class Dictionary implements CharacterSet{
 		logger.debug("Dictionary() completed successfully");
 	}
 	
-	/* Constructor
-	 * Builds a Dictionary with a custom set of characters
-	 * @param letters Character[] containing all of the alphabetic characters desired
-	 * @param punctuation Character[] of all the non-letter, non-number characters desired
-	 * @param numbers boolean set to true if you want the numerical digits 0-9 added for you
+	/**
+	 * Constructor<br />
+	 * <br />
+	 * Builds a Dictionary with a custom set of characters and sets length accordingly
+	 * @param letters 		Character[] containing all of the alphabetic characters desired
+	 * @param punctuation 	Character[] of all the non-letter, non-number characters desired
+	 * @param numbers 		boolean set to true if you want the numerical digits 0-9 added for you
 	 */
 	public Dictionary(Character[] letters, Character[] punctuation, boolean numbers) {
 		
@@ -73,8 +79,10 @@ public class Dictionary implements CharacterSet{
 		
 	}
 	
-	/* Constructor
-	 * Builds a Dictionary with a custom set of characters
+	/**
+	 * Constructor<br />
+	 * <br />
+	 * Builds a Dictionary with a custom set of characters and sets length accordingly
 	 * @param completeCodex Character[] of all the desired characters
 	 */
 	public Dictionary(Character[] completeCodex) {
@@ -89,7 +97,7 @@ public class Dictionary implements CharacterSet{
 	}
 	
 	/*
-	 * Getters and Setters
+	 * Interface Implementations
 	 */
 	@Override
 	public Character[] getDictionary() {
@@ -107,6 +115,70 @@ public class Dictionary implements CharacterSet{
 		
 		logger.debug("Dictionary.length() completed successfully");
 		return this.length;
+	}
+	@Override
+	public String toString() {
+		
+		logger.debug("Running Dictionary.toString()");
+		
+		String output = "";
+		output += "[";
+		for (int i = 0; i < this.length; i++) {
+			if (i < dictionary.length - 1) {
+				output += dictionary[i] + ",";
+			} else {
+				output += dictionary[i] + "]";
+			}
+		}
+		
+		logger.debug("Dictionary.toString() completed successfully");
+		return output;
+	}
+	@Override
+	public boolean contains(Character target) {
+		
+		logger.debug("Running Dictionary.contains({})", target);
+		
+		for (int i = 0; i < this.length; i++) {
+			if (target == dictionary[i]) {
+				
+				logger.debug("Dictionary.contains({}) completed successfully, returned true", target);
+				return true;
+				
+			}
+		}
+		
+		logger.debug("Dictionary.contains({}) completed successfully, returned false", target);
+		return false;
+		
+	}
+	@Override
+	public int indexOf(Character target) {
+		
+		logger.debug("Running Dictionary.indexOf({})", target);
+		
+		for (int i = 0; i < this.length; i++) {
+			if (dictionary[i] == target) {
+				
+				logger.debug("Running Dictionary.indexOf({}) completed successfully, returning {}", target, i);
+				return i;
+				
+			}
+				
+		}
+		
+		logger.debug("Running Dictionary.indexOf({}) completed successfully, returning -1", target);
+		return -1;
+		
+	}
+	@Override
+	public Character charAt(int index) {
+		
+		logger.debug("Running Dictionary.charAt({})", index);
+		
+		logger.debug("Dictionary.charAt({}) completed successfully, returning '{}'", index, dictionary[index]);
+		return dictionary[index];
+		
 	}
 	
 	/*
@@ -141,85 +213,5 @@ public class Dictionary implements CharacterSet{
 		logger.debug("buildDictionary() completed successfully");
 		
 	}
-	
-	/*
-	 * Print the Dictionary in a legible format
-	 */
-	@Override
-	public String toString() {
 		
-		logger.debug("Running Dictionary.toString()");
-		
-		String output = "";
-		output += "[";
-		for (int i = 0; i < this.length; i++) {
-			if (i < dictionary.length - 1) {
-				output += dictionary[i] + ",";
-			} else {
-				output += dictionary[i] + "]";
-			}
-		}
-		
-		logger.debug("Dictionary.toString() completed successfully");
-		return output;
-	}
-	
-	/*
-	 * Test if the Dictionary contains a specified character
-	 */
-	@Override
-	public boolean contains(Character target) {
-		
-		logger.debug("Running Dictionary.contains({})", target);
-		
-		for (int i = 0; i < this.length; i++) {
-			if (target == dictionary[i]) {
-				
-				logger.debug("Dictionary.contains({}) completed successfully, returned true", target);
-				return true;
-				
-			}
-		}
-		
-		logger.debug("Dictionary.contains({}) completed successfully, returned false", target);
-		return false;
-		
-	}
-	
-	/*
-	 * Sequential search for a specified character
-	 * @returns index of specified character or -1 if character not found
-	 */
-	@Override
-	public int indexOf(Character target) {
-		
-		logger.debug("Running Dictionary.indexOf({})", target);
-		
-		for (int i = 0; i < this.length; i++) {
-			if (dictionary[i] == target) {
-				
-				logger.debug("Running Dictionary.indexOf({}) completed successfully, returning {}", target, i);
-				return i;
-				
-			}
-				
-		}
-		
-		logger.debug("Running Dictionary.indexOf({}) completed successfully, returning -1", target);
-		return -1;
-		
-	}
-	
-	/*
-	 * Allow character lookup by direct indexing
-	 */
-	@Override
-	public Character charAt(int index) {
-		
-		logger.debug("Running Dictionary.charAt({})", index);
-		
-		logger.debug("Dictionary.charAt({}) completed successfully, returning '{}'", index, dictionary[index]);
-		return dictionary[index];
-		
-	}
 }
