@@ -16,5 +16,6 @@ public interface Encryptor {
 	 * Getter for instance variable validCharacters
 	 */
 	Dictionary getValidCharacters();
+	int getDictionaryLength();
 	
 }

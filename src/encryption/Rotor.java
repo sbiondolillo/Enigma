@@ -27,13 +27,9 @@ import interfaces.RotaryEncryptor;
 
 public class Rotor implements RotaryEncryptor {
 
-	/*
-	 * Set up each rotor with an array of characters, an initial index, and a notch position
-	 */
 	private Dictionary validCharacters;
 	private int dictionaryLength;
 	private int index = 0;
-	private int notch = 9;
 	private final static Logger logger = LogManager.getLogger(Rotor.class.getName());
 	
 	/*
@@ -71,26 +67,6 @@ public class Rotor implements RotaryEncryptor {
 	}
 	
 	/*
-	 * Constructor
-	 * @param completeCodex - Users can enter their own array of characters for a custom rotor
-	 * @param notch - an int indicating the notch position where the rotor would cause 
-	 * 				  a rotation in the next rotor in series
-	 */
-	public Rotor(Character[] completeCodex, int notch) {
-		
-		logger.debug("Running Rotor(Character[] completeCodex, int notch)");
-		
-		logger.debug("Calling Dictionary(Character[] completeCodex, int notch)");
-		validCharacters = new Dictionary(completeCodex);
-		this.notch = notch;
-		
-		dictionaryLength = validCharacters.length();
-		
-		logger.debug("Rotor(Character[] completeCodex, int notch) completed successfully");
-		
-	}
-	
-	/*
 	 * Getters and Setters
 	 */
 	@Override
@@ -121,15 +97,7 @@ public class Rotor implements RotaryEncryptor {
 		return validCharacters;
 		
 	}
-	@Override 
-	public int getNotch() {
-		
-		logger.debug("Running getNotch()");
-		
-		logger.debug("getNotch() completed successfully");
-		return notch;
-		
-	}
+	@Override
 	public int getDictionaryLength() {
 		
 		logger.debug("Running getDictionaryLength()");
