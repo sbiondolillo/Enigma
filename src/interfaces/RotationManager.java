@@ -15,25 +15,23 @@ import encryption.Rotor;
 
 public interface RotationManager {
 	
-	/*
-	 * Select the Rotors to be used and initialize them with the given index
-	 */
-	void setActiveRotors(Rotor rotor1, int index1, Rotor rotor2, int index2, Rotor rotor3, 
-						int index3, Rotor rotor4, int index4, Rotor rotor5, int index5);
+	/** Return Rotor array set in Constructor */
+	Rotor[] getActiveRotors();
 	
-	/*
-	 * Correctly encode a String by using each of the available Rotors in series
+	/**
+	 * Correctly encode a String by using each of the available Rotors in series (1->5)
+	 * @param	plaintext	a String to be encrypted
+	 * @return				the cyphertext produced using activeRotors
+	 * @see		Rotor
 	 */
 	String encode(String plaintext);
 	
-	/*
+	/**
 	 * Correctly decode a String by using the complementary decoder Rotor
+	 * @param	cyphertext	a String to be decrypted
+	 * @return				the plaintext produced using the decoder Rotor
+	 * @see		Rotor
 	 */
 	String decode(String cyphertext);
-	
-	/*
-	 * Reset the rotors to the initial configuration given by the user
-	 */
-	void reset();
 
 }

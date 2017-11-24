@@ -31,9 +31,11 @@ public class RotorController implements RotationManager{
 	private final int[] startingRotorIndexes = new int[6];
 	private final static Logger logger = LogManager.getLogger(RotorController.class.getName());
 	
-	/*
-	 * Constructor
-	 * builds a pre-defined Rotor[5] as well as the decoder Rotor
+	/**
+	 * Constructor.<br />
+	 * <br />
+	 * Builds the pre-defined default Rotor[5] and complementary decoder Rotor
+	 * @see	Rotor
 	 */
 	public RotorController() {
 		
@@ -46,12 +48,13 @@ public class RotorController implements RotationManager{
 		
 	}
 	
-	/*
-	 * Constructor
-	 * @param activeRotors - a pre-filled Rotor[]
-	 * this is the constructor we will use in the main Enigma program using
-	 * the Rotor[] stored in the Config class within the utilies package
-	 * assumes the activeRotors already have their indexes set
+	/**
+	 * Constructor.<br />
+	 * <br />
+	 * Assumes the user-supplied Rotors already have their indexes set. <br />
+	 * Builds an appropriate decoder Rotor based on those indexes.
+	 * @param 	activeRotors	a pre-filled Rotor[5]
+	 * @see		Rotor
 	 */
 	public RotorController(Rotor[] activeRotors) {
 		
@@ -68,18 +71,7 @@ public class RotorController implements RotationManager{
 		logger.debug("RotorController(Rotor[] activeRotors) completed successfully");
 	}
 	
-	/*
-	 * Select the Rotors to be used and initialize them with the given indexes
-	 */
 	@Override
-	public void setActiveRotors(Rotor rotor1, int index1, Rotor rotor2, int index2, Rotor rotor3, 
-								int index3, Rotor rotor4, int index4, Rotor rotor5, int index5) {
-		// TODO Set this up if we ever allow the user to manipulate the Rotor configuration	
-	}
-	
-	/*
-	 * Return an array of active rotors
-	 */
 	public Rotor[] getActiveRotors() {
 		
 		logger.debug("Running getActiveRotors()");
@@ -89,9 +81,6 @@ public class RotorController implements RotationManager{
 		
 	}
 
-	/*
-	 * Correctly encode a String by using each of the available Rotors in series (1->5)
-	 */
 	@Override
 	public String encode(String plaintext) {
 		
@@ -128,9 +117,6 @@ public class RotorController implements RotationManager{
 		
 	}
 	
-	/*
-	 * Correctly decode a String by using the complementary decoder Rotor
-	 */
 	@Override
 	public String decode(String cyphertext) {
 		
@@ -172,10 +158,9 @@ public class RotorController implements RotationManager{
 	}
 
 	/*
-	 * Reset the Rotors to the initial configuration
+	 * Reset all Rotors, including the decoder, to the initial configuration
 	 */
-	@Override
-	public void reset() {
+	private void reset() {
 		
 		logger.debug("Running reset()");
 		
@@ -193,7 +178,7 @@ public class RotorController implements RotationManager{
 	
 	/*
 	 * Create a default Rotor[5] in case the default constructor is ever called
-	 * also create the default decoder Rotor base on the initial Rotor indexes
+	 * also create the default decoder Rotor based on the initial Rotor indexes
 	 */
 	private void buildRotorArray() {
 		
