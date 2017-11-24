@@ -19,23 +19,16 @@ package main;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import fileIO.InputProcessor;
-import fileIO.OutputProcessor;
-
 public class Config {
 	
 	private static int programMode;
 	private static String inputFilePath;
-	private static InputProcessor fileIn;
 	private static String plainText;
 	private static String outputFilePath;
-	private static OutputProcessor fileOut;
 	private static String cypherText;
 	private final static Logger logger = LogManager.getLogger(Config.class.getName());
 	
-	/*
-	 * Getters and setters for instance variables
-	 */
+	/** @return the most recent Select Program Mode... selection */
 	public static int getProgramMode() {
 		
 		logger.debug("Running getProgramMode()");
@@ -53,6 +46,7 @@ public class Config {
 		logger.debug("setProgramMode({}) completed successfully", programMode);
 		
 	}
+	/** @return the most recent Select Input File... selection */
 	public static String getInputFilePath() {
 		
 		logger.debug("Running getInputFilePath()");
@@ -69,23 +63,7 @@ public class Config {
 		logger.debug("setInputFilePath({}) completed successfully", input);
 		
 	}
-	public static InputProcessor getFileIn() {
-		
-		logger.debug("Running getFileIn()");
-		
-		logger.debug("getfileIn() completed successfully returning {}", fileIn);
-		return fileIn;
-		
-	}
-	static void setFileIn(InputProcessor fileIn) {
-		
-		logger.debug("Running setFileIn({})", fileIn);
-		
-		Config.fileIn = fileIn;
-		
-		logger.debug("setFileIn({}) completed successfully", fileIn);
-		
-	}
+	/** @return the text of the file read into memory */
 	public static String getPlainText() {
 		
 		logger.debug("Running getPlainText()");
@@ -103,6 +81,7 @@ public class Config {
 		logger.debug("setPlainText() completed successfully");
 	
 	}
+	/** @return the most recent Select Output File... selection */
 	public static String getOutputFilePath() {
 		
 		logger.debug("Running getOutputFilePath()");
@@ -120,23 +99,7 @@ public class Config {
 		logger.debug("setOutputFilePath({}) completed successfully", output);
 		
 	}
-	public static OutputProcessor getOutput() {
-		
-		logger.debug("Running getOutput()");
-		
-		logger.debug("getOutput() completed successfully, returning {}", fileOut);
-		return fileOut;
-		
-	}
-	static void setOutput(OutputProcessor output) {
-		
-		logger.debug("Running setOutput({})", output);
-		
-		Config.fileOut = output;
-		
-		logger.debug("setOutput({}) completed successfully", output);
-		
-	}
+	/** @return the encoded text set to be written out to file */
 	public static String getCypherText() {
 		
 		logger.debug("Running getCypherText()");
