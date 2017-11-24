@@ -29,9 +29,12 @@ public class Utilities {
 	
 	private final static Logger logger = LogManager.getLogger(Utilities.class.getName());
 	
-    /*
-     * Adds '.extension' to file names without an extension
-     * Changes existing file extensions to '.extension'
+    /**
+     * Adds specified extension to file names without an extension<br />
+     * Changes existing file extensions to specified extension
+     * @param	filePath	a String representing the absolute file path
+     * @param	extension	a String containing a file extension without a leading dot (.)
+     * @return				a String with the properly formatted file path, including extension
      */
     public static String formatFilePath(String filePath, String extension) {
     		
@@ -83,9 +86,9 @@ public class Utilities {
 		
 	}
     
-    /*
-     * Creates a file given a file path
-     * Creates parent directories if necessary
+    /**
+     * Creates a file on the client file system, including parent directories if necessary
+     * @param	filePath	a String representing an absolute file path
      */
     public static void createFile(String filePath) {
     	
@@ -143,8 +146,10 @@ public class Utilities {
     	
     }
     
-    /*
-     * Returns the file extension of a given file, omitting the dot (.) character
+    /**
+     * Identifies the file extension of a given {@link File}
+     * @param	f	the File to be examined
+     * @return		the file extension, omitting the dot (.) character
      */
     public static String getExtension(File f) {
     	
@@ -154,19 +159,28 @@ public class Utilities {
         String s = f.getName();
         
         if (s.contains(".")) {
+        	
+        	logger.debug("File has an extension");
 	        int i = s.lastIndexOf('.');
 	
 	        if (i > 0 &&  i < s.length() - 1) {
 	            ext = s.substring(i+1).toLowerCase();
 	        }
         }
+        else {
+        	
+        	logger.debug("File does not have an extension");
+        	
+        }
         
         logger.debug("getExtension({}) completed successfully returning {}", f, ext);
         return ext;
     }
     
-    /*
-     * Returns the file extension of a given String, omitting the dot (.) character
+    /**
+     * Identifies the file extension of a given String
+     * @param	f	the String to be examined, representing a path in a file system
+     * @return		the file extension, omitting the dot (.) character
      */
     public static String getExtension(String f) {
     	
@@ -175,11 +189,18 @@ public class Utilities {
         String ext = "";
         
         if (f.contains(".")) {
+        	
+        	logger.debug("File has an extension");
 	        int i = f.lastIndexOf('.');
 	
 	        if (i > 0 &&  i < f.length() - 1) {
 	            ext = f.substring(i+1).toLowerCase();
 	        }
+        }
+        else {
+        	
+        	logger.debug("File does not have an extension");
+        	
         }
         
         logger.debug("getExtension({}) completed successfully returning {}", f, ext);
