@@ -8,7 +8,7 @@
 
 package interfaces;
 
-import rotors.Dictionary;
+import encryption.Dictionary;
 
 public interface Encryptor {
 

@@ -29,7 +29,7 @@
  *                              a go-between for program GUI and back-end functionality
  */
 
-package utilities;
+package main;
 
 import java.awt.Component;
 import java.io.IOException;
@@ -39,14 +39,20 @@ import javax.swing.JOptionPane;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import enigma.FileInputProcessor;
-import enigma.OutputProcessor;
+
+import encryption.RotorController;
+import fileIO.InputProcessor;
+import fileIO.OutputProcessor;
+import forms.FileSelector;
 import forms.MainMenu;
-import rotors.RotorController;
+import utilities.Utilities;
 
 public class ScreenManager {
 	
 	private static RotorController rc;
+	private static OutputProcessor outputProcessor;
+	private static InputProcessor inputProcessor;
+	private MainMenu mainMenu = new MainMenu();
 	private final static Logger logger = LogManager.getLogger(ScreenManager.class.getName());
 	
 	
@@ -62,6 +68,12 @@ public class ScreenManager {
 		logger.debug("Building new RotorController()");
 		rc = new RotorController();
 		
+		logger.debug("Building new OutputProcessor()");
+		outputProcessor = new OutputProcessor();
+		
+		logger.debug("Building new InputProcessor()");
+		inputProcessor = new InputProcessor(Config.getInputFilePath());
+		
 		logger.debug("new ScreenManager() completed successfully");
 		
 	}
@@ -72,9 +84,6 @@ public class ScreenManager {
 	public void showMainMenu() {
 		
 		logger.debug("Running showMainMenu()");
-		
-		logger.debug("Building new MainMenu()");
-		MainMenu mainMenu = new MainMenu();
 		
 		logger.debug("Calling MainMenu.show()");
 		mainMenu.show();
@@ -100,7 +109,7 @@ public class ScreenManager {
 			    options,
 			    options[0]);
 		if (result == 0 || result == 1)
-			updateProgramMode(result+1);
+			updateProgramMode(result);
 		
 		logger.debug("showProgramModeSelect() completed successfully");
 		
@@ -113,7 +122,6 @@ public class ScreenManager {
 	private static void updateProgramMode(int selection) {
 		
 		logger.debug("Running updateProgramMode()");
-		// TODO - add in logic to set mode based on form data
 		
 		logger.debug("Calling Config.setProgramMode({})", selection);
 		Config.setProgramMode(selection);
@@ -144,6 +152,9 @@ public class ScreenManager {
 		
 		logger.debug("calling Config.setInputFilePath({})", filePath);
 		Config.setInputFilePath(filePath);
+		
+		logger.debug("Building new InputProcessor()");
+		inputProcessor = new InputProcessor(filePath);
 		
 		logger.debug("selectInputFile() completed successfully");
 	}
@@ -185,38 +196,6 @@ public class ScreenManager {
 	}
 	
 	/*
-	 * Write the contents of the encoded message to the specified file
-	 */
-	private static void writeFileOut() throws IOException {
-		
-		logger.debug("Running writeFileOut()");
-		
-		logger.debug("Calling Config.setOutput()");
-		Config.setOutput(new OutputProcessor());
-		
-		logger.debug("Calling Config.getOutput().setMessageOut(cyphertext)");
-		Config.getOutput().setMessageOut(Config.getCypherText());
-		
-		logger.debug("Calling Config.getOutput().setOutputFilePath({})", Config.getOutputFilePath());
-		Config.getOutput().setOutputFilePath(Paths.get(Config.getOutputFilePath()));
-		
-		if (Config.getProgramMode() == 1) {
-		
-			logger.debug("Calling Config.getOutput().writeEncryptedMessageOutToFile()");
-			Config.getOutput().writeEncryptedMessageOutToFile();
-			
-		} else {
-			
-			logger.debug("Calling Config.getOutput().writeDecryptedMessageOutToFile()");
-			Config.getOutput().writeDecryptedMessageOutToFile();
-			
-		}
-		
-		logger.debug("writeFileOut() completed successfully");
-		
-	}
-	
-	/*
 	 * Runs the encryption/decryption process and writes out to file
 	 */
 	public static boolean processResults() {
@@ -229,16 +208,23 @@ public class ScreenManager {
 		logger.debug("Calling setOutputText()");
 		setOutputText(inputText);
 		
-		logger.debug("Calling writeFileOut()");
 		try {
+			
+			logger.debug("Calling writeFileOut()");
 			writeFileOut();
+			
 		} catch (IOException e) {
+			
+			logger.error("File error in writeFileOut(): " + e.getClass());
+			
+			logger.debug("Message not written to file");
+			logger.debug("processResults() completed, returning false");
 			return false;
+			
 		}
 		
 		logger.debug("Message successfully written to file");
-		
-		logger.debug("processResults() completed successfully");
+		logger.debug("processResults() completed, returning true");
 		return true;
 		
 	}
@@ -254,26 +240,23 @@ public class ScreenManager {
 		logger.debug("Calling readFileIn()");
 		readFileIn();
 		
+		logger.debug("Calling Config.setPlainText()");
+		Config.setPlainText(inputProcessor.getMessageIn());
+		
 		logger.debug("setInputText() completed successfully");
 		return Config.getPlainText();
 		
 	}
 	
 	/*
-	 * Read the contents of the user-specified file into the plainText Config variable
+	 * Read the contents of the user-specified file
 	 */
 	private static void readFileIn() {
 		
 		logger.debug("Running readFileIn()");
 		
-		logger.debug("Calling Config.setFileIn()");
-		Config.setFileIn(new FileInputProcessor(Config.getInputFilePath()));
-		
 		logger.debug("Calling Config.getFileIn().readFileIn()");
-		Config.getFileIn().readFileIn();
-		
-		logger.debug("Calling Config.setPlainText()");
-		Config.setPlainText(Config.getFileIn().getMessageIn());
+		inputProcessor.readInputFile();
 		
 		logger.debug("readFileIn() completed successfully");
 		
@@ -308,6 +291,26 @@ public class ScreenManager {
 	}
 	
 	/*
+	 * Write the contents of the encoded message to the specified file
+	 */
+	private static void writeFileOut() throws IOException {
+		
+		logger.debug("Running writeFileOut()");
+		
+		logger.debug("Calling setMessageOut(cyphertext)");
+		outputProcessor.setMessageOut(Config.getCypherText());
+		
+		logger.debug("Calling setOutputFilePath({})", Config.getOutputFilePath());
+		outputProcessor.setOutputFilePath(Config.getOutputFilePath());
+		
+		logger.debug("Calling writeMessageOutToFile()");
+		outputProcessor.writeMessageOutToFile();
+		
+		logger.debug("writeFileOut() completed successfully");
+		
+	}
+	
+	/*
 	 * Display the list of valid input characters
 	 */
 	public static String getValidChars() {
@@ -327,7 +330,7 @@ public class ScreenManager {
 	
 	/*
 	 * Display the screen where users can get general info about the program
-	 * and instructions on how to use the various parts of the program
+	 * and instructions on how to use its various parts
 	 */
 	public static String getHelpText() {
 		
@@ -378,92 +381,5 @@ public class ScreenManager {
 		return output.toString();
 		
 	}
-	
-	/*
-	 * Display an error message appropriate to the type of error
-	 */
-	static void displayErrorScreen(String type) {
-		
-		logger.debug("Running displayErrorScreen({})", type);
-		// these are place-holders, will need to be updated to match final design
-		switch (type) {
-		
-			case "file":	logger.debug("Calling Errors.fileError()");
-							Errors.fileError();
-							break;
-							
-			case "config":	logger.debug("Calling Errors.configError()");
-							Errors.configError();
-							break;
-							
-			case "input":	logger.debug("Calling Errors.inputError()");
-							Errors.inputError();
-							break;
-							
-			case "output":	logger.debug("Calling Errors.outputError()");
-							Errors.outputError();
-							break;
-							
-			default:		logger.debug("Running displayErrorScreen() default case");
-							System.out.println("Oops, something went wrong. Please contact support.");
-							
-		}
-		
-		logger.debug("displayErrorScreen({}) completed successfully", type);
-		
-	}
-	
-	static class Errors {
-		// this is a temporary mock-up, will need to be updated to reflect final design
-		
-			
-		static void fileError() {
-			
-			logger.debug("running Errors.fileError()");
-			
-			System.out.println();
-			System.out.println("Sorry, unable to access your file. Please see the error message above for details.");
-			System.out.println("You will now be taken back to the Main menu");
-			System.out.println("If you continue to have trouble, please contact Customer Support at enigmasupport@gmail.com.");
-			System.out.println("Please include the error message printed above when you contact Customer Support.");
-			System.out.println();
-			
-			logger.debug("Errors.fileError() completed successfully");
-			
-		}
-		
-		
-		static void configError() {
-			// TODO - build method to display Configuration Error Screen
-			logger.debug("running Errors.configError()");
-			
-			logger.debug("Errors.configError() completed successfully");
-			
-		}
-		
-		static void inputError() {
-			
-			logger.debug("running Errors.inputError()");
-			
-			System.out.println();
-			System.out.println("Sorry, you have entered an invalid input. Please try again.");
-			System.out.println("If you continue to have trouble, please contact Customer Support at enigmasupport@gmail.com.");
-			System.out.println("Please include the error message printed above when you contact Customer Support.");
-			System.out.println();
-			
-			logger.debug("Errors.inputError() completed successfully");
-			
-		}
-		
-		static void outputError() {
-			// TODO - build method to display Output Error Screen
-			logger.debug("running Errors.outputError()");
-			
-			logger.debug("Errors.outputError() completed successfully");
-			
-		}
-		
-	}
-	
 
 }

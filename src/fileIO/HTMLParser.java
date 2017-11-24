@@ -6,7 +6,7 @@
  * Version  0.0.1   11/9/17     
  */
 
-package enigma;
+package fileIO;
 
 import java.io.File;
 import java.io.IOException;

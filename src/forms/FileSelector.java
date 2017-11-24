@@ -13,7 +13,7 @@
  *          0.0.6   11/22/17    Remove console print statements
  */
 
-package utilities;
+package forms;
 
 import java.awt.Component;
 import java.io.File;
@@ -25,6 +25,9 @@ import javax.swing.filechooser.FileFilter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import main.Config;
+import utilities.Utilities;
 
 public class FileSelector {
 	
@@ -210,9 +213,6 @@ public class FileSelector {
         			catch (IOException e) {
         			
         				logger.error("File error in selectSaveFilePath(): {}", e.getClass());
-        	    		
-        	    		logger.debug("Calling handleError(file)");
-        	    		Utilities.handleError("file");
         	    		
         			}
         		

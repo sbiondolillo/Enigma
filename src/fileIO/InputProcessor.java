@@ -17,7 +17,7 @@
  *         0.0.8 - 11/10/17   Abstract html/txt reading methods out of readFileIn()
  */
 
-package enigma;
+package fileIO;
 
 import java.io.*;
 import org.apache.logging.log4j.LogManager;
@@ -25,23 +25,22 @@ import org.apache.logging.log4j.Logger;
 import interfaces.*;
 import utilities.Utilities;
 
-public class FileInputProcessor implements FileInput {
+public class InputProcessor implements FileInput {
 
 	private String messageIn = "";
 	private File inputFile = null;
 	private String fileExtension;
 	private FileReader fileReader = null;
 	private BufferedReader bufferedReader = null;
-	private final static Logger logger = LogManager.getLogger(FileInputProcessor.class.getName());
-	
+	private final static Logger logger = LogManager.getLogger(InputProcessor.class.getName());
 	
 	/*
 	 * Constructor
 	 * @param filePath - String containing any valid file path
 	 */
-	public FileInputProcessor(String filePath) {
+	public InputProcessor(String filePath) {
 		
-		logger.debug("Running FileInputProcessor({})", filePath);
+		logger.debug("Running InputProcessor({})", filePath);
 		
 		try {
 			
@@ -61,14 +60,11 @@ public class FileInputProcessor implements FileInput {
 		}
 		catch (IOException e) {
 			
-			System.out.println();
 			logger.error("Error accessing {}: {}", filePath, e.getClass());
 			
-			logger.debug("Calling Utilities.handleError(file)");
-			Utilities.handleError("file");
 		}
 		
-		logger.debug("FileInputProcessor({}) completed successfully", filePath);
+		logger.debug("InputProcessor({}) completed successfully", filePath);
 		
 	}
 	
@@ -85,39 +81,37 @@ public class FileInputProcessor implements FileInput {
 	}
 	
 	/*
-	 * Reads in the text from a html/txt file and stores it in messageIn
+	 * Reads the text from a file into messageIn
+	 * Calls readHTMLFileIn() for .html files
+	 * Calls readTextFileIn() for .txt files
 	 */
 	@Override
-	public void readFileIn() {
+	public void readInputFile() {
 		
-		logger.debug("Running readFileIn()");
+		logger.debug("Running readInputFile()");
 		
 		try {
 			
 			if (fileExtension.equals("html")) {
 				
-				logger.debug("Calling readHTMLFileIn()");
-				readHTMLFileIn();
+				logger.debug("Calling readHTMLFile()");
+				readHTMLFile();
 				
 			}
 			else {
 				
-				logger.debug("Calling readTextFileIn()");
-				readTextFileIn();
+				logger.debug("Calling readTextFile()");
+				readTextFile();
 				
 			}
 			
-			logger.debug("Closing bufferedReader");				
+			logger.debug("Closing bufferedReader");
 			bufferedReader.close();
 			
 		} 
 		catch (IOException e) {
 			
-			System.out.println();
 			logger.error("File error in readFileIn(): {}", e.getClass());
-			
-			logger.debug("Calling Utilities.handleError(file)");
-			Utilities.handleError("file");
 			
 		}
 		
@@ -125,9 +119,9 @@ public class FileInputProcessor implements FileInput {
 		
 	}
 	
-	private void readHTMLFileIn() {
+	private void readHTMLFile() {
 		
-		logger.debug("Running readHTMLFileIn()");
+		logger.debug("Running readHTMLFile()");
 		
 		logger.debug("Building new HTMLParser()");
 		HTMLParser parser = new HTMLParser();
@@ -135,25 +129,24 @@ public class FileInputProcessor implements FileInput {
 		logger.debug("Calling parseHTMLFile({})", inputFile.getPath());
 		messageIn = parser.parseHTMLFile(inputFile);
 		
-		logger.debug("readHTMLFileIn() completed successfully");
+		logger.debug("readHTMLFile() completed successfully");
 		
 	}
 	
-	private void readTextFileIn() throws IOException {
+	private void readTextFile() throws IOException {
 		
-		logger.debug("Running readTextFileIn()");
+		logger.debug("Running readTextFile()");
 		
 		String line = null;
 		
-		logger.debug("Reading text file into messageIn");
+		logger.debug("Reading text file lines into messageIn");
 		while((line = bufferedReader.readLine()) != null) {
 			messageIn += line;
 			messageIn += "\n";
 		}
 		
-		logger.debug("readTextFileIn() completed successfully");
+		logger.debug("readTextFile() completed successfully");
 		
 	}
 	
-
 }

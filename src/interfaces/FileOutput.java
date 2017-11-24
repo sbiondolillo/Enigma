@@ -8,50 +8,23 @@
 
 package interfaces;
 
+import java.io.IOException;
 import java.nio.file.Path;
 
-public interface FileOutput extends Output {
+public interface FileOutput {
 	
 	/*
-	 * Getter for instance variable outputFilePath
-	 * returns the complete file path 
-	 * e.g. "C:\Users\User\foo.txt"
+	 * Getters/Setters for instance variables
 	 */
-	Path getOutputFilePath();
-	
-	/*
-	 * Setter for instance variable outputFilePath
-	 */
-	void setOutputFilePath(Path outputFilePath);
-	
-	/*
-	 * Getter for instance variable outputFileName
-	 * returns the file name only 
-	 * e.g. file C:\Users\User\foo.txt would return "foo.txt"
-	 */
-	Path getOutputFileName();
-	
-	/*
-	 * Setter for instance variable outputFileName
-	 */
-	void setOutputFileName(String outputFileName);
-	
-	/*
-	 * Getter for instance variable outputFileType
-	 * returns the file type extension
-	 * e.g. file C:\Users\User\foo.txt would return ".txt"
-	 */
-	String getOutputFileType();
-	
-	/*
-	 * Setter for instance variable outputFileType
-	 */
-	void setOutputFileType(String outputFileType);
+	String getMessageOut();
+	void setMessageOut(String messageOut);
+	String getOutputFilePath();
+	void setOutputFilePath(String outputFilePath);
 	
 	/*
 	 * Takes the contents of messageOut String and writes them to outputFilePath
 	 */
-	void writeMessageOutToFile(String messageOut);
+	void writeMessageOutToFile() throws IOException;
 	
 
 }

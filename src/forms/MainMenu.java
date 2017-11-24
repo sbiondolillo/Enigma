@@ -13,8 +13,8 @@ import javax.swing.LayoutStyle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import utilities.Config;
-import utilities.ScreenManager;
+import main.Config;
+import main.ScreenManager;
 
 /**
  * @author Samuel Biondolillo
@@ -273,7 +273,7 @@ public class MainMenu  {
 	
 	private String determineProgramMode() {
 		String mode;
-		if (Config.getProgramMode() == 1)
+		if (Config.getProgramMode() == 0)
 			mode = "Encrypt";
 		else
 			mode = "Decrypt";

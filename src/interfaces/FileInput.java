@@ -10,11 +10,16 @@
 
 package interfaces;
 
-public interface FileInput extends Input {
+public interface FileInput {
+	
+	/*
+	 * Getters/Setters for instance variables
+	 */
+	String getMessageIn();
 	
 	/*
 	 * Reads in a file in and stores it in messageIn
 	 */
-	void readFileIn();
+	void readInputFile();
 	
 }

@@ -11,7 +11,7 @@
 
 package interfaces;
 
-import rotors.Rotor;
+import encryption.Rotor;
 
 public interface RotationManager {
 	

@@ -19,9 +19,8 @@
  *                          the Config file and launching the Main Menu only
  */
 
-package enigma;
+package main;
 
-import utilities.ScreenManager;
 import utilities.Utilities;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -33,13 +32,14 @@ public class Enigma {
 	
 	/*
 	 *  Main
+	 *  initializeConfig(), build a ScreenManager(), showMainMenu()
 	 */
 	public static void main(String[] args) {
 		
 		logger.debug("Starting program");
 		
 		logger.debug("Calling initializeConfig()");
-		Utilities.initializeConfig();
+		initializeConfig();
 		
 		logger.debug("Building new ScreenManager()");
 		screenManager = new ScreenManager();
@@ -48,5 +48,23 @@ public class Enigma {
 		screenManager.showMainMenu();
 		
 	}
+	
+	/*
+     * Sets the input and output file paths in Config to the default values
+     * Creates any missing files among the defaults
+     */
+    private static void initializeConfig() {
+    	
+    	logger.debug("Running initializeConfig()");
+    	
+    	logger.debug("Calling createFile({})", Config.getDefaultInputFile());
+    	Utilities.createFile(Config.getDefaultInputFile());
+    	
+    	logger.debug("Calling createFile({})", Config.getDefaultOutputFile());
+    	Utilities.createFile(Config.getDefaultOutputFile());
+    	
+    	logger.debug("initializeConfig() completed successfully");
+    	
+    }
 
 }

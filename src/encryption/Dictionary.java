@@ -15,7 +15,7 @@
  *          0.0.7 - 11/6/17   Added punctuation characters to standard dictionary
  */
 
-package rotors;
+package encryption;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -17,7 +17,7 @@
  *          0.0.5   11/15/17 Remove "Encoding..." and "Decoding..." prompts for style reasons
  */
 
-package rotors;
+package encryption;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

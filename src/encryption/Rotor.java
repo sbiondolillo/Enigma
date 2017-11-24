@@ -18,7 +18,7 @@
  *                              Add dictionaryLength instance variable and related functionality
  */
 
-package rotors;
+package encryption;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

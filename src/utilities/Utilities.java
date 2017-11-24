@@ -20,51 +20,18 @@
 
 package utilities;
 
-import org.apache.logging.log4j.Logger;
-
 import java.io.File;
 import java.io.IOException;
-
+import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 public class Utilities {        
 	
 	private final static Logger logger = LogManager.getLogger(Utilities.class.getName());
 	
-	
-	/*
-	 * Constructor - Default
-	 * Builds a Screens object for displaying the program menus
-	 * Sets up the default input/output files as defined in Config
-	 */
-	public Utilities() {
-		
-		logger.debug("Running new Utilities()");
-		
-		logger.debug("Calling initializeConfig()");
-		initializeConfig();
-		
-		logger.debug("new Utilities() completed successfully");
-		
-	}
-    
     /*
-     * Display the correct error screen
-     * @param type - a String of a valid pre-defined error type
-     * See Errors class for valid types
-     */
-    public static void handleError(String type) {
-    	
-    	logger.debug("Running handleError({})", type);
-    	ScreenManager.displayErrorScreen(type);
-    	
-    	logger.debug("handleError({}) completed successfully", type);
-    	
-    }
-    
-    /*
-     * Adds extension to file names without an extension
-     * Changes existing file extensions to extension
+     * Adds '.extension' to file names without an extension
+     * Changes existing file extensions to '.extension'
      */
     public static String formatFilePath(String filePath, String extension) {
     		
@@ -119,7 +86,6 @@ public class Utilities {
     /*
      * Creates a file given a file path
      * Creates parent directories if necessary
-     * @param filePath - a String denoting a location in the file system
      */
     public static void createFile(String filePath) {
     	
@@ -139,11 +105,7 @@ public class Utilities {
 	    	}
 	    	catch (IOException e) {
 	    		
-	    		System.out.println();
 	    		logger.error("File error in createFile(): {}", e.getClass());
-	    		
-	    		logger.debug("Calling handleError(file)");
-	    		handleError("file");
 	    		
 	    	}
 	    	
@@ -158,11 +120,7 @@ public class Utilities {
     		}
     		catch (SecurityException e) {
     			
-    			System.out.println();
     			logger.error("File error in createFile(): {}", e.getClass());
-	    		
-	    		logger.debug("Calling handleError(file)");
-	    		handleError("file");
     			
     		}
     		finally {
@@ -174,12 +132,8 @@ public class Utilities {
 					
 				}
     			catch (IOException e) {
-    				
-    				System.out.println();
+    		
     				logger.error("File error in createFile(): {}", e.getClass());
-    	    		
-    	    		logger.debug("Calling handleError(file)");
-    	    		handleError("file");
 		    		
 				}
     			
@@ -193,8 +147,12 @@ public class Utilities {
      * Returns the file extension of a given file, omitting the dot (.) character
      */
     public static String getExtension(File f) {
+    	
+    	logger.debug("running getExtension({})", f);
+    	
         String ext = "";
         String s = f.getName();
+        
         if (s.contains(".")) {
 	        int i = s.lastIndexOf('.');
 	
@@ -202,6 +160,8 @@ public class Utilities {
 	            ext = s.substring(i+1).toLowerCase();
 	        }
         }
+        
+        logger.debug("getExtension({}) completed successfully returning {}", f, ext);
         return ext;
     }
     
@@ -209,7 +169,11 @@ public class Utilities {
      * Returns the file extension of a given String, omitting the dot (.) character
      */
     public static String getExtension(String f) {
+    	
+    	logger.debug("running getExtension({})", f);
+    	
         String ext = "";
+        
         if (f.contains(".")) {
 	        int i = f.lastIndexOf('.');
 	
@@ -217,31 +181,9 @@ public class Utilities {
 	            ext = f.substring(i+1).toLowerCase();
 	        }
         }
+        
+        logger.debug("getExtension({}) completed successfully returning {}", f, ext);
         return ext;
-    }
-    
-    /*
-     * Sets the input and output file paths in Config to the default values
-     * Creates any missing files among the defaults
-     */
-    public static void initializeConfig() {
-    	
-    	logger.debug("Running initializeConfig()");
-    	
-    	logger.debug("Calling Config.setInputFilePath({})", Config.getDefaultInputFile());
-    	Config.setInputFilePath(Config.getDefaultInputFile());
-    	
-    	logger.debug("Calling Config.setOutputFilePath({})", Config.getDefaultOutputFile());
-    	Config.setOutputFilePath(Config.getDefaultOutputFile());
-    	
-    	logger.debug("Calling createFile({})", Config.getDefaultInputFile());
-    	createFile(Config.getDefaultInputFile());
-    	
-    	logger.debug("Calling createFile({})", Config.getDefaultOutputFile());
-    	createFile(Config.getDefaultOutputFile());
-    	
-    	logger.debug("initializeConfig() completed successfully");
-    	
     }
     
 }
