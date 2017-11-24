@@ -23,12 +23,17 @@ package main;
 
 import utilities.Utilities;
 import org.apache.logging.log4j.Logger;
+
+import java.nio.file.Paths;
+
 import org.apache.logging.log4j.LogManager;
 
 public class Enigma {
 	
-	private final static String DEFAULT_INPUT_FILE = "./resources/misc/input.txt";
-	private final static String DEFAULT_OUTPUT_FILE = "./resources/misc/output.html";
+	private final static String DEFAULT_INPUT_FILE = Paths.get(".").toAbsolutePath().normalize().toString() + 
+													"\\resources\\misc\\input.txt";
+	private final static String DEFAULT_OUTPUT_FILE = Paths.get(".").toAbsolutePath().normalize().toString() + 
+													"\\resources\\misc\\output.html";
 	private static ScreenManager screenManager;
 	private final static Logger logger = LogManager.getLogger(Enigma.class.getName());
 	
