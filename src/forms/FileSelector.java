@@ -130,12 +130,12 @@ public class FileSelector {
        		}
        		else {
         	
-       			logger.debug("User selected file is not readable. Using default path.");
+       			logger.debug("User selected file is not readable. Using current path.");
        			
        			// TODO - Show alert dialog to user with file path message
        			
-       			logger.debug("selectOpenFilePath() completed successfully, returning {}", Config.getDefaultInputFile());
-       			return Config.getDefaultInputFile();
+       			logger.debug("selectOpenFilePath() completed successfully, returning {}", Config.getInputFilePath());
+       			return Config.getInputFilePath();
         	
        		}
         
@@ -185,8 +185,8 @@ public class FileSelector {
         			
         			// TODO - Show alert dialog to user with file path message
         			
-        			logger.debug("selectSaveFilePath() completed successfully, returning {}", Config.getDefaultOutputFile());
-           			return Config.getDefaultOutputFile();
+        			logger.debug("selectSaveFilePath() completed successfully, returning {}", Config.getOutputFilePath());
+           			return Config.getOutputFilePath();
         		
         		}
         		else {

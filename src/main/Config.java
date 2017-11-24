@@ -24,15 +24,13 @@ import fileIO.OutputProcessor;
 
 public class Config {
 	
-	private final static String DEFAULT_INPUT_FILE = "./resources/misc/input.txt";
-	private final static String DEFAULT_OUTPUT_FILE = "./resources/misc/output.html";
-	private static int programMode = 0;
-	private static String inputFilePath = DEFAULT_INPUT_FILE;
+	private static int programMode;
+	private static String inputFilePath;
 	private static InputProcessor fileIn;
-	private static String plainText = "";
-	private static String outputFilePath = DEFAULT_OUTPUT_FILE;
+	private static String plainText;
+	private static String outputFilePath;
 	private static OutputProcessor fileOut;
-	private static String cypherText = "";
+	private static String cypherText;
 	private final static Logger logger = LogManager.getLogger(Config.class.getName());
 	
 	/*
@@ -154,22 +152,6 @@ public class Config {
 		Config.cypherText = cypherText;
 		
 		logger.debug("setCypherText() completed successfully");
-		
-	}
-	public static String getDefaultInputFile() {
-		
-		logger.debug("Running getDefaultInputFile()");
-		
-		logger.debug("getDefaultInputFile() completed successfully, returning {}", DEFAULT_INPUT_FILE);
-		return DEFAULT_INPUT_FILE;
-		
-	}
-	public static String getDefaultOutputFile() {
-		
-		logger.debug("Running getDefaultOutputFile()");
-		
-		logger.debug("getDefaultOutputFile() completed successfully, returning {}", DEFAULT_OUTPUT_FILE);
-		return DEFAULT_OUTPUT_FILE;
 		
 	}
 

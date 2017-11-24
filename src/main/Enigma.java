@@ -27,6 +27,8 @@ import org.apache.logging.log4j.LogManager;
 
 public class Enigma {
 	
+	private final static String DEFAULT_INPUT_FILE = "./resources/misc/input.txt";
+	private final static String DEFAULT_OUTPUT_FILE = "./resources/misc/output.html";
 	private static ScreenManager screenManager;
 	private final static Logger logger = LogManager.getLogger(Enigma.class.getName());
 	
@@ -57,11 +59,20 @@ public class Enigma {
     	
     	logger.debug("Running initializeConfig()");
     	
-    	logger.debug("Calling createFile({})", Config.getDefaultInputFile());
-    	Utilities.createFile(Config.getDefaultInputFile());
+    	logger.debug("Calling setProgramMode(0)");
+    	Config.setProgramMode(0);
     	
-    	logger.debug("Calling createFile({})", Config.getDefaultOutputFile());
-    	Utilities.createFile(Config.getDefaultOutputFile());
+    	logger.debug("Calling createFile({})", DEFAULT_INPUT_FILE);
+    	Utilities.createFile(DEFAULT_INPUT_FILE);
+    	
+    	logger.debug("Calling setInputFilePath({})", DEFAULT_INPUT_FILE);
+    	Config.setInputFilePath(DEFAULT_INPUT_FILE);
+    	
+    	logger.debug("Calling createFile({})", DEFAULT_OUTPUT_FILE);
+    	Utilities.createFile(DEFAULT_OUTPUT_FILE);
+    	
+    	logger.debug("Calling setOutputFilePath({})", DEFAULT_OUTPUT_FILE);
+    	Config.setOutputFilePath(DEFAULT_OUTPUT_FILE);
     	
     	logger.debug("initializeConfig() completed successfully");
     	

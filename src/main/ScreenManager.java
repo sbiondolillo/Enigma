@@ -145,7 +145,7 @@ public class ScreenManager {
 			
 			logger.debug("Using DEFAULT_INPUT_FILE");
 			// TODO - create alert dialog to let user know the default will be used
-			filePath = Config.getDefaultInputFile();
+			filePath = Config.getInputFilePath();
 		}
 		
 		logger.debug("calling Config.setInputFilePath({})", filePath);
@@ -174,7 +174,7 @@ public class ScreenManager {
 			
 			logger.debug("Using DEFAULT_OUTPUT_FILE");
 			// TODO - create alert dialog to let user know the default will be used
-			filePath = Config.getDefaultOutputFile();
+			filePath = Config.getOutputFilePath();
 		}
 		else {
 			

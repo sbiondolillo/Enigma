@@ -1,5 +1,5 @@
 /*
- * FileInputProcessor Class
+ * InputProcessor Class
  * Samuel Biondolillo
  * CIS220M:HY1 Object Oriented Programming
  * Goal: To handle the input and output routines for an Enigma emulator
@@ -15,6 +15,7 @@
  *         0.0.6 - 11/1/17    update readFileIn() to preserve input formatting
  *         0.0.7 - 11/9/17    Refactor class to use BufferedReaders instead of Scanners
  *         0.0.8 - 11/10/17   Abstract html/txt reading methods out of readFileIn()
+ *         0.1.0 - 11/24/17   Renamed to InputProcessor
  */
 
 package fileIO;
