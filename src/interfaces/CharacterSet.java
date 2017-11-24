@@ -11,9 +11,10 @@ package interfaces;
 public interface CharacterSet {
 	
 	/*
-	 * Getter for instance variable dictionary
+	 * Getters and setters for instance variables
 	 */
 	Character[] getDictionary();
+	int getLength();
 	
 	/*
 	 * Provide an appealing output format
@@ -23,17 +24,12 @@ public interface CharacterSet {
 	/*
 	 * Identify whether or not a character is in the dictionary
 	 */
-	boolean contains(Character test);
-	
-	/*
-	 * Return the length of the dictionary
-	 */
-	int length();
+	boolean contains(Character target);
 	
 	/*
 	 *  Return the location of a given character within the dictionary
 	 */
-	int indexOf(Character quarry);
+	int indexOf(Character target);
 	
 	/*
 	 *  Allow character lookup by direct indexing

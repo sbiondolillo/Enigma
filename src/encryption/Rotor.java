@@ -43,7 +43,7 @@ public class Rotor implements RotaryEncryptor {
 		logger.debug("Calling Dictionary()");
 		validCharacters = new Dictionary();
 		
-		dictionaryLength = validCharacters.length();
+		dictionaryLength = validCharacters.getLength();
 		
 		logger.debug("Rotor() completed successfully");
 		
@@ -60,7 +60,7 @@ public class Rotor implements RotaryEncryptor {
 		logger.debug("Calling Dictionary(Character[] completeCodex)");
 		validCharacters = new Dictionary(completeCodex);
 		
-		dictionaryLength = validCharacters.length();
+		dictionaryLength = validCharacters.getLength();
 		
 		logger.debug("Rotor(Character[] completeCodex) completed successfully");
 		

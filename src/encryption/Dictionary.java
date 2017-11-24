@@ -46,9 +46,9 @@ public class Dictionary implements CharacterSet{
 	
 	/* Constructor
 	 * Builds a Dictionary with a custom set of characters
-	 * @param letters Character array containing all of the alphabetic characters desired
-	 * @param punctuation Character array of all the desired non-letter, non-number characters desired
-	 * @param numbers Set to true if you desire to have the numerical digits 0-9 added for you
+	 * @param letters Character[] containing all of the alphabetic characters desired
+	 * @param punctuation Character[] of all the non-letter, non-number characters desired
+	 * @param numbers boolean set to true if you want the numerical digits 0-9 added for you
 	 */
 	public Dictionary(Character[] letters, Character[] punctuation, boolean numbers) {
 		
@@ -73,9 +73,9 @@ public class Dictionary implements CharacterSet{
 		
 	}
 	
-	/* 
-	 * Builds a custom set of characters
-	 * @param completeCodex Character array of all the desired characters
+	/* Constructor
+	 * Builds a Dictionary with a custom set of characters
+	 * @param completeCodex Character[] of all the desired characters
 	 */
 	public Dictionary(Character[] completeCodex) {
 		
@@ -100,10 +100,18 @@ public class Dictionary implements CharacterSet{
 		return dictionary;
 		
 	}
+	@Override
+	public int getLength() {
+		
+		logger.debug("Running Dictionary.length()");
+		
+		logger.debug("Dictionary.length() completed successfully");
+		return this.length;
+	}
 	
 	/*
-	 *  The default character set can be modified here
-	 *  This method is invoked in the default constructor
+	 * The default character set can be modified here
+	 * This method is invoked in the default constructor
 	 */
 	private void buildDictionary() {
 		
@@ -135,7 +143,7 @@ public class Dictionary implements CharacterSet{
 	}
 	
 	/*
-	 *  Print the Dictionary in a legible format
+	 * Print the Dictionary in a legible format
 	 */
 	@Override
 	public String toString() {
@@ -160,62 +168,50 @@ public class Dictionary implements CharacterSet{
 	 * Test if the Dictionary contains a specified character
 	 */
 	@Override
-	public boolean contains(Character test) {
+	public boolean contains(Character target) {
 		
-		logger.debug("Running Dictionary.contains({})", test);
+		logger.debug("Running Dictionary.contains({})", target);
 		
 		for (int i = 0; i < this.length; i++) {
-			if (test == dictionary[i]) {
+			if (target == dictionary[i]) {
 				
-				logger.debug("Dictionary.contains({}) completed successfully, returned true", test);
+				logger.debug("Dictionary.contains({}) completed successfully, returned true", target);
 				return true;
 				
 			}
 		}
 		
-		logger.debug("Dictionary.contains({}) completed successfully, returned false", test);
+		logger.debug("Dictionary.contains({}) completed successfully, returned false", target);
 		return false;
 		
 	}
 	
 	/*
-	 *  Return length of the Dictionary
+	 * Sequential search for a specified character
+	 * @returns index of specified character or -1 if character not found
 	 */
 	@Override
-	public int length() {
+	public int indexOf(Character target) {
 		
-		logger.debug("Running Dictionary.length()");
-		
-		logger.debug("Dictionary.length() completed successfully");
-		return this.length;
-	}
-	
-	/*
-	 *  Sequential search for a specified character
-	 *  returns -1 if character not found
-	 */
-	@Override
-	public int indexOf(Character quarry) {
-		
-		logger.debug("Running Dictionary.indexOf({})", quarry);
+		logger.debug("Running Dictionary.indexOf({})", target);
 		
 		for (int i = 0; i < this.length; i++) {
-			if (dictionary[i] == quarry) {
+			if (dictionary[i] == target) {
 				
-				logger.debug("Running Dictionary.indexOf({}) completed successfully, returning {}", quarry, i);
+				logger.debug("Running Dictionary.indexOf({}) completed successfully, returning {}", target, i);
 				return i;
 				
 			}
 				
 		}
 		
-		logger.debug("Running Dictionary.indexOf({}) completed successfully, returning -1", quarry);
+		logger.debug("Running Dictionary.indexOf({}) completed successfully, returning -1", target);
 		return -1;
 		
 	}
 	
 	/*
-	 *  Allow character lookup by direct indexing
+	 * Allow character lookup by direct indexing
 	 */
 	@Override
 	public Character charAt(int index) {
