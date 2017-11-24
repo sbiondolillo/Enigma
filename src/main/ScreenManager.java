@@ -33,8 +33,6 @@ package main;
 
 import java.awt.Component;
 import java.io.IOException;
-import java.nio.file.Paths;
-
 import javax.swing.JOptionPane;
 
 import org.apache.logging.log4j.LogManager;
