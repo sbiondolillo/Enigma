@@ -53,11 +53,12 @@ public class ScreenManager {
 	private MainMenu mainMenu = new MainMenu();
 	private final static Logger logger = LogManager.getLogger(ScreenManager.class.getName());
 	
-	
-	/*
-	 * Constructor - Default
-	 * Builds a Scanner for reading keyboard input
-	 * Builds a RotorController for managing encryption/decryption
+	/**
+	 * Constructor - Default<br />
+	 * <br />
+	 * Builds a {@link RotorController} for managing encryption/decryption<br />
+	 * Builds a {@link OutputProcessor} for writing to files<br />
+	 * Builds a {@link InputProcessor} for reading from files
 	 */
 	public ScreenManager() {
 	
@@ -76,8 +77,8 @@ public class ScreenManager {
 		
 	}
 	
-	/*
-	 * Launch the program's Main Menu JFrame
+	/**
+	 * Launch the program's {@link MainMenu}
 	 */
 	public void showMainMenu() {
 		
@@ -90,12 +91,70 @@ public class ScreenManager {
 		
 	}
 	
-	/*
-	 * Launch the Select Program Mode... dialog
+	/**
+	 * @return a String containing the general program info and instructions
+	 */
+	public static String getHelpText() {
+		
+		logger.debug("Running getHelpText()");
+		
+		StringBuilder output = new StringBuilder();
+		
+		output.append("This program was designed to mimic the Enigma encryption machine made famous by\n");
+		output.append("the Nazi command structure during the Second World War. In that machine, a series\n");
+		output.append("of moving rotors were used to scramble a message into an encrypted message and then\n");
+		output.append("another machine used those same rotors to decrypt the message at another time and place.\n\n");
+		output.append("While some of the features of the German Enigma have been set aside, some of the main\n");
+		output.append("components have been replicated here. As such, there are three primary settings which\n");
+		output.append("need to be established in order for the machine to function as intended:\n\n");
+		output.append("1. You must decide to either encrypt or decrypt a given message. From the Settings menu,\n");
+		output.append("choose 'Select Program Mode...'\n");
+		output.append("2. You must specify where the message will originate. The program is configured to read\n");
+		output.append("messages from either .txt or .html files. From the Settings menu, choose 'Select Input File...'\n");
+		output.append("3. You must specify where the final message will be displayed. You may choose to have the \n");
+		output.append("message written out to a .txt or .html file. From the Settings menu, choose 'Select Output File...'\n\n");
+		output.append("Once these settings have been configured, you may proceed to process your message and output\n");
+		output.append("your results. The program will read from your specified input source and write to your specified\n");
+		output.append("output source. Simply press 'Run!' on the Main menu to start this process.\n\n");
+		output.append("It is important to keep in mind that there are a limited set of characters which this program\n");
+		output.append("can encrypt or decrypt properly. The original, unencrypted message must only contain characters\n");
+		output.append("from this set in order to produce a proper output after encrypting and finally decrypting the\n");
+		output.append("original message. From the Settings menu, select 'Valid Characters...' to review this set.\n\n");
+		
+		logger.debug("getHelpText() completed successfully");
+		return output.toString();
+		
+	}
+	
+	/**
+	 * @return a String containing information about the program's purpose and author
+	 */
+	public static String getAboutText() {
+		
+		logger.debug("Running getAboutText()");
+		
+		StringBuilder output = new StringBuilder();
+		
+		output.append("This program was developed by Samuel Biondolillo for the Object Oriented Programming\n");
+		output.append("course at Manchester Community College in the Fall of 2017.\n\n");
+		output.append("The source code for this project lives at: https://github.com/sbiondolillo/Enigma\n\n");
+		output.append("Feel free to build your own version, complete with your own Rotor keys. Please note\n");
+		output.append("that if you change any settings in your own build, you will not be able to use my\n");
+		output.append("version to encrypt/decrypt the messages produced by your Enigma and vice versa.\n\n");
+		
+		logger.debug("getAboutText() completed successfully");
+		return output.toString();
+		
+	}
+
+	/**
+	 * Launch the Select Program Mode... dialog<br />
+	 * Update the programMode in {@link Config} based on the result
+	 * @param	parent	the {@link Component} which spawns this dialog
 	 */
 	public static void showProgramModeSelectForm(Component parent) {
 		
-		logger.debug("Running showProgramModeSelect()");
+		logger.debug("Running showProgramModeSelectForm()");
 		
 		Object[] options = {"Encrypt", "Decrypt"};
 		int result = JOptionPane.showOptionDialog(parent,
@@ -106,10 +165,14 @@ public class ScreenManager {
 			    null,
 			    options,
 			    options[0]);
-		if (result == 0 || result == 1)
+		if (result == 0 || result == 1) {
+			
+			logger.debug("Calling updateProgramMode({})", result);
 			updateProgramMode(result);
-		
-		logger.debug("showProgramModeSelect() completed successfully");
+			
+		}
+			
+		logger.debug("showProgramModeSelectForm() completed successfully");
 		
 	}
 	
@@ -128,8 +191,10 @@ public class ScreenManager {
 		
 	}
 	
-	/*
-	 * Let the user set their own file path with a GUI dialog
+	/**
+	 * Let the user set their own input file path with a {@link FileSelector} GUI dialog<br />
+	 * Builds a {@link InputProcessor} for the selected file
+	 * @param	parent	the {@link Component} which spawns this dialog
 	 */
 	public static void selectInputFile(Component parent) {
 		
@@ -143,8 +208,7 @@ public class ScreenManager {
 		
 		if (filePath.equals("")) {
 			
-			logger.debug("Using DEFAULT_INPUT_FILE");
-			// TODO - create alert dialog to let user know the default will be used
+			logger.debug("No file specified, using current inputFilePath");
 			filePath = Config.getInputFilePath();
 		}
 		
@@ -157,8 +221,10 @@ public class ScreenManager {
 		logger.debug("selectInputFile() completed successfully");
 	}
 	
-	/*
-	 * Allow the user to specify their own custom file path for output
+	/**
+	 * Let the user set their own output file path with a {@link FileSelector} GUI dialog<br />
+	 * Stores the specified file path off into {@link Config} for later use
+	 * @param	parent	the {@link Component} which spawns this dialog
 	 */
 	public static void selectOutputFile(Component parent) {
 		
@@ -172,13 +238,12 @@ public class ScreenManager {
 		
 		if (filePath.equals("")) {
 			
-			logger.debug("Using DEFAULT_OUTPUT_FILE");
-			// TODO - create alert dialog to let user know the default will be used
+			logger.debug("No file specified, using current outputFilePath");
 			filePath = Config.getOutputFilePath();
 		}
 		else {
 			
-			logger.debug("Checking user-supplied file path");
+			logger.debug("Checking user-supplied file path extension");
 			if (!Utilities.getExtension(filePath).equalsIgnoreCase("html")) {
 				
 				logger.debug("Reformatting file to .txt");
@@ -188,13 +253,33 @@ public class ScreenManager {
 			
 		}
 		
+		logger.debug("Calling setOutputFilePath({})", filePath);
 		Config.setOutputFilePath(filePath);
+		
 		logger.debug("selectOutputFile() completed successfully");
 		
 	}
 	
-	/*
-	 * Runs the encryption/decryption process and writes out to file
+	/**
+	 * @return	a String representing the active {@link encryption.Dictionary}
+	 */
+	public static String getValidChars() {
+		
+		logger.debug("Running getValidChars()");
+		
+		StringBuilder output = new StringBuilder();
+		
+		output.append("Here is a list of the valid characters for your input:\n\n");
+		output.append(rc.getActiveRotors()[0].getValidCharacters());
+		output.append("\n\nIf you enter any invalid characters, they will be encoded as a hash mark '#'\n\n");
+		
+		logger.debug("getValidChars() completed successfully");
+		return output.toString();
+		
+	}
+	
+	/**
+	 * Runs the encryption/decryption process and writes result out to file
 	 */
 	public static boolean processResults() {
 		
@@ -228,18 +313,15 @@ public class ScreenManager {
 	}
 	
 	/*
-	 * Either gets keyboard input from the user or reads from file
-	 * @returns the String stored in Config.plainText
+	 * Reads the input file text and stores it off as Config.plainText
+	 * Returns Config.plainText
 	 */
 	private static String setInputText() {
 		
 		logger.debug("Running setInputText()");
 		
-		logger.debug("Calling readFileIn()");
-		readFileIn();
-		
-		logger.debug("Calling Config.setPlainText()");
-		Config.setPlainText(inputProcessor.getMessageIn());
+		logger.debug("Calling Config.setPlainText(readFileIn())");
+		Config.setPlainText(readFileIn());
 		
 		logger.debug("setInputText() completed successfully");
 		return Config.getPlainText();
@@ -247,9 +329,11 @@ public class ScreenManager {
 	}
 	
 	/*
-	 * Read the contents of the user-specified file
+	 * Read the contents of the user-specified file and store it off 
+	 * as inputProcessor's messageIn String
+	 * Returns inputProcessor.messageIn()
 	 */
-	private static void readFileIn() {
+	private static String readFileIn() {
 		
 		logger.debug("Running readFileIn()");
 		
@@ -257,11 +341,12 @@ public class ScreenManager {
 		inputProcessor.readInputFile();
 		
 		logger.debug("readFileIn() completed successfully");
+		return inputProcessor.getMessageIn();
 		
 	}
 	
 	/*
-	 * Either encrypts or decrypts the user-supplied message base on the programMode
+	 * Either encrypts or decrypts the user-supplied message based on Config.programMode
 	 */
 	private static void setOutputText(String inputText) {
 		
@@ -269,7 +354,7 @@ public class ScreenManager {
 		
 		String outputText;
 		
-		if (Config.getProgramMode() == 1) {
+		if (Config.getProgramMode() == 0) {
 			
 			logger.debug("calling RotorController.encode()");
 			outputText = rc.encode(inputText);
@@ -308,76 +393,4 @@ public class ScreenManager {
 		
 	}
 	
-	/*
-	 * Display the list of valid input characters
-	 */
-	public static String getValidChars() {
-		
-		logger.debug("Running getValidChars()");
-		
-		StringBuilder output = new StringBuilder();
-		
-		output.append("Here is a list of the valid characters for your input:\n\n");
-		output.append(rc.getActiveRotors()[0].getValidCharacters());
-		output.append("\n\nIf you enter any invalid characters, they will be encoded as a hash mark '#'\n\n");
-		
-		logger.debug("getValidChars() completed successfully");
-		return output.toString();
-		
-	}
-	
-	/*
-	 * Display the screen where users can get general info about the program
-	 * and instructions on how to use its various parts
-	 */
-	public static String getHelpText() {
-		
-		logger.debug("Running getHelpText()");
-		
-		StringBuilder output = new StringBuilder();
-		
-		output.append("This program was designed to mimic the Enigma encryption machine made famous by\n");
-		output.append("the Nazi command structure during the Second World War. In that machine, a series\n");
-		output.append("of moving rotors were used to scramble a message into an encrypted message and then\n");
-		output.append("another machine used those same rotors to decrypt the message at another time and place.\n\n");
-		output.append("While some of the features of the German Enigma have been set aside, some of the main\n");
-		output.append("components have been replicated here. As such, there are three primary settings which\n");
-		output.append("need to be established in order for the machine to function as intended:\n\n");
-		output.append("1. You must decide to either encrypt or decrypt a given message. From the Settings menu,\n");
-		output.append("choose 'Select Program Mode...'\n");
-		output.append("2. You must specify where the message will originate. The program is configured to read\n");
-		output.append("messages from either .txt or .html files. From the Settings menu, choose 'Select Input File...'\n");
-		output.append("3. You must specify where the final message will be displayed. You may choose to have the \n");
-		output.append("message written out to a .txt or .html file. From the Settings menu, choose 'Select Output File...'\n\n");
-		output.append("Once these settings have been configured, you may proceed to process your message and output\n");
-		output.append("your results. The program will read from your specified input source and write to your specified\n");
-		output.append("output source. Simply press 'Run!' on the Main menu to start this process.\n\n");
-		output.append("It is important to keep in mind that there are a limited set of characters which this program\n");
-		output.append("can encrypt or decrypt properly. The original, unencrypted message must only contain characters\n");
-		output.append("from this set in order to produce a proper output after encrypting and finally decrypting the\n");
-		output.append("original message. From the Settings menu, select 'Valid Characters...' to review this set.\n\n");
-		
-		logger.debug("getHelpText() completed successfully");
-		return output.toString();
-		
-	}
-	
-	public static String getAboutText() {
-		
-		logger.debug("Running getAboutText()");
-		
-		StringBuilder output = new StringBuilder();
-		
-		output.append("This program was developed by Samuel Biondolillo for the Object Oriented Programming\n");
-		output.append("course at Manchester Community College in the Fall of 2017.\n\n");
-		output.append("The source code for this project lives at: https://github.com/sbiondolillo/Enigma\n\n");
-		output.append("Feel free to build your own version, complete with your own Rotor keys. Please note\n");
-		output.append("that if you change any settings in your own build, you will not be able to use my\n");
-		output.append("version to encrypt/decrypt the messages produced by your Enigma and vice versa.\n\n");
-		
-		logger.debug("getAboutText() completed successfully");
-		return output.toString();
-		
-	}
-
 }

@@ -32,8 +32,8 @@ public class Enigma {
 	private static ScreenManager screenManager;
 	private final static Logger logger = LogManager.getLogger(Enigma.class.getName());
 	
-	/*
-	 *  Main
+	/**
+	 *  Main<br />
 	 *  initializeConfig(), build a ScreenManager(), showMainMenu()
 	 */
 	public static void main(String[] args) {
