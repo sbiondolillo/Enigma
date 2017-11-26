@@ -12,13 +12,12 @@ package interfaces;
 
 public interface FileInput {
 	
-	/*
-	 * Getters/Setters for instance variables
-	 */
+	/** @return the String read in from the file passed to the constructor */
 	String getMessageIn();
 	
-	/*
-	 * Reads in a file in and stores it in messageIn
+	/**
+	 * Reads the text from the file passed to the constructor<br />
+	 * and stores it off in messageIn
 	 */
 	void readInputFile();
 	

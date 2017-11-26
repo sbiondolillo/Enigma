@@ -61,7 +61,7 @@ public class HTMLParser {
 		}
 		catch (IOException e) {
 			
-			e.printStackTrace();
+			logger.error("File error in parseHTMLFile({}): {}", file, e.getClass());
 			
 		}
 		finally {

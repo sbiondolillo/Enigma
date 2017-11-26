@@ -35,8 +35,8 @@ public class InputProcessor implements FileInput {
 	private BufferedReader bufferedReader = null;
 	private final static Logger logger = LogManager.getLogger(InputProcessor.class.getName());
 	
-	/*
-	 * Constructor
+	/**
+	 * Constructor 
 	 * @param filePath - String containing any valid file path
 	 */
 	public InputProcessor(String filePath) {
@@ -70,7 +70,7 @@ public class InputProcessor implements FileInput {
 	}
 	
 	/*
-	 * Getters/Setters for instance variables
+	 * Interface Implementations
 	 */
 	public String getMessageIn() {
 		
@@ -81,11 +81,6 @@ public class InputProcessor implements FileInput {
 		
 	}
 	
-	/*
-	 * Reads the text from a file into messageIn
-	 * Calls readHTMLFileIn() for .html files
-	 * Calls readTextFileIn() for .txt files
-	 */
 	@Override
 	public void readInputFile() {
 		
@@ -112,7 +107,7 @@ public class InputProcessor implements FileInput {
 		} 
 		catch (IOException e) {
 			
-			logger.error("File error in readFileIn(): {}", e.getClass());
+			logger.error("File error in readInputFile(): {}", e.getClass());
 			
 		}
 		
@@ -120,6 +115,9 @@ public class InputProcessor implements FileInput {
 		
 	}
 	
+	/*
+	 * Read text in from an HTML file and store it off in messageIn
+	 */
 	private void readHTMLFile() {
 		
 		logger.debug("Running readHTMLFile()");
@@ -134,6 +132,9 @@ public class InputProcessor implements FileInput {
 		
 	}
 	
+	/*
+	 * Read text in from an HTML file and store it off in messageIn
+	 */
 	private void readTextFile() throws IOException {
 		
 		logger.debug("Running readTextFile()");
