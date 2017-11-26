@@ -29,21 +29,24 @@ import org.apache.logging.log4j.Logger;
 import main.Config;
 import utilities.Utilities;
 
+@SuppressWarnings("serial")
 public class FileSelector {
 	
 	private String filePath = "";	
 	private JFileChooser fileChooser = null;
 	private final static Logger logger = LogManager.getLogger(FileSelector.class.getName());
 	
-	/*
-	 * Constructor
-	 * Builds a new FileSelector with the current directory set per parameter
-	 * @param defaultDirectory - a String representing the directory the FileSelector will display on launch
+	/**
+	 * Constructor<br />
+	 * <br />
+	 * Builds a new FileSelector for a given directory
+	 * @param defaultDirectory - a String representing the initial directory
 	 */
-	@SuppressWarnings("serial")
 	public FileSelector(String defaultDirectory) {
 
 		logger.debug("Building new FileSelector()");
+		
+		logger.debug("Building new JFileChooser({})", defaultDirectory);
 		fileChooser = new JFileChooser(defaultDirectory){
 			
 			/*
@@ -86,14 +89,16 @@ public class FileSelector {
 		    }   
 		    
 		};
+		
+		logger.debug("Adding file filters to JFileChooser");
 		fileChooser.addChoosableFileFilter(new TextHTMLFilter());
 		fileChooser.setAcceptAllFileFilterUsed(false);
+		
+		logger.debug("new FileSelector() completed successfully");
 	
 	}
 
-	/*
-	 * Getters/setters for instance variables
-	 */
+	/** @return a String representing the file chosen by the user */
 	public String getFilePath() {
 
 		logger.debug("Running approveSelection()");
@@ -103,8 +108,9 @@ public class FileSelector {
 
 	}
 
-	/*
-	 * Shows a dialog box which allows the user to select a file to be read into the program
+	/**
+	 * Shows a dialog box for selecting a file to be read into the program
+	 * @param parent the {@link Component} from which the FileSelector was launched
 	 */
 	public String selectOpenFilePath(Component parent) {
 
@@ -132,8 +138,6 @@ public class FileSelector {
         	
        			logger.debug("User selected file is not readable. Using current path.");
        			
-       			// TODO - Show alert dialog to user with file path message
-       			
        			logger.debug("selectOpenFilePath() completed successfully, returning {}", Config.getInputFilePath());
        			return Config.getInputFilePath();
         	
@@ -150,8 +154,9 @@ public class FileSelector {
 		
 	}
 
-	/*
+	/**
 	 * Shows a dialog box which allows the user to select a file for saving program output
+	 * @param parent the {@link Component} from which the FileSelector was launched
 	 */
 	public String selectSaveFilePath(Component parent) {
 
@@ -182,8 +187,6 @@ public class FileSelector {
         		if (saveFile.exists()) {
         	
         			logger.debug("User selected file exists, user lacks write permission");
-        			
-        			// TODO - Show alert dialog to user with file path message
         			
         			logger.debug("selectSaveFilePath() completed successfully, returning {}", Config.getOutputFilePath());
            			return Config.getOutputFilePath();
@@ -231,8 +234,16 @@ public class FileSelector {
         
 	}
 	
+	/**
+	 * 
+	 * Builds a custom FileFilter for use in JFileChoosers<br />
+	 * allows only .txt and .html files
+	 */
 	private class TextHTMLFilter extends FileFilter{
 
+		/**
+		 * Specifies the acceptable file extensions
+		 */
 		@Override
 		public boolean accept(File f) {
 			if (f.isDirectory()) {
@@ -252,6 +263,9 @@ public class FileSelector {
 			return false;
 		}
 
+		/**
+		 * Adds descriptive text to the JFileChooser dialog
+		 */
 		@Override
 		public String getDescription() {
 			return ".txt or .html only";
