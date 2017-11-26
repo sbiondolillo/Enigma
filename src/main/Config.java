@@ -37,6 +37,7 @@ public class Config {
 		return programMode;
 		
 	}
+	
 	static void setProgramMode(int programMode) {
 		
 		logger.debug("Running setProgramMode({})", programMode);
@@ -46,6 +47,7 @@ public class Config {
 		logger.debug("setProgramMode({}) completed successfully", programMode);
 		
 	}
+	
 	/** @return the most recent Select Input File... selection */
 	public static String getInputFilePath() {
 		
@@ -55,6 +57,7 @@ public class Config {
 		return inputFilePath;
 		
 	}
+	
 	static void setInputFilePath(String input) {
 		
 		logger.debug("Running setInputFilePath({})", input);
@@ -63,6 +66,7 @@ public class Config {
 		logger.debug("setInputFilePath({}) completed successfully", input);
 		
 	}
+	
 	/** @return the text of the file read into memory */
 	public static String getPlainText() {
 		
@@ -72,6 +76,7 @@ public class Config {
 		return plainText;
 		
 	}
+	
 	static void setPlainText(String plainText) {
 		
 		logger.debug("Running setPlainText()");
@@ -81,6 +86,7 @@ public class Config {
 		logger.debug("setPlainText() completed successfully");
 	
 	}
+	
 	/** @return the most recent Select Output File... selection */
 	public static String getOutputFilePath() {
 		
@@ -90,6 +96,7 @@ public class Config {
 		return outputFilePath;
 		
 	}
+	
 	static void setOutputFilePath(String output) {
 		
 		logger.debug("Running setOutputFilePath({})", output);
@@ -99,6 +106,7 @@ public class Config {
 		logger.debug("setOutputFilePath({}) completed successfully", output);
 		
 	}
+	
 	/** @return the encoded text set to be written out to file */
 	public static String getCypherText() {
 		
@@ -108,6 +116,7 @@ public class Config {
 		return cypherText;
 		
 	}
+	
 	static void setCypherText(String cypherText) {
 		
 		logger.debug("Running setCypherText()");
