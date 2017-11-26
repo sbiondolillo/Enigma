@@ -10,33 +10,35 @@ package interfaces;
 
 public interface CharacterSet {
 	
-	/*
-	 * Getter for instance variable dictionary
-	 */
+	/** @returns the CharacterSet built in the constructor */
 	Character[] getDictionary();
 	
-	/*
-	 * Provide an appealing output format
+	/** @returns the number of characters in the CharacterSet */
+	int getLength();
+	
+	/**
+	 * Provide an appealing text output format
 	 */
 	String toString();
 	
-	/*
-	 * Identify whether or not a character is in the dictionary
+	/**
+	 * Identify whether or not a character is in the CharacterSet
+	 * @param target	the char for which we search
+	 * @return true if char is found, false otherwise
 	 */
-	boolean contains(Character test);
+	boolean contains(Character target);
 	
-	/*
-	 * Return the length of the dictionary
+	/**
+	 * Find the location of a given character within the CharacterSet
+	 * @param	target	the char for which we search
+	 * @return an int representing the char's location in the set, -1 if char not found
 	 */
-	int length();
+	int indexOf(Character target);
 	
-	/*
-	 *  Return the location of a given character within the dictionary
-	 */
-	int indexOf(Character quarry);
-	
-	/*
-	 *  Allow character lookup by direct indexing
+	/**
+	 * Allow character lookup by direct indexing
+	 * @param	index	an int representing the location of the desired character in the set
+	 * @return the char at the given index
 	 */
 	Character charAt(int index);
 

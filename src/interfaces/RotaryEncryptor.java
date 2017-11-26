@@ -12,17 +12,19 @@ package interfaces;
 
 public interface RotaryEncryptor extends Encryptor {
 
-	/*
-	 * Getters and setters for instance variables index and notch
-	 * 		notch is only set in the constructor, never at runtime
-	 */
+	/** @return the current index of the RotoryEncryptor */
 	int getIndex();
-	void setIndex(int index);
-	int getNotch();
 	
-	/* 
+	/**
+	 * Sets the RotoryEncryptor to a given index
+	 * @param index	an int representing the desired setting
+	 */
+	void setIndex(int index);
+	
+	/**
 	 * Uses the current index to encode a single character.
-	 * @param plaintext - any char from validCharacters
+	 * @param	plaintext	a char to be encoded
+	 * @return the encoded char or '#' if plaintext can't be encoded
 	 */
 	Character encode(Character plaintext);
 }

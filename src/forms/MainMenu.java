@@ -13,8 +13,8 @@ import javax.swing.LayoutStyle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import utilities.Config;
-import utilities.ScreenManager;
+import main.Config;
+import main.ScreenManager;
 
 /**
  * @author Samuel Biondolillo
@@ -46,10 +46,7 @@ public class MainMenu  {
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 	private final static Logger logger = LogManager.getLogger(MainMenu.class.getName());
 
-	/*
-	 * Public
-	 */
-	
+	/** Launch the Main Program Menu */
 	public void show() {
 		
 		logger.debug("Running show()");
@@ -61,12 +58,12 @@ public class MainMenu  {
 		MainMenu.setVisible(true);
 		
 		logger.debug("show() completed successfully");
+		
 	}
 
 	/*
-	 * Private
+	 * Set up all the parts of the MainMenu
 	 */
-	
 	private void initComponents() {
 		
 		logger.debug("Running initComponents()");
@@ -250,34 +247,60 @@ public class MainMenu  {
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 		logger.debug("initComponents() completed successfully");
 	}
-	
-	/*
-	 * General
-	 */
-	
+
 	/*
 	 * MainMenu show events
 	 */
 	private void MainMenuWindowOpened(WindowEvent e) {
+		
+		logger.debug("Running MainMenuWindowOpened()");
+		
+		logger.debug("Calling initializeTextFields()");
 		initializeTextFields();
+		
+		logger.debug("initComponents() completed successfully");
+		
 	}
 	
+	/*
+	 * Set the text fields of the MainMenu to show current Config settings
+	 */
 	private void initializeTextFields() {
 		
+		logger.debug("Running initializeTextFields()");
+		
+		logger.debug("Setting text fields based on Config values");
+		
+		logger.debug("Calling determineProgramMode()");
 		String mode = determineProgramMode();
 		ProgramModeTextField.setText(mode);
+		
+		logger.debug("Calling getInputFilePath()");
 		InputFileTextField.setText(Config.getInputFilePath());
+		
+		logger.debug("Calling getOutputFilePath()");
 		OutputFileTextField.setText(Config.getOutputFilePath());
+		
+		logger.debug("initializeTextFields() completed successfully");
 		
 	}
 	
+	/* @return the current programMode in Config */
 	private String determineProgramMode() {
+		
+		logger.debug("Running determinProgramMode()");
+		
 		String mode;
-		if (Config.getProgramMode() == 1)
+		
+		logger.debug("Calling getProgramMode()");
+		if (Config.getProgramMode() == 0)
 			mode = "Encrypt";
 		else
 			mode = "Decrypt";
+		
+		logger.debug("determinProgramMode() completed successfully");
 		return mode;
+		
 	}
 	
 	/*
@@ -285,16 +308,21 @@ public class MainMenu  {
 	 */
 	private void MainMenuWindowClosing(WindowEvent e) {
 		
+		logger.debug("Running MainMenuWindowClosing()");
+		
 		logger.debug("User clicked X button to close program");
 		
-		logger.debug("Confirming program exit");
-		ConfirmProgramExit();
+		logger.debug("Calling confirmProgramExit()");
+		confirmProgramExit();
 		
-		logger.debug("Returning to MainMenu");
+		logger.debug("MainMenuWindowClosing() completed successfully");
 		
 	}
 	
-	private void ConfirmProgramExit() {
+	/* Launch a dialog allowing the user to choose whether or not to exit */
+	private void confirmProgramExit() {
+		
+		logger.debug("Running confirmProgramExit()");
 		
 		if (JOptionPane.showConfirmDialog(MainMenu, 
 	            "Are you sure to exit the Enigma?", "Please Confirm", 
@@ -303,7 +331,11 @@ public class MainMenu  {
 				logger.debug("User confirmed, exiting application");
 	            System.exit(0);
 	        }
+		
 		logger.debug("User canceled");
+		
+		logger.debug("confirmProgramExit() completed successfully");
+		
 	}
 	
 	/*
@@ -314,17 +346,30 @@ public class MainMenu  {
 	 * File -> Help
 	 */
 	private void FileMenuItemHelpActionPerformed(ActionEvent e) {
+		
+		logger.debug("User selected FileMenu>Help");
+		
+		logger.debug("Showing Help Dialog");
 		JOptionPane.showMessageDialog(MainMenu, ScreenManager.getHelpText(),
 										"Help", JOptionPane.PLAIN_MESSAGE);
+	
+		logger.debug("Returning to MainMenu");
+		
 	}
 	
 	/*
 	 * File -> About
 	 */
-	
 	private void FileMenuItemAboutActionPerformed(ActionEvent e) {
+		
+		logger.debug("User selected FileMenu>About");
+		
+		logger.debug("Showing About Dialog");
 		JOptionPane.showMessageDialog(MainMenu, ScreenManager.getAboutText(),
 				"About", JOptionPane.PLAIN_MESSAGE);
+		
+		logger.debug("Returning to MainMenu");
+		
 	}
 	
 	/*
@@ -335,7 +380,7 @@ public class MainMenu  {
 		logger.debug("User selected FileMenu>Exit");
 		
 		logger.debug("Confirming program exit");
-		ConfirmProgramExit();
+		confirmProgramExit();
 		
 		logger.debug("Returning to MainMenu");
 	}
@@ -344,48 +389,94 @@ public class MainMenu  {
 	 * Settings -> Select Program Mode...
 	 */
 	private void SettingsMenuItemProgramModeActionPerformed(ActionEvent e) {
+		
+		logger.debug("User selected SettingsMenu>Select Program Mode...");
+		
+		logger.debug("Calling showProgramSelectForm()");
 		ScreenManager.showProgramModeSelectForm(MainMenu);
+		
+		logger.debug("Setting text field to user supplied value");
 		ProgramModeTextField.setText(determineProgramMode());
+		
+		logger.debug("Returning to MainMenu");
+		
 	}
 	
 	/*
 	 * Settings -> Select Input File...
 	 */
 	private void SettingsMenuItemInputFileActionPerformed(ActionEvent e) {
+		
+		logger.debug("User selected SettingsMenu>Select Input File...");
+		
+		logger.debug("Calling selectInputFile()");
 		ScreenManager.selectInputFile(MainMenu);
+		
+		logger.debug("Setting text field to user supplied value");
 		InputFileTextField.setText(Config.getInputFilePath());
+		
+		logger.debug("Returning to MainMenu");
+		
 	}
 	
 	/*
 	 * Settings -> Select Output File...
 	 */
 	private void SettingsMenuItemOutputFileActionPerformed(ActionEvent e) {
+		
+		logger.debug("User selected SettingsMenu>Select Output File...");
+		
+		logger.debug("Calling selectOutputFile()");
 		ScreenManager.selectOutputFile(MainMenu);
+		
+		logger.debug("Setting text field to user supplied value");
 		OutputFileTextField.setText(Config.getOutputFilePath());
+		
+		logger.debug("Returning to MainMenu");
+		
 	}
 	
 	/*
 	 * Settings -> Valid Characters...
 	 */
 	private void SettingsMenuItemValidCharsActionPerformed(ActionEvent e) {
+		
+		logger.debug("User selected SettingsMenu>Valid Characters...");
+		
+		logger.debug("Showing Valid Characters dialog");
 		JOptionPane.showMessageDialog(MainMenu, ScreenManager.getValidChars(),
 				"Valid Characters", JOptionPane.PLAIN_MESSAGE);
+		
+		logger.debug("Returning to MainMenu");
+		
 	}
 	
 	/*
 	 * Run! Button
 	 */
 	private void RunButtonActionPerformed(ActionEvent e) {
-		if (ScreenManager.processResults())
+		
+		logger.debug("User selected Run!");
+		
+		if (ScreenManager.processResults()) {
+			
+			logger.debug("Showing success dialog");
 			JOptionPane.showMessageDialog(MainMenu, 
 							"Your message was processed successfully", 
 							"Success", 
 							JOptionPane.INFORMATION_MESSAGE);
-		else
+			
+		}
+		else {
+			
+			logger.debug("Showing failure dialog");
 			JOptionPane.showMessageDialog(MainMenu, 
 							"There was a problem processing your message. " + 
 							"Please check all of your settings and try again.", 
 							"Error", 
 							JOptionPane.ERROR_MESSAGE);
+			
+		}
 	}
+
 }

@@ -10,11 +10,15 @@
 
 package interfaces;
 
-public interface FileInput extends Input {
+public interface FileInput {
 	
-	/*
-	 * Reads in a file in and stores it in messageIn
+	/** @return the String read in from the file passed to the constructor */
+	String getMessageIn();
+	
+	/**
+	 * Reads the text from the file passed to the constructor<br />
+	 * and stores it off in messageIn
 	 */
-	void readFileIn();
+	void readInputFile();
 	
 }

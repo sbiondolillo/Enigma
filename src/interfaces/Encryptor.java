@@ -8,13 +8,14 @@
 
 package interfaces;
 
-import rotors.Dictionary;
+import encryption.Dictionary;
 
 public interface Encryptor {
 
-	/*
-	 * Getter for instance variable validCharacters
-	 */
+	/** @return	a listing of all characters which can be encoded */
 	Dictionary getValidCharacters();
+	
+	/** @return the number of characters in the Dictionary */
+	int getDictionaryLength();
 	
 }

@@ -18,7 +18,7 @@
  *                              Add dictionaryLength instance variable and related functionality
  */
 
-package rotors;
+package encryption;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,18 +27,15 @@ import interfaces.RotaryEncryptor;
 
 public class Rotor implements RotaryEncryptor {
 
-	/*
-	 * Set up each rotor with an array of characters, an initial index, and a notch position
-	 */
 	private Dictionary validCharacters;
 	private int dictionaryLength;
 	private int index = 0;
-	private int notch = 9;
 	private final static Logger logger = LogManager.getLogger(Rotor.class.getName());
 	
-	/*
-	 * Constructor
-	 * Default constructor gets the default character set
+	/**
+	 * Constructor<br />
+	 * <br />
+	 * Sets up the default {@link Dictionary} and sets dictionaryLength accordingly
 	 */
 	public Rotor() {
 		
@@ -47,15 +44,17 @@ public class Rotor implements RotaryEncryptor {
 		logger.debug("Calling Dictionary()");
 		validCharacters = new Dictionary();
 		
-		dictionaryLength = validCharacters.length();
+		dictionaryLength = validCharacters.getLength();
 		
 		logger.debug("Rotor() completed successfully");
 		
 	}
 	
-	/*
-	 * Constructor
-	 * @param completeCodex - Users can enter their own array of characters for a custom rotor
+	/**
+	 * Constructor<br />
+	 * <br />
+	 * Builds a custom {@link Dictionary} and sets dictionaryLength accordingly
+	 * @param completeCodex a Character[] containing all of the characters to be supported
 	 */
 	public Rotor(Character[] completeCodex) {
 		
@@ -64,34 +63,14 @@ public class Rotor implements RotaryEncryptor {
 		logger.debug("Calling Dictionary(Character[] completeCodex)");
 		validCharacters = new Dictionary(completeCodex);
 		
-		dictionaryLength = validCharacters.length();
+		dictionaryLength = validCharacters.getLength();
 		
 		logger.debug("Rotor(Character[] completeCodex) completed successfully");
 		
 	}
 	
 	/*
-	 * Constructor
-	 * @param completeCodex - Users can enter their own array of characters for a custom rotor
-	 * @param notch - an int indicating the notch position where the rotor would cause 
-	 * 				  a rotation in the next rotor in series
-	 */
-	public Rotor(Character[] completeCodex, int notch) {
-		
-		logger.debug("Running Rotor(Character[] completeCodex, int notch)");
-		
-		logger.debug("Calling Dictionary(Character[] completeCodex, int notch)");
-		validCharacters = new Dictionary(completeCodex);
-		this.notch = notch;
-		
-		dictionaryLength = validCharacters.length();
-		
-		logger.debug("Rotor(Character[] completeCodex, int notch) completed successfully");
-		
-	}
-	
-	/*
-	 * Getters and Setters
+	 * Interface Implementations
 	 */
 	@Override
 	public int getIndex() {
@@ -121,15 +100,7 @@ public class Rotor implements RotaryEncryptor {
 		return validCharacters;
 		
 	}
-	@Override 
-	public int getNotch() {
-		
-		logger.debug("Running getNotch()");
-		
-		logger.debug("getNotch() completed successfully");
-		return notch;
-		
-	}
+	@Override
 	public int getDictionaryLength() {
 		
 		logger.debug("Running getDictionaryLength()");
@@ -137,23 +108,6 @@ public class Rotor implements RotaryEncryptor {
 		logger.debug("getDictionaryLength() completed successfully");
 		return dictionaryLength;
 	}
-	
-	/*
-	 * Advances the index by 1 and wraps around the end, emulating a mechanical rotor
-	 */
-	void rotate() {
-		
-		logger.debug("Running rotate()");
-		
-		index = (index + 1) % dictionaryLength;
-		
-		logger.debug("rotate() completed successfully, index at {}", index);
-	}
-	
-	/* 
-	 * Uses the current index to encode a single character.
-	 * @return the encoded character or '#' if the encoding cannot be completed
-	 */
 	@Override
 	public Character encode(Character plaintext) {
 		
@@ -205,4 +159,17 @@ public class Rotor implements RotaryEncryptor {
 			
 		}
 	}	
+
+	/*
+	 * Advances the index by 1 and wraps around the end, emulating a mechanical rotor
+	 */
+	void rotate() {
+		
+		logger.debug("Running rotate()");
+		
+		index = (index + 1) % dictionaryLength;
+		
+		logger.debug("rotate() completed successfully, index at {}", index);
+	}
+	
 }

@@ -8,50 +8,33 @@
 
 package interfaces;
 
-import java.nio.file.Path;
+import java.io.IOException;
 
-public interface FileOutput extends Output {
+public interface FileOutput {
 	
-	/*
-	 * Getter for instance variable outputFilePath
-	 * returns the complete file path 
-	 * e.g. "C:\Users\User\foo.txt"
-	 */
-	Path getOutputFilePath();
+	/** @return the string set to be written out to file */
+	String getMessageOut();
 	
-	/*
-	 * Setter for instance variable outputFilePath
+	/**
+	 * Stores text to be written out to file at a later time
+	 * @param messageOut	the String to be written
 	 */
-	void setOutputFilePath(Path outputFilePath);
+	void setMessageOut(String messageOut);
 	
-	/*
-	 * Getter for instance variable outputFileName
-	 * returns the file name only 
-	 * e.g. file C:\Users\User\foo.txt would return "foo.txt"
-	 */
-	Path getOutputFileName();
+	/** @return the String representing the file path where program output will be written */
+	String getOutputFilePath();
 	
-	/*
-	 * Setter for instance variable outputFileName
+	/**
+	 * Specifies where program output will be written
+	 * @param outputFilePath	the String representing the absolute file path
 	 */
-	void setOutputFileName(String outputFileName);
+	void setOutputFilePath(String outputFilePath);
 	
-	/*
-	 * Getter for instance variable outputFileType
-	 * returns the file type extension
-	 * e.g. file C:\Users\User\foo.txt would return ".txt"
+	/**
+	 * Takes the contents of messageOut and writes them to outputFilePath
+	 * @exception IOException should be handled by the calling method
 	 */
-	String getOutputFileType();
-	
-	/*
-	 * Setter for instance variable outputFileType
-	 */
-	void setOutputFileType(String outputFileType);
-	
-	/*
-	 * Takes the contents of messageOut String and writes them to outputFilePath
-	 */
-	void writeMessageOutToFile(String messageOut);
+	void writeMessageOutToFile() throws IOException;
 	
 
 }
