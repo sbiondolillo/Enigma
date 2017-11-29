@@ -97,6 +97,7 @@ public class MainMenu  {
 			MainMenu.setForeground(Color.white);
 			MainMenu.setResizable(false);
 			MainMenu.setAlwaysOnTop(true);
+			MainMenu.setIconImage(new ImageIcon(getClass().getResource("/enigmaicon.png")).getImage());
 			MainMenu.addWindowListener(new WindowAdapter() {
 				@Override
 				public void windowClosing(WindowEvent e) {
