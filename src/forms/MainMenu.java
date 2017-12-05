@@ -283,6 +283,7 @@ public class MainMenu  {
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 		
 		MainMenu.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		UIManager.put("OptionPane.messageFont", new Font("Segoe UI", Font.PLAIN, 20));
 		logger.debug("initComponents() completed successfully");
 	}
 
