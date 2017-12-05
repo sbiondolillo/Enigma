@@ -35,14 +35,14 @@ public class MainMenu  {
 	private JMenuItem SettingsMenuItemOutputFile;
 	private JMenuItem SettingsMenuItemValidChars;
 	private JLabel SettingsMenuPromptLabel;
-	private JLabel ProgramModeLabel;
-	private JLabel InputFileLabel;
-	private JTextField InputFileTextField;
-	private JTextField OutputFileTextField;
+	private JLabel ProgramModeHeaderLabel;
+	private JLabel InputFileHeaderLabel;
 	private JButton RunButton;
-	private JTextField ProgramModeTextField;
 	private JLabel OutputFileLabel;
 	private JLabel RunButtonPromptLabel;
+	private JLabel ProgramModeValueLabel;
+	private JLabel InputFileValueLabel;
+	private JLabel OutputFileValueLabel;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 	private final static Logger logger = LogManager.getLogger(MainMenu.class.getName());
 
@@ -82,14 +82,14 @@ public class MainMenu  {
 		SettingsMenuItemOutputFile = new JMenuItem();
 		SettingsMenuItemValidChars = new JMenuItem();
 		SettingsMenuPromptLabel = new JLabel();
-		ProgramModeLabel = new JLabel();
-		InputFileLabel = new JLabel();
-		InputFileTextField = new JTextField();
-		OutputFileTextField = new JTextField();
+		ProgramModeHeaderLabel = new JLabel();
+		InputFileHeaderLabel = new JLabel();
 		RunButton = new JButton();
-		ProgramModeTextField = new JTextField();
 		OutputFileLabel = new JLabel();
 		RunButtonPromptLabel = new JLabel();
+		ProgramModeValueLabel = new JLabel();
+		InputFileValueLabel = new JLabel();
+		OutputFileValueLabel = new JLabel();
 
 		//======== MainMenu ========
 		{
@@ -177,35 +177,17 @@ public class MainMenu  {
 			SettingsMenuPromptLabel.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 18));
 			SettingsMenuPromptLabel.setBackground(Color.white);
 
-			//---- ProgramModeLabel ----
-			ProgramModeLabel.setText("Program Mode");
-			ProgramModeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			ProgramModeLabel.setLabelFor(ProgramModeTextField);
-			ProgramModeLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
-			ProgramModeLabel.setBackground(Color.white);
+			//---- ProgramModeHeaderLabel ----
+			ProgramModeHeaderLabel.setText("Program Mode");
+			ProgramModeHeaderLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			ProgramModeHeaderLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
+			ProgramModeHeaderLabel.setBackground(Color.white);
 
-			//---- InputFileLabel ----
-			InputFileLabel.setText("Input File");
-			InputFileLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			InputFileLabel.setLabelFor(InputFileTextField);
-			InputFileLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
-			InputFileLabel.setBackground(Color.white);
-
-			//---- InputFileTextField ----
-			InputFileTextField.setEnabled(false);
-			InputFileTextField.setDisabledTextColor(new Color(100, 100, 100));
-			InputFileTextField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			InputFileTextField.setHorizontalAlignment(SwingConstants.CENTER);
-			InputFileTextField.setBackground(Color.white);
-			InputFileTextField.setToolTipText("Your message will be read from here");
-
-			//---- OutputFileTextField ----
-			OutputFileTextField.setEnabled(false);
-			OutputFileTextField.setDisabledTextColor(new Color(100, 100, 100));
-			OutputFileTextField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			OutputFileTextField.setHorizontalAlignment(SwingConstants.CENTER);
-			OutputFileTextField.setBackground(Color.white);
-			OutputFileTextField.setToolTipText("Your message will be written here");
+			//---- InputFileHeaderLabel ----
+			InputFileHeaderLabel.setText("Input File");
+			InputFileHeaderLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			InputFileHeaderLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
+			InputFileHeaderLabel.setBackground(Color.white);
 
 			//---- RunButton ----
 			RunButton.setText("Run!");
@@ -214,58 +196,49 @@ public class MainMenu  {
 			RunButton.setBackground(UIManager.getColor("Button.background"));
 			RunButton.addActionListener(e -> RunButtonActionPerformed(e));
 
-			//---- ProgramModeTextField ----
-			ProgramModeTextField.setEnabled(false);
-			ProgramModeTextField.setDisabledTextColor(new Color(100, 100, 100));
-			ProgramModeTextField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			ProgramModeTextField.setHorizontalAlignment(SwingConstants.CENTER);
-			ProgramModeTextField.setBackground(Color.white);
-
 			//---- OutputFileLabel ----
 			OutputFileLabel.setText("Output File");
 			OutputFileLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			OutputFileLabel.setLabelFor(OutputFileTextField);
 			OutputFileLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			OutputFileLabel.setBackground(Color.white);
 
 			//---- RunButtonPromptLabel ----
-			RunButtonPromptLabel.setText("Click Run! when you are ready to process your message.");
+			RunButtonPromptLabel.setText("Click Run! to process your message.");
 			RunButtonPromptLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			RunButtonPromptLabel.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 18));
 			RunButtonPromptLabel.setBackground(Color.white);
+
+			//---- ProgramModeValueLabel ----
+			ProgramModeValueLabel.setText("<Program Mode>");
+			ProgramModeValueLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+			//---- InputFileValueLabel ----
+			InputFileValueLabel.setText("<Input File>");
+			InputFileValueLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+			//---- OutputFileValueLabel ----
+			OutputFileValueLabel.setText("<Output File>");
+			OutputFileValueLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 			GroupLayout MainMenuContentPaneLayout = new GroupLayout(MainMenuContentPane);
 			MainMenuContentPane.setLayout(MainMenuContentPaneLayout);
 			MainMenuContentPaneLayout.setHorizontalGroup(
 				MainMenuContentPaneLayout.createParallelGroup()
 					.addGroup(GroupLayout.Alignment.TRAILING, MainMenuContentPaneLayout.createSequentialGroup()
-						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGap(129, 232, Short.MAX_VALUE)
 						.addComponent(RunButton, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
 						.addGap(226, 226, 226))
-					.addGroup(GroupLayout.Alignment.TRAILING, MainMenuContentPaneLayout.createSequentialGroup()
-						.addGroup(MainMenuContentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-							.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
-								.addGap(214, 214, 214)
-								.addComponent(ProgramModeTextField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-								.addGap(0, 209, Short.MAX_VALUE))
-							.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(MainMenuContentPaneLayout.createParallelGroup()
-									.addComponent(OutputFileLabel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
-									.addComponent(InputFileTextField, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)))
-							.addGroup(GroupLayout.Alignment.LEADING, MainMenuContentPaneLayout.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(MainMenuContentPaneLayout.createParallelGroup()
-									.addComponent(ProgramModeLabel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
-									.addComponent(InputFileLabel, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)))
-							.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(SettingsMenuPromptLabel, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
-							.addGroup(GroupLayout.Alignment.LEADING, MainMenuContentPaneLayout.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(MainMenuContentPaneLayout.createParallelGroup()
-									.addComponent(OutputFileTextField, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
-									.addComponent(RunButtonPromptLabel, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))))
+					.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(MainMenuContentPaneLayout.createParallelGroup()
+							.addComponent(SettingsMenuPromptLabel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+							.addComponent(RunButtonPromptLabel, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+							.addComponent(ProgramModeHeaderLabel, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+							.addComponent(ProgramModeValueLabel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+							.addComponent(InputFileHeaderLabel, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+							.addComponent(InputFileValueLabel, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+							.addComponent(OutputFileLabel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+							.addComponent(OutputFileValueLabel, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
 						.addContainerGap())
 			);
 			MainMenuContentPaneLayout.setVerticalGroup(
@@ -274,22 +247,22 @@ public class MainMenu  {
 						.addGap(6, 6, 6)
 						.addComponent(SettingsMenuPromptLabel, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-						.addComponent(ProgramModeLabel)
+						.addComponent(ProgramModeHeaderLabel)
 						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-						.addComponent(ProgramModeTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(ProgramModeValueLabel, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(InputFileLabel)
+						.addComponent(InputFileHeaderLabel)
 						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-						.addComponent(InputFileTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(InputFileValueLabel, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
 						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 						.addComponent(OutputFileLabel)
 						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-						.addComponent(OutputFileTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+						.addComponent(OutputFileValueLabel, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+						.addGap(16, 16, 16)
 						.addComponent(RunButtonPromptLabel)
 						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 						.addComponent(RunButton, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(15, Short.MAX_VALUE))
+						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 			);
 			MainMenu.pack();
 			MainMenu.setLocationRelativeTo(MainMenu.getOwner());
@@ -324,13 +297,13 @@ public class MainMenu  {
 		
 		logger.debug("Calling determineProgramMode()");
 		String mode = determineProgramMode();
-		ProgramModeTextField.setText(mode);
+		ProgramModeValueLabel.setText(mode);
 		
 		logger.debug("Calling getInputFilePath()");
-		InputFileTextField.setText(Config.getInputFilePath());
+		InputFileValueLabel.setText(Config.getInputFilePath());
 		
 		logger.debug("Calling getOutputFilePath()");
-		OutputFileTextField.setText(Config.getOutputFilePath());
+		OutputFileValueLabel.setText(Config.getOutputFilePath());
 		
 		logger.debug("initializeTextFields() completed successfully");
 		
@@ -447,7 +420,7 @@ public class MainMenu  {
 		ScreenManager.showProgramModeSelectForm(MainMenu);
 		
 		logger.debug("Setting text field to user supplied value");
-		ProgramModeTextField.setText(determineProgramMode());
+		ProgramModeValueLabel.setText(determineProgramMode());
 		
 		logger.debug("Returning to MainMenu");
 		
@@ -464,7 +437,7 @@ public class MainMenu  {
 		ScreenManager.selectInputFile(MainMenu);
 		
 		logger.debug("Setting text field to user supplied value");
-		InputFileTextField.setText(Config.getInputFilePath());
+		InputFileValueLabel.setText(Config.getInputFilePath());
 		
 		logger.debug("Returning to MainMenu");
 		
@@ -481,7 +454,7 @@ public class MainMenu  {
 		ScreenManager.selectOutputFile(MainMenu);
 		
 		logger.debug("Setting text field to user supplied value");
-		OutputFileTextField.setText(Config.getOutputFilePath());
+		OutputFileValueLabel.setText(Config.getOutputFilePath());
 		
 		logger.debug("Returning to MainMenu");
 		
