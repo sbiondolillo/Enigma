@@ -272,6 +272,7 @@ public class MainMenu  {
 		}
 		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 		
+		MainMenu.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		logger.debug("initComponents() completed successfully");
 	}
 
