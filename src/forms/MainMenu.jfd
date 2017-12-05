@@ -1,75 +1,101 @@
-JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_151" encoding: "UTF-8"
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_144" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq t {space :::p, par l {comp SettingsMenuPromptLabel::l:::x, seq l {comp RunButtonPromptLabel:::p::p, space :::x, comp RunButton:::p:75:p}, seq {comp ProgramModeLabel:::p::p, space :::p, comp ProgramModeTextField:::p:90:p, space :0:0:x}, seq l {par l {comp OutputFileLabel::l:p::p, comp InputFileLabel::l:p::p}, space :::p, par l {comp InputFileTextField:::::x, comp OutputFileTextField:::::x}}}, space :::p}}"
-			"$verticalGroup": "par l {seq l {space :::p, comp SettingsMenuPromptLabel:::p:22:p, space :::p, par b {comp ProgramModeLabel::b:p::p, comp ProgramModeTextField::b:p::p}, space :::p, par b {comp InputFileLabel::b:p::p, comp InputFileTextField::b:p::p}, space :::p, par b {comp OutputFileLabel::b:p::p, comp OutputFileTextField::b:p::p}, space :::p, par b {comp RunButton::b:p:47:p, comp RunButtonPromptLabel::b:p::p}, space ::15:x}}"
+			"$horizontalGroup": "par l {seq t {space :129:232:x, comp RunButton:::p:75:p, space :p:226:p}, seq {space :::p, par l {comp SettingsMenuPromptLabel::t::513:x, comp RunButtonPromptLabel::l::513:x, comp ProgramModeHeaderLabel::l::513:x, comp ProgramModeValueLabel::t::513:x, comp InputFileHeaderLabel::l::513:x, comp InputFileValueLabel::l::513:x, comp OutputFileLabel::t::513:x, comp OutputFileValueLabel::l::513:x}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :p:6:p, comp SettingsMenuPromptLabel:::p:27:p, space u:::p, comp ProgramModeHeaderLabel:::p::p, space ::11:x, comp ProgramModeValueLabel:::p:26:p, space :::p, comp InputFileHeaderLabel:::p::p, space u:::p, comp InputFileValueLabel::::25:x, space u:::p, comp OutputFileLabel:::p::p, space u:::p, comp OutputFileValueLabel:::p:26:p, space :p:16:p, comp RunButtonPromptLabel:::p::p, space u:::p, comp RunButton:::p:47:p, space :::x}}"
 		} ) {
 			name: "MainMenu"
 			"title": "Welcome to the Enigma!"
+			"foreground": new java.awt.Color( 255, 255, 255, 255 )
+			"resizable": false
+			"alwaysOnTop": true
+			"iconImage": new com.jformdesigner.model.SwingIcon( 0, "/enigmaicon.png" )
 			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowClosing", "MainMenuWindowClosing", true ) )
 			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowOpened", "MainMenuWindowOpened", true ) )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "SettingsMenuPromptLabel"
 				"text": "Use the Settings menu above to change these settings..."
+				"horizontalAlignment": 0
+				"font": &Font0 new java.awt.Font( "Segoe UI", 3, 18 )
+				"background": new java.awt.Color( 255, 255, 255, 255 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "ProgramModeLabel"
-				"text": "Program Mode:"
+				name: "ProgramModeHeaderLabel"
+				"text": "Program Mode"
+				"horizontalAlignment": 0
+				"font": new java.awt.Font( "Segoe UI", 1, 16 )
+				"background": new java.awt.Color( 255, 255, 255, 255 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "InputFileLabel"
-				"text": "Input File:"
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "InputFileTextField"
-				"enabled": false
-				"disabledTextColor": new java.awt.Color( 153, 153, 153, 255 )
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "OutputFileTextField"
-				"enabled": false
-				"disabledTextColor": new java.awt.Color( 153, 153, 153, 255 )
+				name: "InputFileHeaderLabel"
+				"text": "Input File"
+				"horizontalAlignment": 0
+				"font": &Font1 new java.awt.Font( "Segoe UI", 1, 16 )
+				"background": new java.awt.Color( 255, 255, 255, 255 )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "RunButton"
 				"text": "Run!"
+				"font": new java.awt.Font( "Segoe UI", 3, 18 )
+				"horizontalTextPosition": 0
+				"background": &SwingColor0 new com.jformdesigner.model.SwingColor( "Button.background" )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "RunButtonActionPerformed", true ) )
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "ProgramModeTextField"
-				"enabled": false
-				"disabledTextColor": new java.awt.Color( 153, 153, 153, 255 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "OutputFileLabel"
-				"text": "Output File:"
+				"text": "Output File"
+				"horizontalAlignment": 0
+				"font": #Font1
+				"background": new java.awt.Color( 255, 255, 255, 255 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "RunButtonPromptLabel"
-				"text": "Click the Run! button when you are ready to process your message -->"
+				"text": "Click Run! to process your message."
+				"horizontalAlignment": 0
+				"font": #Font0
+				"background": new java.awt.Color( 255, 255, 255, 255 )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "ProgramModeValueLabel"
+				"text": "<Program Mode>"
+				"horizontalAlignment": 0
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "InputFileValueLabel"
+				"text": "<Input File>"
+				"horizontalAlignment": 0
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "OutputFileValueLabel"
+				"text": "<Output File>"
+				"horizontalAlignment": 0
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
 				name: "MainMenuBar"
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
 					name: "FileMenu"
 					"text": "File"
+					"background": #SwingColor0
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "FileMenuItemHelp"
 						"text": "Help"
+						"background": #SwingColor0
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "FileMenuItemHelpActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "FileMenuItemAbout"
 						"text": "About"
+						"background": #SwingColor0
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "FileMenuItemAboutActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "FileMenuItemExit"
 						"text": "Exit"
 						"toolTipText": "Exit the Enigma"
+						"background": #SwingColor0
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "FileMenuItemExitActionPerformed", true ) )
 					} )
 				} )
@@ -79,28 +105,32 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "SettingsMenuItemProgramMode"
 						"text": "Select Program Mode..."
+						"background": #SwingColor0
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemProgramModeActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "SettingsMenuItemInputFile"
 						"text": "Select Input File..."
+						"background": #SwingColor0
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemInputFileActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "SettingsMenuItemOutputFile"
 						"text": "Select Output File..."
+						"background": #SwingColor0
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemOutputFileActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "SettingsMenuItemValidChars"
 						"text": "Valid Characters..."
+						"background": #SwingColor0
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemValidCharsActionPerformed", true ) )
 					} )
 				} )
 			}
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 401, 195 )
+			"size": new java.awt.Dimension( 535, 400 )
 		} )
 	}
 }
