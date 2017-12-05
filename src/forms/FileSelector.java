@@ -16,6 +16,8 @@
 package forms;
 
 import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 
@@ -32,6 +34,7 @@ import utilities.Utilities;
 @SuppressWarnings("serial")
 public class FileSelector {
 	
+	private Font font = new Font("Segoe UI", Font.PLAIN, 18);
 	private String filePath = "";	
 	private JFileChooser fileChooser = null;
 	private final static Logger logger = LogManager.getLogger(FileSelector.class.getName());
@@ -93,6 +96,7 @@ public class FileSelector {
 		logger.debug("Adding file filters to JFileChooser");
 		fileChooser.addChoosableFileFilter(new TextHTMLFilter());
 		fileChooser.setAcceptAllFileFilterUsed(false);
+		setFileChooserFont(fileChooser.getComponents());
 		
 		logger.debug("new FileSelector() completed successfully");
 	
@@ -233,6 +237,30 @@ public class FileSelector {
         return saveFilePath;
         
 	}
+	
+	/*
+	 * Recursively update the components of the FileSelector with the preferred font
+	 */
+	private void setFileChooserFont(Component[] comp) {
+		
+		for(int x = 0; x < comp.length; x++) {
+			
+			if(comp[x] instanceof Container)
+		    	
+		    	setFileChooserFont(((Container)comp[x]).getComponents()); 
+		    
+		    try {
+		    	
+		    	comp[x].setFont(font);
+		    	
+		    }  
+		    catch(Exception e) {
+		    	
+		    	// do nothing
+		    	
+		    } 
+		}  
+    } 
 	
 	/**
 	 * 
