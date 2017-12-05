@@ -1,11 +1,11 @@
-JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_144" encoding: "UTF-8"
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_151" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq t {space :129:232:x, comp RunButton:::p:75:p, space :p:226:p}, seq {space :::p, par l {comp SettingsMenuPromptLabel::t::513:x, comp RunButtonPromptLabel::l::513:x, comp ProgramModeHeaderLabel::l::513:x, comp ProgramModeValueLabel::t::513:x, comp InputFileHeaderLabel::l::513:x, comp InputFileValueLabel::l::513:x, comp OutputFileLabel::t::513:x, comp OutputFileValueLabel::l::513:x}, space :::p}}"
-			"$verticalGroup": "par l {seq l {space :p:6:p, comp SettingsMenuPromptLabel:::p:27:p, space u:::p, comp ProgramModeHeaderLabel:::p::p, space ::11:x, comp ProgramModeValueLabel:::p:26:p, space :::p, comp InputFileHeaderLabel:::p::p, space u:::p, comp InputFileValueLabel::::25:x, space u:::p, comp OutputFileLabel:::p::p, space u:::p, comp OutputFileValueLabel:::p:26:p, space :p:16:p, comp RunButtonPromptLabel:::p::p, space u:::p, comp RunButton:::p:47:p, space :::x}}"
+			"$horizontalGroup": "par l {seq l {space :p:353:p, comp RunButton:::p::p, space ::352:x}, seq {space :::p, par l {comp SettingsMenuPromptLabel::t::770:x, comp ProgramModeHeaderLabel::l::0:x, comp ProgramModeValueLabel::t::0:x, comp InputFileHeaderLabel::l::0:x, comp InputFileValueLabel::l::0:x, comp OutputFileLabel::l::0:x, comp OutputFileValueLabel::t::0:x, comp RunButtonPromptLabel::l::0:x}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp SettingsMenuPromptLabel:::p:27:p, space u:::p, comp ProgramModeHeaderLabel:::p::p, space s:::p, comp ProgramModeValueLabel:::p::p, space s:::p, comp InputFileHeaderLabel:::p::p, space s:::p, comp InputFileValueLabel:::::x, space s:::p, comp OutputFileLabel:::p::p, space s:::p, comp OutputFileValueLabel:::p::p, space :p:39:p, comp RunButtonPromptLabel:::p::p, space s:::p, comp RunButton:::p::p, space :p:39:p}}"
 		} ) {
 			name: "MainMenu"
 			"title": "Welcome to the Enigma!"
@@ -19,27 +19,27 @@ new FormModel {
 				name: "SettingsMenuPromptLabel"
 				"text": "Use the Settings menu above to change these settings..."
 				"horizontalAlignment": 0
-				"font": &Font0 new java.awt.Font( "Segoe UI", 3, 18 )
+				"font": new java.awt.Font( "Segoe UI", 3, 28 )
 				"background": new java.awt.Color( 255, 255, 255, 255 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "ProgramModeHeaderLabel"
 				"text": "Program Mode"
 				"horizontalAlignment": 0
-				"font": new java.awt.Font( "Segoe UI", 1, 16 )
+				"font": new java.awt.Font( "Segoe UI", 1, 24 )
 				"background": new java.awt.Color( 255, 255, 255, 255 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "InputFileHeaderLabel"
 				"text": "Input File"
 				"horizontalAlignment": 0
-				"font": &Font1 new java.awt.Font( "Segoe UI", 1, 16 )
+				"font": new java.awt.Font( "Segoe UI", 1, 24 )
 				"background": new java.awt.Color( 255, 255, 255, 255 )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "RunButton"
 				"text": "Run!"
-				"font": new java.awt.Font( "Segoe UI", 3, 18 )
+				"font": new java.awt.Font( "Segoe UI", 3, 28 )
 				"horizontalTextPosition": 0
 				"background": &SwingColor0 new com.jformdesigner.model.SwingColor( "Button.background" )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "RunButtonActionPerformed", true ) )
@@ -48,30 +48,33 @@ new FormModel {
 				name: "OutputFileLabel"
 				"text": "Output File"
 				"horizontalAlignment": 0
-				"font": #Font1
+				"font": new java.awt.Font( "Segoe UI", 1, 24 )
 				"background": new java.awt.Color( 255, 255, 255, 255 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "RunButtonPromptLabel"
 				"text": "Click Run! to process your message."
 				"horizontalAlignment": 0
-				"font": #Font0
+				"font": new java.awt.Font( "Segoe UI", 3, 28 )
 				"background": new java.awt.Color( 255, 255, 255, 255 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "ProgramModeValueLabel"
 				"text": "<Program Mode>"
 				"horizontalAlignment": 0
+				"font": new java.awt.Font( "Segoe UI", 0, 24 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "InputFileValueLabel"
 				"text": "<Input File>"
 				"horizontalAlignment": 0
+				"font": new java.awt.Font( "Segoe UI", 0, 24 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "OutputFileValueLabel"
 				"text": "<Output File>"
 				"horizontalAlignment": 0
+				"font": new java.awt.Font( "Segoe UI", 0, 24 )
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
 				name: "MainMenuBar"
