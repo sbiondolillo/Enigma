@@ -98,6 +98,7 @@ public class MainMenu  {
 			MainMenu.setResizable(false);
 			MainMenu.setAlwaysOnTop(true);
 			MainMenu.setIconImage(new ImageIcon(getClass().getResource("/enigmaicon.png")).getImage());
+			MainMenu.setFont(new Font("Dialog", Font.PLAIN, 20));
 			MainMenu.addWindowListener(new WindowAdapter() {
 				@Override
 				public void windowClosing(WindowEvent e) {
@@ -117,16 +118,19 @@ public class MainMenu  {
 				{
 					FileMenu.setText("File");
 					FileMenu.setBackground(UIManager.getColor("Button.background"));
+					FileMenu.setFont(FileMenu.getFont().deriveFont(FileMenu.getFont().getSize() + 2f));
 
 					//---- FileMenuItemHelp ----
 					FileMenuItemHelp.setText("Help");
 					FileMenuItemHelp.setBackground(UIManager.getColor("Button.background"));
+					FileMenuItemHelp.setFont(FileMenuItemHelp.getFont().deriveFont(FileMenuItemHelp.getFont().getSize() + 2f));
 					FileMenuItemHelp.addActionListener(e -> FileMenuItemHelpActionPerformed(e));
 					FileMenu.add(FileMenuItemHelp);
 
 					//---- FileMenuItemAbout ----
 					FileMenuItemAbout.setText("About");
 					FileMenuItemAbout.setBackground(UIManager.getColor("Button.background"));
+					FileMenuItemAbout.setFont(FileMenuItemAbout.getFont().deriveFont(FileMenuItemAbout.getFont().getSize() + 2f));
 					FileMenuItemAbout.addActionListener(e -> FileMenuItemAboutActionPerformed(e));
 					FileMenu.add(FileMenuItemAbout);
 
@@ -134,6 +138,7 @@ public class MainMenu  {
 					FileMenuItemExit.setText("Exit");
 					FileMenuItemExit.setToolTipText("Exit the Enigma");
 					FileMenuItemExit.setBackground(UIManager.getColor("Button.background"));
+					FileMenuItemExit.setFont(FileMenuItemExit.getFont().deriveFont(FileMenuItemExit.getFont().getSize() + 2f));
 					FileMenuItemExit.addActionListener(e -> FileMenuItemExitActionPerformed(e));
 					FileMenu.add(FileMenuItemExit);
 				}
@@ -142,28 +147,33 @@ public class MainMenu  {
 				//======== SettingsMenu ========
 				{
 					SettingsMenu.setText("Settings");
+					SettingsMenu.setFont(SettingsMenu.getFont().deriveFont(SettingsMenu.getFont().getSize() + 2f));
 
 					//---- SettingsMenuItemProgramMode ----
 					SettingsMenuItemProgramMode.setText("Select Program Mode...");
 					SettingsMenuItemProgramMode.setBackground(UIManager.getColor("Button.background"));
+					SettingsMenuItemProgramMode.setFont(SettingsMenuItemProgramMode.getFont().deriveFont(SettingsMenuItemProgramMode.getFont().getSize() + 2f));
 					SettingsMenuItemProgramMode.addActionListener(e -> SettingsMenuItemProgramModeActionPerformed(e));
 					SettingsMenu.add(SettingsMenuItemProgramMode);
 
 					//---- SettingsMenuItemInputFile ----
 					SettingsMenuItemInputFile.setText("Select Input File...");
 					SettingsMenuItemInputFile.setBackground(UIManager.getColor("Button.background"));
+					SettingsMenuItemInputFile.setFont(SettingsMenuItemInputFile.getFont().deriveFont(SettingsMenuItemInputFile.getFont().getSize() + 2f));
 					SettingsMenuItemInputFile.addActionListener(e -> SettingsMenuItemInputFileActionPerformed(e));
 					SettingsMenu.add(SettingsMenuItemInputFile);
 
 					//---- SettingsMenuItemOutputFile ----
 					SettingsMenuItemOutputFile.setText("Select Output File...");
 					SettingsMenuItemOutputFile.setBackground(UIManager.getColor("Button.background"));
+					SettingsMenuItemOutputFile.setFont(SettingsMenuItemOutputFile.getFont().deriveFont(SettingsMenuItemOutputFile.getFont().getSize() + 2f));
 					SettingsMenuItemOutputFile.addActionListener(e -> SettingsMenuItemOutputFileActionPerformed(e));
 					SettingsMenu.add(SettingsMenuItemOutputFile);
 
 					//---- SettingsMenuItemValidChars ----
 					SettingsMenuItemValidChars.setText("Valid Characters...");
 					SettingsMenuItemValidChars.setBackground(UIManager.getColor("Button.background"));
+					SettingsMenuItemValidChars.setFont(SettingsMenuItemValidChars.getFont().deriveFont(SettingsMenuItemValidChars.getFont().getSize() + 2f));
 					SettingsMenuItemValidChars.addActionListener(e -> SettingsMenuItemValidCharsActionPerformed(e));
 					SettingsMenu.add(SettingsMenuItemValidChars);
 				}
