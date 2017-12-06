@@ -107,19 +107,21 @@ public class ScreenManager {
 		output.append("While some of the features of the German Enigma have been set aside, some of the main\n");
 		output.append("components have been replicated here. As such, there are three primary settings which\n");
 		output.append("need to be established in order for the machine to function as intended:\n\n");
-		output.append("1. You must decide to either encrypt or decrypt a given message. From the Settings menu,\n");
-		output.append("choose 'Select Program Mode...'\n");
+		output.append("1. You must decide to either encrypt or decrypt a given message. From the Main menu,\n");
+		output.append("click the 'Select...' button below 'Program Mode'\n");
 		output.append("2. You must specify where the message will originate. The program is configured to read\n");
-		output.append("messages from either .txt or .html files. From the Settings menu, choose 'Select Input File...'\n");
+		output.append("messages from either .txt or .html files. From the Main menu, click the 'Select...' button\n");
+		output.append("below 'Input File'\n");
 		output.append("3. You must specify where the final message will be displayed. You may choose to have the \n");
-		output.append("message written out to a .txt or .html file. From the Settings menu, choose 'Select Output File...'\n\n");
+		output.append("message written out to a .txt or .html file. From the Main menu, click the 'Select...' button\n");
+		output.append("below 'Output File'\n\n");
 		output.append("Once these settings have been configured, you may proceed to process your message and output\n");
 		output.append("your results. The program will read from your specified input source and write to your specified\n");
-		output.append("output source. Simply press 'Run!' on the Main menu to start this process.\n\n");
+		output.append("output source. Simply click the 'Run!' button on the Main menu to start this process.\n\n");
 		output.append("It is important to keep in mind that there are a limited set of characters which this program\n");
 		output.append("can encrypt or decrypt properly. The original, unencrypted message must only contain characters\n");
 		output.append("from this set in order to produce a proper output after encrypting and finally decrypting the\n");
-		output.append("original message. From the Settings menu, select 'Valid Characters...' to review this set.\n\n");
+		output.append("original message. From the Help menu, select 'Valid Characters...' to review this set.\n\n");
 		
 		logger.debug("getHelpText() completed successfully");
 		return output.toString();
