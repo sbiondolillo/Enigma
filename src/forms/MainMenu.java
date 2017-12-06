@@ -26,14 +26,12 @@ public class MainMenu  {
 	private JFrame MainMenu;
 	private JMenuBar MainMenuBar;
 	private JMenu FileMenu;
-	private JMenuItem FileMenuItemHelp;
-	private JMenuItem FileMenuItemAbout;
 	private JMenuItem FileMenuItemExit;
-	private JMenu SettingsMenu;
-	private JMenuItem SettingsMenuItemProgramMode;
-	private JMenuItem SettingsMenuItemInputFile;
-	private JMenuItem SettingsMenuItemOutputFile;
-	private JMenuItem SettingsMenuItemValidChars;
+	private JMenu HelpMenu;
+	private JMenuItem HelpMenuItemHelp;
+	private JMenuItem HelpMenuItemValidChars;
+	private JMenu AboutMenu;
+	private JMenuItem AboutMenuItemAbout;
 	private JLabel SettingsMenuPromptLabel;
 	private JLabel ProgramModeHeaderLabel;
 	private JLabel InputFileHeaderLabel;
@@ -43,6 +41,9 @@ public class MainMenu  {
 	private JLabel ProgramModeValueLabel;
 	private JLabel InputFileValueLabel;
 	private JLabel OutputFileValueLabel;
+	private JButton ProgramModeSelectButton;
+	private JButton InputFileSelectButton;
+	private JButton OutputFileSelectButton;
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 	private final static Logger logger = LogManager.getLogger(MainMenu.class.getName());
 
@@ -61,6 +62,20 @@ public class MainMenu  {
 		
 	}
 
+	private void FileMenuItemHelpActionPerformed(ActionEvent e) {
+		// TODO add your code here
+	}
+
+	
+
+	private void FileMenuItemAboutActionPerformed(ActionEvent e) {
+		// TODO add your code here
+	}
+
+	private void SettingsMenuItemValidCharsActionPerformed(ActionEvent e) {
+		// TODO add your code here
+	}
+	
 	/*
 	 * Set up all the parts of the MainMenu
 	 */
@@ -73,14 +88,12 @@ public class MainMenu  {
 		MainMenu = new JFrame();
 		MainMenuBar = new JMenuBar();
 		FileMenu = new JMenu();
-		FileMenuItemHelp = new JMenuItem();
-		FileMenuItemAbout = new JMenuItem();
 		FileMenuItemExit = new JMenuItem();
-		SettingsMenu = new JMenu();
-		SettingsMenuItemProgramMode = new JMenuItem();
-		SettingsMenuItemInputFile = new JMenuItem();
-		SettingsMenuItemOutputFile = new JMenuItem();
-		SettingsMenuItemValidChars = new JMenuItem();
+		HelpMenu = new JMenu();
+		HelpMenuItemHelp = new JMenuItem();
+		HelpMenuItemValidChars = new JMenuItem();
+		AboutMenu = new JMenu();
+		AboutMenuItemAbout = new JMenuItem();
 		SettingsMenuPromptLabel = new JLabel();
 		ProgramModeHeaderLabel = new JLabel();
 		InputFileHeaderLabel = new JLabel();
@@ -90,6 +103,9 @@ public class MainMenu  {
 		ProgramModeValueLabel = new JLabel();
 		InputFileValueLabel = new JLabel();
 		OutputFileValueLabel = new JLabel();
+		ProgramModeSelectButton = new JButton();
+		InputFileSelectButton = new JButton();
+		OutputFileSelectButton = new JButton();
 
 		//======== MainMenu ========
 		{
@@ -120,20 +136,6 @@ public class MainMenu  {
 					FileMenu.setBackground(UIManager.getColor("Button.background"));
 					FileMenu.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 
-					//---- FileMenuItemHelp ----
-					FileMenuItemHelp.setText("Help");
-					FileMenuItemHelp.setBackground(UIManager.getColor("Button.background"));
-					FileMenuItemHelp.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-					FileMenuItemHelp.addActionListener(e -> FileMenuItemHelpActionPerformed(e));
-					FileMenu.add(FileMenuItemHelp);
-
-					//---- FileMenuItemAbout ----
-					FileMenuItemAbout.setText("About");
-					FileMenuItemAbout.setBackground(UIManager.getColor("Button.background"));
-					FileMenuItemAbout.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-					FileMenuItemAbout.addActionListener(e -> FileMenuItemAboutActionPerformed(e));
-					FileMenu.add(FileMenuItemAbout);
-
 					//---- FileMenuItemExit ----
 					FileMenuItemExit.setText("Exit");
 					FileMenuItemExit.setToolTipText("Exit the Enigma");
@@ -144,45 +146,55 @@ public class MainMenu  {
 				}
 				MainMenuBar.add(FileMenu);
 
-				//======== SettingsMenu ========
+				//======== HelpMenu ========
 				{
-					SettingsMenu.setText("Settings");
-					SettingsMenu.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+					HelpMenu.setText("Help");
+					HelpMenu.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 
-					//---- SettingsMenuItemProgramMode ----
-					SettingsMenuItemProgramMode.setText("Select Program Mode...");
-					SettingsMenuItemProgramMode.setBackground(UIManager.getColor("Button.background"));
-					SettingsMenuItemProgramMode.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-					SettingsMenuItemProgramMode.addActionListener(e -> SettingsMenuItemProgramModeActionPerformed(e));
-					SettingsMenu.add(SettingsMenuItemProgramMode);
+					//---- HelpMenuItemHelp ----
+					HelpMenuItemHelp.setText("Help");
+					HelpMenuItemHelp.setBackground(UIManager.getColor("Button.background"));
+					HelpMenuItemHelp.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+					HelpMenuItemHelp.addActionListener(e -> {
+			FileMenuItemHelpActionPerformed(e);
+			FileMenuItemHelpActionPerformed(e);
+			HelpMenuItemHelpActionPerformed(e);
+		});
+					HelpMenu.add(HelpMenuItemHelp);
 
-					//---- SettingsMenuItemInputFile ----
-					SettingsMenuItemInputFile.setText("Select Input File...");
-					SettingsMenuItemInputFile.setBackground(UIManager.getColor("Button.background"));
-					SettingsMenuItemInputFile.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-					SettingsMenuItemInputFile.addActionListener(e -> SettingsMenuItemInputFileActionPerformed(e));
-					SettingsMenu.add(SettingsMenuItemInputFile);
-
-					//---- SettingsMenuItemOutputFile ----
-					SettingsMenuItemOutputFile.setText("Select Output File...");
-					SettingsMenuItemOutputFile.setBackground(UIManager.getColor("Button.background"));
-					SettingsMenuItemOutputFile.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-					SettingsMenuItemOutputFile.addActionListener(e -> SettingsMenuItemOutputFileActionPerformed(e));
-					SettingsMenu.add(SettingsMenuItemOutputFile);
-
-					//---- SettingsMenuItemValidChars ----
-					SettingsMenuItemValidChars.setText("Valid Characters...");
-					SettingsMenuItemValidChars.setBackground(UIManager.getColor("Button.background"));
-					SettingsMenuItemValidChars.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-					SettingsMenuItemValidChars.addActionListener(e -> SettingsMenuItemValidCharsActionPerformed(e));
-					SettingsMenu.add(SettingsMenuItemValidChars);
+					//---- HelpMenuItemValidChars ----
+					HelpMenuItemValidChars.setText("Valid Characters...");
+					HelpMenuItemValidChars.setBackground(UIManager.getColor("Button.background"));
+					HelpMenuItemValidChars.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+					HelpMenuItemValidChars.addActionListener(e -> {
+			SettingsMenuItemValidCharsActionPerformed(e);
+			HelpMenuItemValidCharsActionPerformed(e);
+		});
+					HelpMenu.add(HelpMenuItemValidChars);
 				}
-				MainMenuBar.add(SettingsMenu);
+				MainMenuBar.add(HelpMenu);
+
+				//======== AboutMenu ========
+				{
+					AboutMenu.setText("About");
+					AboutMenu.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+
+					//---- AboutMenuItemAbout ----
+					AboutMenuItemAbout.setText("About");
+					AboutMenuItemAbout.setBackground(UIManager.getColor("Button.background"));
+					AboutMenuItemAbout.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+					AboutMenuItemAbout.addActionListener(e -> {
+			FileMenuItemAboutActionPerformed(e);
+			AboutMenuItemAboutActionPerformed(e);
+		});
+					AboutMenu.add(AboutMenuItemAbout);
+				}
+				MainMenuBar.add(AboutMenu);
 			}
 			MainMenu.setJMenuBar(MainMenuBar);
 
 			//---- SettingsMenuPromptLabel ----
-			SettingsMenuPromptLabel.setText("Use the Settings menu above to change these settings...");
+			SettingsMenuPromptLabel.setText("Make your selections below...");
 			SettingsMenuPromptLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			SettingsMenuPromptLabel.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 28));
 			SettingsMenuPromptLabel.setBackground(Color.white);
@@ -233,26 +245,60 @@ public class MainMenu  {
 			OutputFileValueLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			OutputFileValueLabel.setFont(new Font("Segoe UI", Font.PLAIN, 24));
 
+			//---- ProgramModeSelectButton ----
+			ProgramModeSelectButton.setText("Select...");
+			ProgramModeSelectButton.setFont(new Font("Segoe UI", Font.ITALIC, 18));
+			ProgramModeSelectButton.setHorizontalTextPosition(SwingConstants.CENTER);
+			ProgramModeSelectButton.setToolTipText("Select whether to encrypt or decrypt");
+			ProgramModeSelectButton.addActionListener(e -> ProgramModeSelectButtonActionPerformed(e));
+
+			//---- InputFileSelectButton ----
+			InputFileSelectButton.setText("Select...");
+			InputFileSelectButton.setFont(new Font("Segoe UI", Font.ITALIC, 18));
+			InputFileSelectButton.setHorizontalTextPosition(SwingConstants.CENTER);
+			InputFileSelectButton.setToolTipText("Select which file should be read");
+			InputFileSelectButton.addActionListener(e -> InputFileSelectButtonActionPerformed(e));
+
+			//---- OutputFileSelectButton ----
+			OutputFileSelectButton.setText("Select...");
+			OutputFileSelectButton.setFont(new Font("Segoe UI", Font.ITALIC, 18));
+			OutputFileSelectButton.setHorizontalTextPosition(SwingConstants.CENTER);
+			OutputFileSelectButton.setToolTipText("Select where the output should be written");
+			OutputFileSelectButton.addActionListener(e -> OutputFileSelectButtonActionPerformed(e));
+
 			GroupLayout MainMenuContentPaneLayout = new GroupLayout(MainMenuContentPane);
 			MainMenuContentPane.setLayout(MainMenuContentPaneLayout);
 			MainMenuContentPaneLayout.setHorizontalGroup(
 				MainMenuContentPaneLayout.createParallelGroup()
 					.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
-						.addGap(353, 353, 353)
-						.addComponent(RunButton)
-						.addContainerGap(352, Short.MAX_VALUE))
-					.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
-						.addContainerGap()
 						.addGroup(MainMenuContentPaneLayout.createParallelGroup()
-							.addComponent(SettingsMenuPromptLabel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
-							.addComponent(ProgramModeHeaderLabel, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-							.addComponent(ProgramModeValueLabel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-							.addComponent(InputFileHeaderLabel, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-							.addComponent(InputFileValueLabel, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-							.addComponent(OutputFileLabel, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-							.addComponent(OutputFileValueLabel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-							.addComponent(RunButtonPromptLabel, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
+							.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
+								.addContainerGap()
+								.addGroup(MainMenuContentPaneLayout.createParallelGroup()
+									.addComponent(SettingsMenuPromptLabel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+									.addComponent(ProgramModeHeaderLabel, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+									.addComponent(InputFileHeaderLabel, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+									.addComponent(InputFileValueLabel, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+									.addComponent(OutputFileLabel, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+									.addComponent(OutputFileValueLabel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+									.addComponent(ProgramModeValueLabel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)))
+							.addComponent(RunButtonPromptLabel, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+							.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
+								.addGroup(MainMenuContentPaneLayout.createParallelGroup()
+									.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
+										.addGap(351, 351, 351)
+										.addComponent(RunButton))
+									.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
+										.addGap(352, 352, 352)
+										.addComponent(ProgramModeSelectButton)))
+								.addGap(0, 0, Short.MAX_VALUE)))
 						.addContainerGap())
+					.addGroup(GroupLayout.Alignment.TRAILING, MainMenuContentPaneLayout.createSequentialGroup()
+						.addContainerGap(355, Short.MAX_VALUE)
+						.addGroup(MainMenuContentPaneLayout.createParallelGroup()
+							.addComponent(InputFileSelectButton, GroupLayout.Alignment.TRAILING)
+							.addComponent(OutputFileSelectButton, GroupLayout.Alignment.TRAILING))
+						.addGap(352, 352, 352))
 			);
 			MainMenuContentPaneLayout.setVerticalGroup(
 				MainMenuContentPaneLayout.createParallelGroup()
@@ -261,21 +307,27 @@ public class MainMenu  {
 						.addComponent(SettingsMenuPromptLabel)
 						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 						.addComponent(ProgramModeHeaderLabel)
-						.addGap(18, 18, 18)
+						.addGap(1, 1, 1)
+						.addComponent(ProgramModeSelectButton)
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(ProgramModeValueLabel)
-						.addGap(18, 18, 18)
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(InputFileHeaderLabel)
-						.addGap(18, 18, 18)
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(InputFileSelectButton)
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(InputFileValueLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGap(18, 18, 18)
 						.addComponent(OutputFileLabel)
-						.addGap(18, 18, 18)
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(OutputFileSelectButton)
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 						.addComponent(OutputFileValueLabel)
-						.addGap(30, 30, 30)
+						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 						.addComponent(RunButtonPromptLabel)
-						.addGap(27, 27, 27)
+						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 						.addComponent(RunButton)
-						.addGap(39, 39, 39))
+						.addGap(26, 26, 26))
 			);
 			MainMenu.pack();
 			MainMenu.setLocationRelativeTo(MainMenu.getOwner());
@@ -296,20 +348,20 @@ public class MainMenu  {
 		logger.debug("Running MainMenuWindowOpened()");
 		
 		logger.debug("Calling initializeTextFields()");
-		initializeTextFields();
+		initializeLabels();
 		
 		logger.debug("initComponents() completed successfully");
 		
 	}
 	
 	/*
-	 * Set the text fields of the MainMenu to show current Config settings
+	 * Set the labels of the MainMenu to show current Config settings
 	 */
-	private void initializeTextFields() {
+	private void initializeLabels() {
 		
-		logger.debug("Running initializeTextFields()");
+		logger.debug("Running initializeLabels()");
 		
-		logger.debug("Setting text fields based on Config values");
+		logger.debug("Setting labels based on Config values");
 		
 		logger.debug("Calling determineProgramMode()");
 		String mode = determineProgramMode();
@@ -321,7 +373,7 @@ public class MainMenu  {
 		logger.debug("Calling getOutputFilePath()");
 		OutputFileValueLabel.setText(Config.getOutputFilePath());
 		
-		logger.debug("initializeTextFields() completed successfully");
+		logger.debug("initializeLabels() completed successfully");
 		
 	}
 	
@@ -383,36 +435,6 @@ public class MainMenu  {
 	 */
 	
 	/*
-	 * File -> Help
-	 */
-	private void FileMenuItemHelpActionPerformed(ActionEvent e) {
-		
-		logger.debug("User selected FileMenu>Help");
-		
-		logger.debug("Showing Help Dialog");
-		JOptionPane.showMessageDialog(MainMenu, ScreenManager.getHelpText(),
-										"Help", JOptionPane.PLAIN_MESSAGE);
-	
-		logger.debug("Returning to MainMenu");
-		
-	}
-	
-	/*
-	 * File -> About
-	 */
-	private void FileMenuItemAboutActionPerformed(ActionEvent e) {
-		
-		logger.debug("User selected FileMenu>About");
-		
-		logger.debug("Showing About Dialog");
-		JOptionPane.showMessageDialog(MainMenu, ScreenManager.getAboutText(),
-				"About", JOptionPane.PLAIN_MESSAGE);
-		
-		logger.debug("Returning to MainMenu");
-		
-	}
-	
-	/*
 	 * File -> Exit
 	 */
 	private void FileMenuItemExitActionPerformed(ActionEvent e) {
@@ -424,63 +446,27 @@ public class MainMenu  {
 		
 		logger.debug("Returning to MainMenu");
 	}
-	
+
 	/*
-	 * Settings -> Select Program Mode...
+	 * Help -> Help
 	 */
-	private void SettingsMenuItemProgramModeActionPerformed(ActionEvent e) {
+	private void HelpMenuItemHelpActionPerformed(ActionEvent e) {
+
+		logger.debug("User selected HelpMenu>Help");
 		
-		logger.debug("User selected SettingsMenu>Select Program Mode...");
-		
-		logger.debug("Calling showProgramSelectForm()");
-		ScreenManager.showProgramModeSelectForm(MainMenu);
-		
-		logger.debug("Setting text field to user supplied value");
-		ProgramModeValueLabel.setText(determineProgramMode());
-		
+		logger.debug("Showing Help Dialog");
+		JOptionPane.showMessageDialog(MainMenu, ScreenManager.getHelpText(),
+										"Help", JOptionPane.PLAIN_MESSAGE);
+	
 		logger.debug("Returning to MainMenu");
 		
 	}
 	
 	/*
-	 * Settings -> Select Input File...
+	 * Help -> Valid Characters...
 	 */
-	private void SettingsMenuItemInputFileActionPerformed(ActionEvent e) {
-		
-		logger.debug("User selected SettingsMenu>Select Input File...");
-		
-		logger.debug("Calling selectInputFile()");
-		ScreenManager.selectInputFile(MainMenu);
-		
-		logger.debug("Setting text field to user supplied value");
-		InputFileValueLabel.setText(Config.getInputFilePath());
-		
-		logger.debug("Returning to MainMenu");
-		
-	}
-	
-	/*
-	 * Settings -> Select Output File...
-	 */
-	private void SettingsMenuItemOutputFileActionPerformed(ActionEvent e) {
-		
-		logger.debug("User selected SettingsMenu>Select Output File...");
-		
-		logger.debug("Calling selectOutputFile()");
-		ScreenManager.selectOutputFile(MainMenu);
-		
-		logger.debug("Setting text field to user supplied value");
-		OutputFileValueLabel.setText(Config.getOutputFilePath());
-		
-		logger.debug("Returning to MainMenu");
-		
-	}
-	
-	/*
-	 * Settings -> Valid Characters...
-	 */
-	private void SettingsMenuItemValidCharsActionPerformed(ActionEvent e) {
-		
+	private void HelpMenuItemValidCharsActionPerformed(ActionEvent e) {
+
 		logger.debug("User selected SettingsMenu>Valid Characters...");
 		
 		logger.debug("Showing Valid Characters dialog");
@@ -490,6 +476,64 @@ public class MainMenu  {
 		logger.debug("Returning to MainMenu");
 		
 	}
+	
+	/*
+	 * About -> About
+	 */
+	private void AboutMenuItemAboutActionPerformed(ActionEvent e) {
+		
+		logger.debug("User selected AboutMenu>About");
+		
+		logger.debug("Showing About Dialog");
+		JOptionPane.showMessageDialog(MainMenu, ScreenManager.getAboutText(),
+				"About", JOptionPane.PLAIN_MESSAGE);
+		
+		logger.debug("Returning to MainMenu");
+		
+	}	
+	
+	private void ProgramModeSelectButtonActionPerformed(ActionEvent e) {
+
+		logger.debug("User clicked Select Program Mode...");
+		
+		logger.debug("Calling showProgramSelectForm()");
+		ScreenManager.showProgramModeSelectForm(MainMenu);
+		
+		logger.debug("Setting label to user supplied value");
+		ProgramModeValueLabel.setText(determineProgramMode());
+		
+		logger.debug("Returning to MainMenu");
+		
+	}
+
+	private void InputFileSelectButtonActionPerformed(ActionEvent e) {
+
+		logger.debug("User clicked Select Input File...");
+		
+		logger.debug("Calling selectInputFile()");
+		ScreenManager.selectInputFile(MainMenu);
+		
+		logger.debug("Setting label to user supplied value");
+		InputFileValueLabel.setText(Config.getInputFilePath());
+		
+		logger.debug("Returning to MainMenu");
+		
+	}
+
+	private void OutputFileSelectButtonActionPerformed(ActionEvent e) {
+		
+		logger.debug("User clicked Select Output File...");
+		
+		logger.debug("Calling selectOutputFile()");
+		ScreenManager.selectOutputFile(MainMenu);
+		
+		logger.debug("Setting label to user supplied value");
+		OutputFileValueLabel.setText(Config.getOutputFilePath());
+		
+		logger.debug("Returning to MainMenu");
+		
+	}
+
 	
 	/*
 	 * Run! Button
