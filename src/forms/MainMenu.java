@@ -118,19 +118,19 @@ public class MainMenu  {
 				{
 					FileMenu.setText("File");
 					FileMenu.setBackground(UIManager.getColor("Button.background"));
-					FileMenu.setFont(FileMenu.getFont().deriveFont(FileMenu.getFont().getSize() + 2f));
+					FileMenu.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 
 					//---- FileMenuItemHelp ----
 					FileMenuItemHelp.setText("Help");
 					FileMenuItemHelp.setBackground(UIManager.getColor("Button.background"));
-					FileMenuItemHelp.setFont(FileMenuItemHelp.getFont().deriveFont(FileMenuItemHelp.getFont().getSize() + 2f));
+					FileMenuItemHelp.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 					FileMenuItemHelp.addActionListener(e -> FileMenuItemHelpActionPerformed(e));
 					FileMenu.add(FileMenuItemHelp);
 
 					//---- FileMenuItemAbout ----
 					FileMenuItemAbout.setText("About");
 					FileMenuItemAbout.setBackground(UIManager.getColor("Button.background"));
-					FileMenuItemAbout.setFont(FileMenuItemAbout.getFont().deriveFont(FileMenuItemAbout.getFont().getSize() + 2f));
+					FileMenuItemAbout.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 					FileMenuItemAbout.addActionListener(e -> FileMenuItemAboutActionPerformed(e));
 					FileMenu.add(FileMenuItemAbout);
 
@@ -138,7 +138,7 @@ public class MainMenu  {
 					FileMenuItemExit.setText("Exit");
 					FileMenuItemExit.setToolTipText("Exit the Enigma");
 					FileMenuItemExit.setBackground(UIManager.getColor("Button.background"));
-					FileMenuItemExit.setFont(FileMenuItemExit.getFont().deriveFont(FileMenuItemExit.getFont().getSize() + 2f));
+					FileMenuItemExit.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 					FileMenuItemExit.addActionListener(e -> FileMenuItemExitActionPerformed(e));
 					FileMenu.add(FileMenuItemExit);
 				}
@@ -147,33 +147,33 @@ public class MainMenu  {
 				//======== SettingsMenu ========
 				{
 					SettingsMenu.setText("Settings");
-					SettingsMenu.setFont(SettingsMenu.getFont().deriveFont(SettingsMenu.getFont().getSize() + 2f));
+					SettingsMenu.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 
 					//---- SettingsMenuItemProgramMode ----
 					SettingsMenuItemProgramMode.setText("Select Program Mode...");
 					SettingsMenuItemProgramMode.setBackground(UIManager.getColor("Button.background"));
-					SettingsMenuItemProgramMode.setFont(SettingsMenuItemProgramMode.getFont().deriveFont(SettingsMenuItemProgramMode.getFont().getSize() + 2f));
+					SettingsMenuItemProgramMode.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 					SettingsMenuItemProgramMode.addActionListener(e -> SettingsMenuItemProgramModeActionPerformed(e));
 					SettingsMenu.add(SettingsMenuItemProgramMode);
 
 					//---- SettingsMenuItemInputFile ----
 					SettingsMenuItemInputFile.setText("Select Input File...");
 					SettingsMenuItemInputFile.setBackground(UIManager.getColor("Button.background"));
-					SettingsMenuItemInputFile.setFont(SettingsMenuItemInputFile.getFont().deriveFont(SettingsMenuItemInputFile.getFont().getSize() + 2f));
+					SettingsMenuItemInputFile.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 					SettingsMenuItemInputFile.addActionListener(e -> SettingsMenuItemInputFileActionPerformed(e));
 					SettingsMenu.add(SettingsMenuItemInputFile);
 
 					//---- SettingsMenuItemOutputFile ----
 					SettingsMenuItemOutputFile.setText("Select Output File...");
 					SettingsMenuItemOutputFile.setBackground(UIManager.getColor("Button.background"));
-					SettingsMenuItemOutputFile.setFont(SettingsMenuItemOutputFile.getFont().deriveFont(SettingsMenuItemOutputFile.getFont().getSize() + 2f));
+					SettingsMenuItemOutputFile.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 					SettingsMenuItemOutputFile.addActionListener(e -> SettingsMenuItemOutputFileActionPerformed(e));
 					SettingsMenu.add(SettingsMenuItemOutputFile);
 
 					//---- SettingsMenuItemValidChars ----
 					SettingsMenuItemValidChars.setText("Valid Characters...");
 					SettingsMenuItemValidChars.setBackground(UIManager.getColor("Button.background"));
-					SettingsMenuItemValidChars.setFont(SettingsMenuItemValidChars.getFont().deriveFont(SettingsMenuItemValidChars.getFont().getSize() + 2f));
+					SettingsMenuItemValidChars.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 					SettingsMenuItemValidChars.addActionListener(e -> SettingsMenuItemValidCharsActionPerformed(e));
 					SettingsMenu.add(SettingsMenuItemValidChars);
 				}
@@ -258,7 +258,7 @@ public class MainMenu  {
 				MainMenuContentPaneLayout.createParallelGroup()
 					.addGroup(MainMenuContentPaneLayout.createSequentialGroup()
 						.addContainerGap()
-						.addComponent(SettingsMenuPromptLabel, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+						.addComponent(SettingsMenuPromptLabel)
 						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 						.addComponent(ProgramModeHeaderLabel)
 						.addGap(18, 18, 18)
@@ -271,9 +271,9 @@ public class MainMenu  {
 						.addComponent(OutputFileLabel)
 						.addGap(18, 18, 18)
 						.addComponent(OutputFileValueLabel)
-						.addGap(39, 39, 39)
+						.addGap(30, 30, 30)
 						.addComponent(RunButtonPromptLabel)
-						.addGap(18, 18, 18)
+						.addGap(27, 27, 27)
 						.addComponent(RunButton)
 						.addGap(39, 39, 39))
 			);

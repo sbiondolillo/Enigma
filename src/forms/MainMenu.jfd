@@ -5,7 +5,7 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 			"$horizontalGroup": "par l {seq l {space :p:353:p, comp RunButton:::p::p, space ::352:x}, seq {space :::p, par l {comp SettingsMenuPromptLabel::t::770:x, comp ProgramModeHeaderLabel::l::0:x, comp ProgramModeValueLabel::t::0:x, comp InputFileHeaderLabel::l::0:x, comp InputFileValueLabel::l::0:x, comp OutputFileLabel::l::0:x, comp OutputFileValueLabel::t::0:x, comp RunButtonPromptLabel::l::0:x}, space :::p}}"
-			"$verticalGroup": "par l {seq l {space :::p, comp SettingsMenuPromptLabel:::p:27:p, space u:::p, comp ProgramModeHeaderLabel:::p::p, space s:::p, comp ProgramModeValueLabel:::p::p, space s:::p, comp InputFileHeaderLabel:::p::p, space s:::p, comp InputFileValueLabel:::::x, space s:::p, comp OutputFileLabel:::p::p, space s:::p, comp OutputFileValueLabel:::p::p, space :p:39:p, comp RunButtonPromptLabel:::p::p, space s:::p, comp RunButton:::p::p, space :p:39:p}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp SettingsMenuPromptLabel:::p::p, space u:::p, comp ProgramModeHeaderLabel:::p::p, space s:::p, comp ProgramModeValueLabel:::p::p, space s:::p, comp InputFileHeaderLabel:::p::p, space s:::p, comp InputFileValueLabel:::::x, space s:::p, comp OutputFileLabel:::p::p, space s:::p, comp OutputFileValueLabel:::p::p, space :p:30:p, comp RunButtonPromptLabel:::p::p, space :p:27:p, comp RunButton:::p::p, space :p:39:p}}"
 		} ) {
 			name: "MainMenu"
 			"title": "Welcome to the Enigma!"
@@ -83,19 +83,19 @@ new FormModel {
 					name: "FileMenu"
 					"text": "File"
 					"background": #SwingColor0
-					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+					"font": new java.awt.Font( "Segoe UI", 0, 20 )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "FileMenuItemHelp"
 						"text": "Help"
 						"background": #SwingColor0
-						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+						"font": new java.awt.Font( "Segoe UI", 0, 20 )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "FileMenuItemHelpActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "FileMenuItemAbout"
 						"text": "About"
 						"background": #SwingColor0
-						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+						"font": new java.awt.Font( "Segoe UI", 0, 20 )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "FileMenuItemAboutActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
@@ -103,40 +103,40 @@ new FormModel {
 						"text": "Exit"
 						"toolTipText": "Exit the Enigma"
 						"background": #SwingColor0
-						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+						"font": new java.awt.Font( "Segoe UI", 0, 20 )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "FileMenuItemExitActionPerformed", true ) )
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
 					name: "SettingsMenu"
 					"text": "Settings"
-					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+					"font": new java.awt.Font( "Segoe UI", 0, 20 )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "SettingsMenuItemProgramMode"
 						"text": "Select Program Mode..."
 						"background": #SwingColor0
-						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+						"font": new java.awt.Font( "Segoe UI", 0, 20 )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemProgramModeActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "SettingsMenuItemInputFile"
 						"text": "Select Input File..."
 						"background": #SwingColor0
-						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+						"font": new java.awt.Font( "Segoe UI", 0, 20 )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemInputFileActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "SettingsMenuItemOutputFile"
 						"text": "Select Output File..."
 						"background": #SwingColor0
-						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+						"font": new java.awt.Font( "Segoe UI", 0, 20 )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemOutputFileActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
 						name: "SettingsMenuItemValidChars"
 						"text": "Valid Characters..."
 						"background": #SwingColor0
-						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+						"font": new java.awt.Font( "Segoe UI", 0, 20 )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemValidCharsActionPerformed", true ) )
 					} )
 				} )
