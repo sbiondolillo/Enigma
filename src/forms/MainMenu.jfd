@@ -1,10 +1,10 @@
-JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_144" encoding: "UTF-8"
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_151" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {par l {seq {space :::p, par l {comp ProgramModeHeaderLabel::l::0:x, comp InputFileHeaderLabel::l::0:x, comp InputFileValueLabel::l::0:x, comp OutputFileLabel::l::0:x, comp OutputFileValueLabel::t::0:x, comp ProgramModeValueLabel::t::0:x}}, comp RunButtonPromptLabel::t::0:x, seq {par l {seq l {space :p:351:p, comp RunButton:::p::p}, seq l {space :p:352:p, comp ProgramModeSelectButton:::p::p}}, space :0:0:x}}, space :::p}, seq t {space ::355:x, par l {comp InputFileSelectButton::t:p::p, comp OutputFileSelectButton::t:p::p}, space :352:352:p}, seq t {space :::p, comp SettingsMenuPromptLabel::::0:x, space :::p}}"
+			"$horizontalGroup": "par l {seq {par l {seq {space :::p, par l {comp ProgramModeHeaderLabel::l::0:x, comp InputFileHeaderLabel::l::0:x, comp InputFileValueLabel::l::0:x, comp OutputFileLabel::l::0:x, comp OutputFileValueLabel::t::0:x, comp ProgramModeValueLabel::t::0:x}}, comp RunButtonPromptLabel::t::0:x, seq {par l {seq l {space :p:351:p, comp RunButton:::p::p}, seq l {space :p:352:p, comp ProgramModeSelectButton:::p::p}}, space :0:0:x}}, space :::p}, seq t {space ::755:x, par l {comp InputFileSelectButton::t:p::p, comp OutputFileSelectButton::t:p::p}, space :352:352:p}, seq t {space :::p, comp SettingsMenuPromptLabel::::0:x, space :::p}}"
 			"$verticalGroup": "par l {seq l {space :p:4:p, comp SettingsMenuPromptLabel:::::x, space u:::p, comp ProgramModeHeaderLabel:::p::p, space u:::p, comp ProgramModeSelectButton:::p::p, space u:::p, comp ProgramModeValueLabel:::p::p, space u:::p, comp InputFileHeaderLabel:::p::p, space u:::p, comp InputFileSelectButton:::p::p, space u:::p, comp InputFileValueLabel:::::x, space u:::p, comp OutputFileLabel:::p::p, space u:::p, comp OutputFileSelectButton:::p::p, space u:::p, comp OutputFileValueLabel:::p::p, space u:::p, comp RunButtonPromptLabel:::p::p, space :::p, comp RunButton:::p::p, space :p:26:p}}"
 		} ) {
 			name: "MainMenu"
@@ -126,8 +126,6 @@ new FormModel {
 						"text": "Help"
 						"background": #SwingColor0
 						"font": new java.awt.Font( "Segoe UI", 0, 20 )
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "FileMenuItemHelpActionPerformed", true ) )
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "FileMenuItemHelpActionPerformed", true ) )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "HelpMenuItemHelpActionPerformed", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JMenuItem" ) {
@@ -135,7 +133,6 @@ new FormModel {
 						"text": "Valid Characters..."
 						"background": #SwingColor0
 						"font": new java.awt.Font( "Segoe UI", 0, 20 )
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "SettingsMenuItemValidCharsActionPerformed", true ) )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "HelpMenuItemValidCharsActionPerformed", true ) )
 					} )
 				} )
@@ -148,7 +145,6 @@ new FormModel {
 						"text": "About"
 						"background": #SwingColor0
 						"font": new java.awt.Font( "Segoe UI", 0, 20 )
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "FileMenuItemAboutActionPerformed", true ) )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "AboutMenuItemAboutActionPerformed", true ) )
 					} )
 				} )
