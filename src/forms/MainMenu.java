@@ -61,20 +61,6 @@ public class MainMenu  {
 		logger.debug("show() completed successfully");
 		
 	}
-
-	private void FileMenuItemHelpActionPerformed(ActionEvent e) {
-		// TODO add your code here
-	}
-
-	
-
-	private void FileMenuItemAboutActionPerformed(ActionEvent e) {
-		// TODO add your code here
-	}
-
-	private void SettingsMenuItemValidCharsActionPerformed(ActionEvent e) {
-		// TODO add your code here
-	}
 	
 	/*
 	 * Set up all the parts of the MainMenu
@@ -155,21 +141,14 @@ public class MainMenu  {
 					HelpMenuItemHelp.setText("Help");
 					HelpMenuItemHelp.setBackground(UIManager.getColor("Button.background"));
 					HelpMenuItemHelp.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-					HelpMenuItemHelp.addActionListener(e -> {
-			FileMenuItemHelpActionPerformed(e);
-			FileMenuItemHelpActionPerformed(e);
-			HelpMenuItemHelpActionPerformed(e);
-		});
+					HelpMenuItemHelp.addActionListener(e -> HelpMenuItemHelpActionPerformed(e));
 					HelpMenu.add(HelpMenuItemHelp);
 
 					//---- HelpMenuItemValidChars ----
 					HelpMenuItemValidChars.setText("Valid Characters...");
 					HelpMenuItemValidChars.setBackground(UIManager.getColor("Button.background"));
 					HelpMenuItemValidChars.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-					HelpMenuItemValidChars.addActionListener(e -> {
-			SettingsMenuItemValidCharsActionPerformed(e);
-			HelpMenuItemValidCharsActionPerformed(e);
-		});
+					HelpMenuItemValidChars.addActionListener(e -> HelpMenuItemValidCharsActionPerformed(e));
 					HelpMenu.add(HelpMenuItemValidChars);
 				}
 				MainMenuBar.add(HelpMenu);
@@ -183,10 +162,7 @@ public class MainMenu  {
 					AboutMenuItemAbout.setText("About");
 					AboutMenuItemAbout.setBackground(UIManager.getColor("Button.background"));
 					AboutMenuItemAbout.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-					AboutMenuItemAbout.addActionListener(e -> {
-			FileMenuItemAboutActionPerformed(e);
-			AboutMenuItemAboutActionPerformed(e);
-		});
+					AboutMenuItemAbout.addActionListener(e -> AboutMenuItemAboutActionPerformed(e));
 					AboutMenu.add(AboutMenuItemAbout);
 				}
 				MainMenuBar.add(AboutMenu);
@@ -293,7 +269,7 @@ public class MainMenu  {
 								.addGap(0, 0, Short.MAX_VALUE)))
 						.addContainerGap())
 					.addGroup(GroupLayout.Alignment.TRAILING, MainMenuContentPaneLayout.createSequentialGroup()
-						.addContainerGap(355, Short.MAX_VALUE)
+						.addContainerGap(755, Short.MAX_VALUE)
 						.addGroup(MainMenuContentPaneLayout.createParallelGroup()
 							.addComponent(InputFileSelectButton, GroupLayout.Alignment.TRAILING)
 							.addComponent(OutputFileSelectButton, GroupLayout.Alignment.TRAILING))
