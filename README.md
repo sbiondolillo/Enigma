@@ -27,4 +27,4 @@ Please see the Release Notes for a given release for instructions on how to down
 
 ## License
 
-This project is licensed under the terms of the MIT license. Please see license.txt for details.
+This project is licensed under the terms of the MIT license. Please see LICENSE.md for details.
