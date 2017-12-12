@@ -1,23 +1,3 @@
-/*
- * Utilities Class
- * Samuel Biondolillo
- * CIS220M:HY1 Object Oriented Programming
- * Goal: To create a public class for managing access to sensitive program utilities
- * Version  0.0.1   9/29/17
- * 			0.0.2	10/2/17		fill in load() method, add handleError() method
- *          0.0.2   10/24/17    adjusted load() method to prioritize most used methods
- *          0.0.3   10/25/17    Add log4j2 Logger into class
- *                              Add debugging statements for Logger
- *          0.0.4   10/26/17    Converted handleError() to static
- *          0.0.5   11/5/17     Add method for formatting file paths to .html
- *          0.0.6   11/6/17     Add method to initialize Config with default files
- *                              Add default constructor which calls the new Config initializer
- *                              Add method to create files in the file system
- *          0.0.7   11/9/17     Add method for extracting file extensions
- *          0.0.8   11/10/17    Convert formatHTMLFilePath into more generic foramtFilePath for more utility
- *          0.0.9   11/22/17    Remove unused load() method and Screens instance variable
- */
-
 package utilities;
 
 import java.io.File;

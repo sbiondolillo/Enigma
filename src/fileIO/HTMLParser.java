@@ -1,11 +1,3 @@
-/*
- * HTMLParser Class
- * Samuel Biondolillo
- * CIS220M:HY1 Object Oriented Programming
- * Goal: To create a class for converting html text into plain text suitable for encrypting
- * Version  0.0.1   11/9/17     
- */
-
 package fileIO;
 
 import java.io.File;

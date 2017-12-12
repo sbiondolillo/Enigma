@@ -1,23 +1,3 @@
-/*
- * InputProcessor Class
- * Samuel Biondolillo
- * CIS220M:HY1 Object Oriented Programming
- * Goal: To handle the input and output routines for an Enigma emulator
- * Version 0.0.1 - 9/18/17
- *         0.0.2 - 9/22/17 - Renamed to InputProcessor, segregating input/output responsibilities
- *                           refactored code to reflect new responsibilities
- *         0.0.3 - 10/20/17 - Refactored from InputProcessor into 2 classes: FileInputProcessor, KeyboardInputProcessor
- *                            renamed & refactored file input method
- *         0.0.4 - 10/24/17 - Incorporated Utilities class error handling
- *         0.0.5 - 10/26/17 - Add log4j2 Logger into class
- *                            Add debugging statements for Logger
- *                            Removed Utilities instance variable
- *         0.0.6 - 11/1/17    update readFileIn() to preserve input formatting
- *         0.0.7 - 11/9/17    Refactor class to use BufferedReaders instead of Scanners
- *         0.0.8 - 11/10/17   Abstract html/txt reading methods out of readFileIn()
- *         0.1.0 - 11/24/17   Renamed to InputProcessor
- */
-
 package fileIO;
 
 import java.io.*;
@@ -116,7 +96,7 @@ public class InputProcessor implements FileInput {
 	}
 	
 	/*
-	 * Read text in from an HTML file and store it off in messageIn
+	 * Read from an HTML file into messageIn
 	 */
 	private void readHTMLFile() {
 		
@@ -133,7 +113,7 @@ public class InputProcessor implements FileInput {
 	}
 	
 	/*
-	 * Read text in from an HTML file and store it off in messageIn
+	 * Read from a TXT file into messageIn
 	 */
 	private void readTextFile() throws IOException {
 		

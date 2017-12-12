@@ -1,19 +1,11 @@
-/*
- * CharacterSet Interface
- * Samuel Biondolillo
- * CIS220M:HY1 Object Oriented Programming
- * Goal: Create a base interface for defining valid characters in the Enigma program
- * Version 0.0.1 - 9/22/17
- */
-
 package interfaces;
 
 public interface CharacterSet {
 	
-	/** @returns the CharacterSet built in the constructor */
+	/** @return the CharacterSet built in the constructor */
 	Character[] getDictionary();
 	
-	/** @returns the number of characters in the CharacterSet */
+	/** @return the number of characters in the CharacterSet */
 	int getLength();
 	
 	/**
