@@ -1,34 +1,3 @@
-/*
- * ScreenManager Class
- * Samuel Biondolillo
- * CIS220M:HY1 Object Oriented Programming
- * Goal: To create a package-private class for managing the user interface screens/prompt/menus
- * Version  0.0.1   9/29/17
- * 			0.0.2	10/2/17		Add nested Errors class and displayErrorScreen() method
- *          0.0.3   10/24/17    Moved most of the functionality from Enigma class to this class
- *                              Built out most methods, built stubs for the incomplete methods
- *          0.0.4   10/25/17    Add log4j2 Logger into class
- *                              Add debugging statements for Logger
- *          0.0.5   10/26/17    Converted Errors class to static
- *          0.0.6   10/31/17    Add methods for setting and processing Output
- *          0.0.7   11/1/17     Split encryption/decryption output into separate processes
- *          0.0.8   11/2/17     Adjust input/output file path setting to properly utilize default paths
- *          0.0.9   11/5/17     Modify input file selection to use GUI FileSelector
- *                              Modify output file selection to use GUI FileSelector
- *          0.0.10  11/6/17     Added default constructor with logging
- *          0.0.11  11/10/17    Adjust setOutFilePath() to turn any non-html file into a .txt file
- *          0.0.12  11/14/17    Built out displayConfigScreen()
- *                              Revise formatting on various screens and adjust 
- *                              to utilize Outro methods which call exitToMainMenu() 
- *          0.0.13  11/15/17    Move methods to read in input to displayResultsScreen()
- *                              Build displayAboutScreen() and set it to run at the start of the program
- *                              Modify text formatting for more pleasing user experience
- *                              Update documentation
- *          0.0.14  11/20/17    Refine Input/File error handling
- *          0.1.0   11/22/17    Renamed Screens to ScreenManager to reflect new responsibility to act as 
- *                              a go-between for program GUI and back-end functionality
- */
-
 package main;
 
 import java.awt.Component;
