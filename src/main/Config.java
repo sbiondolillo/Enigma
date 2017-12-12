@@ -1,19 +1,3 @@
-/*
- * Config Class
- * Samuel Biondolillo
- * CIS220M:HY1 Object Oriented Programming
- * Goal: To create a package-private class for storing configuration data and methods
- * Version  0.0.1   9/29/17
- *          0.0.2   10/24/17  Added most of the instance variables from Enigma class
- *                            Added getters and setter for new instance variables
- *          0.0.3   10/26/17  Add log4j2 Logger into class
- *                            Add debugging statements for Logger
- *          0.0.4   10/31/17  Add default file paths for input/output
- *                            Add instance variable for OutputProcessor and outputMode
- *          0.0.5   11/2/17   Add default path constants for input/output files
- *          0.0.6   11/6/17   Remove unused availableRotors[] field     
- */
-
 package main;
 
 import org.apache.logging.log4j.LogManager;
