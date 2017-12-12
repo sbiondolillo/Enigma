@@ -469,6 +469,9 @@ public class MainMenu  {
 		
 	}	
 	
+	/*
+	 * MainMenu -> Program Mode -> Select
+	 */
 	private void ProgramModeSelectButtonActionPerformed(ActionEvent e) {
 
 		logger.debug("User clicked Select Program Mode...");
@@ -483,6 +486,9 @@ public class MainMenu  {
 		
 	}
 
+	/*
+	 * MainMenu -> Input File -> Select
+	 */
 	private void InputFileSelectButtonActionPerformed(ActionEvent e) {
 
 		logger.debug("User clicked Select Input File...");
@@ -497,6 +503,9 @@ public class MainMenu  {
 		
 	}
 
+	/*
+	 * MainMenu -> Output File -> Select
+	 */
 	private void OutputFileSelectButtonActionPerformed(ActionEvent e) {
 		
 		logger.debug("User clicked Select Output File...");
@@ -513,7 +522,7 @@ public class MainMenu  {
 
 	
 	/*
-	 * Run! Button
+	 * Main Menu -> Run!
 	 */
 	private void RunButtonActionPerformed(ActionEvent e) {
 		
