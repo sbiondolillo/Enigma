@@ -1,19 +1,3 @@
-/*
- * OutputProcessor Class
- * Samuel Biondolillo
- * CIS220M:HY1 Object Oriented Programming
- * Goal: To provide an object to handle the output of our encoded messages in the Enigma
- * Version 	0.0.1 - 10/31/17
- *          0.0.2 - 11/1/17     Split Encryption/Decryption output processing into separate methods
- *          0.0.3 - 11/2/17     Fix formatting in displayDecryptedMessageOutToConsole()
- *          0.0.4 - 11/3/17     Minor fix to buildDecryptedHTMLFile(), should not have any '^' chars to strip
- *          0.0.5 - 11/9/17     Remove unnecessary newline characters from encrypted html file
- *                              to allow for proper parsing when encrypted html files are used as input
- *          0.0.6 - 11/10/17    Create methods for writing to .txt files
- *          0.0.7 - 11/23/17    Add flush() and close() buffer after writing to file
- *                              Remove console writing methods
- */
-
 package fileIO;
 
 import java.io.BufferedWriter;
@@ -105,7 +89,7 @@ public class OutputProcessor implements FileOutput {
 	}
 	
 	/*
-	 * Creates an HTML file with the encrypted message and writes it to file
+	 * Write the encrypted message to HTML/TXT file based on user-provided file path
 	 */
 	private void writeEncryptedMessageOutToFile() throws IOException {
 
@@ -137,7 +121,7 @@ public class OutputProcessor implements FileOutput {
 	}
 	
 	/*
-	 * Creates an HTML file with the decrypted message and writes it to file
+	 * Write the decrypted message to HTML/TXT file based on user-provided file path
 	 */
 	private void writeDecryptedMessageOutToFile() throws IOException {
 
