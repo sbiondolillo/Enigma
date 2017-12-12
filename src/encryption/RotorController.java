@@ -1,22 +1,3 @@
-/*
- * RotorController Class
- * Samuel Biondolillo
- * CIS220M:HY1 Object Oriented Programming
- * Goal: Create an object which manages multiple-rotor encoding/decoding in the Enigma program
- * Version	0.0.1	10/4/17
- *          0.0.2   10/24/17 Add getActiveRotors() method
- *          0.0.3   10/27/17 Add log4j2 Logger into class
- *                           Add debugging statements for Logger
- *                           Refactor initialization
- *          0.0.4   11/3/17  Add startingRotorIndexes instance variable and associated methods
- *                           Add logic to reset() method
- *                           Add rotateRotors() method
- *                           Adjust encode() to utilize rotateRotors()
- *                           Break out setDecoderIndex() from buildDecoder() and modify decode() accordingly
- *                           Modify decode() to strip newline chars from encrypted message
- *          0.0.5   11/15/17 Remove "Encoding..." and "Decoding..." prompts for style reasons
- */
-
 package encryption;
 
 import org.apache.logging.log4j.LogManager;
