@@ -1,23 +1,3 @@
-/*
- * Rotor Class
- * Samuel Biondolillo
- * CIS220M:HY1 Object Oriented Programming
- * Goal: To provide encryption functionality by emulation of a physical Enigma rotor
- * Version 0.0.1	9/11/17
- *         0.0.2	9/18/17		Added automatic rotation to the encode() method
- *         0.0.3	9/22/17		Set up as implementation of EnryptionWheel
- *         0.0.4	9/24/17		Added a variable to store the notch position for use in multi-rotor setups
- *         					 	Added a constructor which sets the notch position
- *         0.0.5	10/4/17		Removed rotate() from encode() method logic
- *         0.0.6    10/26/17    Adjusted encode() to cache dictionary length and plaintext index
- *                              Add log4j2 Logger into class
- *                              Add debugging statements for Logger
- *         0.0.7    11/1/17     Add functionality to encode() to handle CRLF characters
- *         0.0.8    11/2/17     Add functionality to encode() to handle space ' ' characters
- *         0.0.9    11/3/17     Make rotate() available to RotorController
- *                              Add dictionaryLength instance variable and related functionality
- */
-
 package encryption;
 
 import org.apache.logging.log4j.LogManager;
