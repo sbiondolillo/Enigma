@@ -1,20 +1,3 @@
-/*
- * Dictionary Class
- * Samuel Biondolillo
- * CIS220M:HY1 Object Oriented Programming
- * Goal: To provide a standard set of characters for all of the constituent parts of our Enigma machine
- * Version 	0.0.1 - 9/11/17
- * 		   	0.0.2 - 9/18/17 - Added the space character to the default punctuation set
- * 		   	0.0.3 - 9/21/17 - Renamed to Dictionary to fit naming convention given by Ed Cauthorn
- * 			0.0.4 - 9/22/17 - Set up as implementation of CharacterSet
- *          0.0.5 - 10/26/17  Add log4j2 Logger into class
- *                            Add debugging statements for Logger
- *                            Added instance variable length to reduce calls to length()
- *          0.0.6 - 11/2/17   Removed space character from standard dictionary
- *                            Refactored buildDictionary() to use fewer magic numbers
- *          0.0.7 - 11/6/17   Added punctuation characters to standard dictionary
- */
-
 package encryption;
 
 import org.apache.logging.log4j.LogManager;
